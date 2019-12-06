@@ -1,0 +1,29 @@
+{
+  "name": "xradix",
+  "version": "1.0.0",
+  "description": "an implementation of the radix tree data structure, designed for extensibility",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "compressed prefix tree",
+    "prefix tree",
+    "prefix",
+    "radix tree",
+    "radix",
+    "tree",
+    "traversal"
+  ],
+  "author": "Stuart Mashaal <stuart.mashaal@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^6.2.2"
+  },
+  "dependencies": {
+    "wavy": "^1.0.4"
+  },
+  "engine": {
+      "node": ">=8.10.0"
+  }
+}
