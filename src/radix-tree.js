@@ -22,7 +22,7 @@ class RadixTree {
       currNode.b = true;
       currNode.v = v;
     } else {
-      const matchingChild = findKeyHavingSharedPrefix(currNode.c, k);
+      const matchingChild = currNode.c.findKeyHavingSharedPrefix(k);
       if (!matchingChild) {
         currNode.c.set(k, new RadixNode({ b:true, v }));
       } else {
@@ -47,9 +47,11 @@ class RadixTree {
 
   _get(k, currNode) {
     if (k.length === 0) {
-      return currNode.v;
+      if (currNode.b) {
+        return currNode.v;
+      }
     } else {
-      const matchingChild = findKeyHavingSharedPrefix(currNode.c, k);
+      const matchingChild = currNode.c.findKeyHavingSharedPrefix(k);
       if (matchingChild) {
         const sharedPrefix = longestSharedPrefix(matchingChild, k);
         if (sharedPrefix === matchingChild) {
@@ -72,31 +74,46 @@ class RadixTree {
   *getAll(prefix, filter=(k,b,v)=>true, searchType=SEARCH_TYPES.DEPTH_FIRST_POST_ORDER) {
     const result = this.getSearchRoot(prefix);
     if (result) {
-      const { searchPrefix, searchRoot } = result;
-      for (let [k,v] of this._getAll(searchPrefix, searchRoot, filter, searchType)) {
-        yield [k, v];
+      const { extraPrefix, searchRoot } = result;
+      const searchRootPrefix = prefix + extraPrefix;
+      for (let [k,v] of this._getAll(searchRoot, filter, searchType)) {
+        yield [searchRootPrefix + k, v];
       }
     }
   }
 
   /**
-   * @param {string} prefix - TODO
+   * For a given prefix, find the shallowest node in the radix tree whose key either matches the prefix exactly
+   * or is the shortest matching key that is longer than the prefix.
+   *
+   * For example, if "ab" and "abcd" are inserted into the radix tree, the 'search root' of the prefix "abc" would
+   * be the node matching "abcd". The "abcd" node would be the root of the subtree containing all nodes whose keys
+   * start with "abc", since there were no other keys that start with "abc" other than "abcd" and its children.
+   *
+   * @param   {string}                                           prefix - the prefix for which to find the searchRoot
+   * @returns { { extraPrefix: string, searchRoot: RadixNode } }        - undefined if not found
    */
   getSearchRoot(prefix) {
-    if (prefix === "") {
-      return { searchPrefix: prefix, searchRoot: this.root };
-    } else {
-      return this._getSearchRoot(prefix, prefix, this.root);
-    }
+    return this._getSearchRoot(prefix, this.root);
   }
 
-  _getSearchRoot(prefix, k, currNode) {
+  _getSearchRoot(k, currNode) {
     if (k.length === 0) {
-      return { searchPrefix: prefix, searchRoot: currNode };
+      return { extraPrefix: k, searchRoot: currNode };
     } else {
-      const matchingChild = findKeyHavingSharedPrefix(currNode.c, k);
+      const matchingChild = currNode.c.findKeyHavingSharedPrefix(k);
       if (matchingChild) {
-        
+        const sharedPrefix = longestSharedPrefix(matchingChild, k);
+        if (sharedPrefix.length < matchingChild.length) {
+          if (sharedPrefix.length === k.length) {
+            return {
+              extraPrefix: matchingChild.slice(sharedPrefix.length),
+              searchRoot: currNode.c.get(matchingChild)
+            };
+          }
+        } else if (sharedPrefix.length === matchingChild.length){
+          return this._getSearchRoot(k.slice(sharedPrefix.length), currNode.c.get(matchingChild));
+        }
       }
     }
   }
@@ -128,4 +145,4 @@ class RadixTree {
   }
 }
 
-module.exports = { RadixTree, SEARCH_TYPES };
+module.exports = { RadixTree };

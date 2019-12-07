@@ -65,31 +65,4 @@ describe("utils", () => {
       assert(longestSharedPrefix("", "") === undefined);
     });
   });
-
-  describe("#findKeyHavingSharedPrefix(m, s)", () => {
-    it("should return the key having a shared prefix if one exists", () => {
-      const key = "foobar";
-      const s = "foo";
-      const m = new Map([ [key, 17] ]);
-      assert(findKeyHavingSharedPrefix(m, s) === key);
-    });
-
-    it("should return undefined if there is no key in m sharing a prefix with s", () => {
-      const s = "XXxxXX";
-      const m = new Map([ ["foobar", 17], ["dazy", 6] ]);
-      assert(findKeyHavingSharedPrefix(m, s) === undefined);
-    });
-
-    it("should return undefined for an empty map", () => {
-      const s = "foo";
-      const m = new Map()
-      assert(findKeyHavingSharedPrefix(m, s) === undefined);
-    });
-
-    it("should return undefined for empty string s", () => {
-      const s = "";
-      const m = new Map([ ["foobar", 17], ["dazy", 6] ]);
-      assert(findKeyHavingSharedPrefix(m, s) === undefined);
-    });
-  });
 });

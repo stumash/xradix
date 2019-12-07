@@ -1,15 +1,16 @@
 const { SEARCH_TYPES } = require("~/src/constants.js");
+const { RadixNodeEdges } = require("~/src/radix-node-edges.js");
 
 class RadixNode {
   /**
-   * @param {boolean}                [b] - whether or not this is a leaf node, i.e. a node containing a value
-   * @param {any}                    [v] - the Value to associate to the key got you to this node
-   * @param {Map(string->RadixNode)} [c] - a map storing the Children of this node
+   * @param {boolean}        [b]       - whether or not this is a leaf node, i.e. a node containing a value
+   * @param {any}            [v]       - the Value to associate to the key got you to this node
+   * @param {[string,any][]} [knpairs] - pairs of key,node values for outgoing edges
    */
-  constructor({ b, v, c }={}) {
+  constructor({ b, v, knpairs }={}) {
     this.b = b || false;
     this.v = v || undefined;
-    this.c = c || new Map();
+    this.c = new RadixNodeEdges(knpairs); // 'c' is for 'children'
   }
 
 
@@ -23,9 +24,11 @@ class RadixNode {
   addPrefixToChild(prefix, child) {
     const childNode = this.c.get(child);
     this.c.delete(child);
-    this.c.set(prefix, new RadixNode({
-      c: new Map([ [child.slice(prefix.length), childNode] ])
-    }));
+
+    const newChildNode = new RadixNode();
+    newChildNode.c.set(child.slice(prefix.length), childNode);
+
+    this.c.set(prefix, newChildNode);
   }
 
 }
