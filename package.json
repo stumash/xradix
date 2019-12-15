@@ -4,7 +4,8 @@
   "description": "an implementation of the radix tree data structure, designed for extensibility",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "docs": "documentation build src/** -f html -o docs"
   },
   "keywords": [
     "compressed prefix tree",
@@ -18,12 +19,14 @@
   "author": "Stuart Mashaal <stuart.mashaal@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "documentation": "^12.1.4",
     "mocha": "^6.2.2"
   },
   "dependencies": {
+    "double-ended-queue": "^2.1.0-0",
     "wavy": "^1.0.4"
   },
   "engine": {
-      "node": ">=8.10.0"
+    "node": ">=8.10.0"
   }
 }

@@ -1,5 +1,6 @@
 const { SEARCH_TYPES } = require("~/src/constants.js");
 const { RadixNodeEdges } = require("~/src/radix-node-edges.js");
+const { Deque } = require("double-ended-queue");
 
 class RadixNode {
   /**
@@ -31,6 +32,65 @@ class RadixNode {
     this.c.set(prefix, newChildNode);
   }
 
+  /**
+   * Iterate over all nodes of subtree rooted at this node.
+   *
+   * @param {string}                                prefix - the prefix shared by all nodes returned
+   * @param {number,string,boolean,any -> boolean} [prune] - prune all nodes from search tree using this function
+   *
+   * @yields {depth: number, prefix: string, b: boolean, v: any}
+   */
+  *subtreeTraverse(prefix, prune=(d,k,b,v)=>true, searchType=SEARCH_TYPES.DEPTH_FIRST_POST_ORDER) {
+    const bfs = searchType === SEARCH_TYPES.BREADTH_FIRST;
+    const dfsPre = searchType === SEARCH_TYPES.DEPTH_FIRST_PRE_ORDER;
+    const dfsPost = searchType === SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
+
+    if (bfs) {
+      yield* this._subtreeTraverseBfs(prefix, prune);
+    } else if (dfsPre || dfsPost) {
+      const preNotPost = dfsPre && !dfsPost;
+      yield* this._subtreeTraverseDfs(0, prefix, prune, preNotPost);
+    }
+  }
+
+  *_subtreeTraverseBfs(prefix, prune) {
+    const visited = new Set();
+    const next = new Deque();
+    next.enqueue([0, prefix, this])
+
+    while (!next.isEmpty()) {
+      const [depth, prefix, node] = next.dequeue()
+      if (!visited.has(node)) {
+        visited.add(node);
+
+        if (prune(depth, prefix, node.b, node.v)) {
+          yield [depth, prefix, node.b, node.b];
+
+          for (const [k,child] of node.entries()) {
+            if (!visited.has(child)) {
+              next.enqueue([depth+1, prefix+k, child]);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  *_subtreeTraverseDfs(depth, prefix, prune, preNotPost) {
+    if (prune(depth, prefix, this.b, this.v)) {
+      if (preNotPost) {
+        yield [depth, prefix, this.b, this.v];
+      }
+
+      for (const [k,node] of this.c.entries()) {
+        yield* node._subtreeTraverseDfsPre(depth+1, prefix+k, prune, preNotPost);
+      }
+
+      if (!preNotPost) {
+        yield [depth, prefix, this.b, this.v];
+      }
+    }
+  }
 }
 
 module.exports = { RadixNode };
