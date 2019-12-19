@@ -940,7 +940,7 @@ that were added to the map via set(k, v)</p>
 2. v, a value, which was inserted via a tree's set(k, v). undefined if this node does not hold a value
 3. c, an edge list to other RadixNodes. Pairs of [key, node]</p>
 
-    <div class='pre p1 fill-light mt0'>new RadixNode($0: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, b: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?, v: any?, c: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, any]>?)</div>
+    <div class='pre p1 fill-light mt0'>new RadixNode($0: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, Obj: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
   
   
 
@@ -1006,27 +1006,8 @@ that were added to the map via set(k, v)</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>b</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?)</code>
-	    whether or not this is a leaf node, i.e. a node containing a value
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>v</span> <code class='quiet'>(any?)</code>
-	    the Value to associate to the key got you to this node
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>c</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, any]>?)</code>
-	    outgoing edges/children, pairs of 
-[key,node]
+            <span class='code bold'>Obj</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    argument object
 
           </div>
           
@@ -1124,7 +1105,7 @@ update intermediary's key to current child as needed.</p>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>subtreeTraverse(prefix, pruner = defaultPruner, searchType = SEARCH_TYPES.DEPTH_FIRST_POST_ORDER)</span>
+            <span class='code strong strong truncate'>subtreeTraverse(prefix, config)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -1135,7 +1116,7 @@ update intermediary's key to current child as needed.</p>
   <p>Iterate over all nodes of subtree rooted at this node. Prune the subtree using the prune(d,k,b,v) function.
 Control the search type with the searchType parameter.</p>
 
-    <div class='pre p1 fill-light mt0'>subtreeTraverse(prefix: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, pruner: <a href="#pruner">pruner</a>?, searchType: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</div>
+    <div class='pre p1 fill-light mt0'>subtreeTraverse(prefix: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
   
   
 
@@ -1161,21 +1142,44 @@ Control the search type with the searchType parameter.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>pruner</span> <code class='quiet'>(<a href="#pruner">pruner</a>?
-            = <code>defaultPruner</code>)</code>
-	    prune all nodes from search tree using this function. false to prune, true to keep
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    config object
 
           </div>
           
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>searchType</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?
-            = <code>SEARCH_TYPES.DEPTH_FIRST_POST_ORDER</code>)</code>
-	    the type of search to do. One of SEARCH_TYPES
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.pruner</span> <code class='quiet'><a href="#pruner">pruner</a>?</code>
+  </td>
+  <td class='break-word'><span>prune nodes tree using this function. false to prune, true to keep
+</span></td>
+</tr>
 
-          </div>
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>config.searchType</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?</code>
+  </td>
+  <td class='break-word'><span>the type of search to do. One of SEARCH_TYPES
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
           
         </div>
       
