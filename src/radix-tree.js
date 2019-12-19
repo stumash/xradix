@@ -2,12 +2,17 @@ const { RadixNode } = require("~/src/radix-node.js");
 const { longestSharedPrefix, findKeyHavingSharedPrefix } = require("~/src/utils.js");
 const { SEARCH_TYPES } = require("~/src/constants.js");
 
+/**
+ * 
+ */
 class RadixTree {
   constructor() {
     this.root = new RadixNode();
   }
 
   /**
+   * Add a [key, value] pair to the RadixTree.
+   *
    * @param {string}  k  - the key to insert into the radix tree. must have length > 0
    * @param {any}    [v] - the value to associate to the key in the radix tree
    */
@@ -36,8 +41,10 @@ class RadixTree {
   }
 
   /**
+   * Return the value associated to a key in the RadixTree.
+   *
    * @param   {string} k - the key to look for. must have length > 0
-   * @returns {any}      - the value associated to the key. if not key found, return undefined
+   * @returns {any}      - the value associated to the key. if key not found, return undefined
    */
   get(k) {
     if (k.length > 0) {
@@ -62,16 +69,17 @@ class RadixTree {
   }
 
   /**
-   * Generator function.
+   * @generator
    * Get all k,v pairs where k.startsWith(prefix)
-   * TODO: fix this doc comment
+   * FIXME doc comment
    *
    * @param   {string}                         prefix      - only return [k, v] pairs where k.startsWith(prefix)
    * @param   {[string,boolean,any]->boolean} [filter]     - prune nodes from traversal
    * @param   {string}                        [searchType] - the type of tree traversal to use for searching
+   *
    * @returns {[string, any][]}                            - all k,v pairs for matching keys
    */
-  *getAll(prefix, filter=(k,b,v)=>true, searchType=SEARCH_TYPES.DEPTH_FIRST_POST_ORDER) {
+  *getAll(prefix, prune=RadixNode.defaultPrune, searchType=SEARCH_TYPES.DEPTH_FIRST_POST_ORDER) {
     const result = this.getSearchRoot(prefix);
     if (result) {
       const { extraPrefix, searchRoot } = result;
@@ -118,30 +126,12 @@ class RadixTree {
     }
   }
 
-  /**
-   * Do tree traversal rooted at current node, yielding every node along the way
-   */
-  *_getAll(searchType=SEARCH_TYPES.DEPTH_FIRST_POST_ORDER) {
-    if (searchType === SEARCH_TYPES.BREADTH_FIRST) {
-      yield* this._getAllBFS();
-    } else {
-      yield* this._getAllDFS(searchType);
-    }
-  }
-
-  *_getAllDFS(searchType=SEARCH_TYPES.DEPTH_FIRST_POST_ORDER) {
-  }
-
-  *_getAllBFS() {
-    // TODO
-  }
-
 
   /**
    * @param {string} k - the key to delete from the radix tree
    */
   delete(k) {
-    // TODO
+    // TODO FIXME
   }
 }
 

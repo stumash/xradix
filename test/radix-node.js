@@ -35,54 +35,88 @@ describe("RadixNode", () => {
       //   Xb1:val6, Xb2:val7
 
       grandchildren = [
-        new RadixNode({ b: true, v: 4 }),
-        new RadixNode({ b: true, v: 5 }),
-        new RadixNode({ b: true, v: 6 }),
-        new RadixNode({ b: true, v: 7 }),
+        new RadixNode({ b: true, v: { val: "val4" } }),
+        new RadixNode({ b: true, v: { val: "val5" } }),
+        new RadixNode({ b: true, v: { val: "val6" } }),
+        new RadixNode({ b: true, v: { val: "val7" } }),
       ];
 
       children = [
-        new RadixNode({ b: true, v: 2, c: [
+        new RadixNode({ b: true, v: { val: "val2", children: ["val4", "val5"] }, c: [
           ["1", grandchildren[0]],
           ["2", grandchildren[1]],
         ] }),
-        new RadixNode({ b: true, v: 3, c: [
+        new RadixNode({ b: true, v: { val: "val3", children: ["val6", "val7"] }, c: [
           ["1", grandchildren[2]],
           ["2", grandchildren[3]],
         ] })
       ];
 
-      parent = new RadixNode({ b: true, v: 1, c: [
+      parent = new RadixNode({ b: true, v: { val: "val1", children: ["val2", "val3"] }, c: [
         ["a", children[0]],
         ["b", children[1]],
       ] });
 
-      root = new RadixNode({ c: [ ["X", parent] ] });
+      root = new RadixNode({ b: true, v: { val: "val0", children: ["val1"] }, c: [
+        ["X", parent],
+      ] });
     });
 
     describe("depth first search - post order", () => {
       it("should yield nodes in post order", () => {
-        // check that for every node visited, all its ancestors are already visited
-        visited = new Set();
+        // check that for every node visited, all its descendants are already visited
+        const visited = new Set();
 
         const prune = (d,k,b,v) => true;
         const searchType = SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
         for (let [depth, key, hasValue, value] of root.subtreeTraverse("", prune, searchType)) {
-          // TODO: do check that children are already visited
-
+          if (hasValue) {
+            visited.add(value.val);
+            if (value.children) {
+              for (let childVal of value.children) {
+                assert(visited.has(childVal));
+              }
+            }
+          }
         }
       });
     });
 
     describe("depth first search - pre order", () => {
       it("should yield nodes in pre order", () => {
-        // TODO
+        // check that for every node visited, all its descendants are not yet visited
+        const visited = new Set();
+
+        const prune = (d,k,b,v) => true;
+        const searchType = SEARCH_TYPES.DEPTH_FIRST_PRE_ORDER;
+        for (let [depth, key, hasValue, value] of root.subtreeTraverse("", prune, searchType)) {
+          if (hasValue) {
+            visited.add(value.val);
+            if (value.children) {
+              for (let childVal of value.children) {
+                assert(!visited.has(childVal));
+              }
+            }
+          }
+        }
       });
     });
 
     describe("breadth first search", () => {
       it("should yield nodes in breadth order", () => {
-        // TODO
+        // check that for every node visited, no nodes of greater depth have yet been visited
+        const visitedDepths = new Set();
+
+        const prune = (d,k,b,v) => true;
+        const searchType = SEARCH_TYPES.BREADTH_FIRST;
+        for (let [depth, key, hasValue, value] of root.subtreeTraverse("", prune, searchType)) {
+          if (hasValue) {
+            visitedDepths.add(depth);
+            if (value.children) {
+              assert(!visitedDepths.has(depth+1))
+            }
+          }
+        }
       });
     });
   });

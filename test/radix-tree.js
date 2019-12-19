@@ -29,12 +29,12 @@ describe("RadixTree", () => {
 
       it("should have depth 1", () => {
         orthogonal_kvpairs.forEach(([k, v]) => {
-          assert(rt.root.c.get(k).c.size() === 0);
+          assert(rt.root.c.get(k).c.size === 0);
         });
       });
 
       it("should have no other keys in the root", () => {
-        assert(rt.root.c.size() === orthogonal_kvpairs.length);
+        assert(rt.root.c.size === orthogonal_kvpairs.length);
       });
 
       it("should return undefined when key not found", () => {
@@ -77,14 +77,14 @@ describe("RadixTree", () => {
           rt.set(k, v);
         });
 
-        assert(rt.root.c.size() === 2);
+        assert(rt.root.c.size === 2);
         assert(rt.root.c.has("aaa"));
         assert(rt.root.c.has("bbb"));
 
-        assert(rt.root.c.get("aaa").c.size() === 1);
+        assert(rt.root.c.get("aaa").c.size === 1);
         assert(rt.root.c.get("aaa").c.has("a"));
 
-        assert(rt.root.c.get("aaa").c.get("a").c.size() === 2);
+        assert(rt.root.c.get("aaa").c.get("a").c.size === 2);
         assert(rt.root.c.get("aaa").c.get("a").c.has("a"));
         assert(rt.root.c.get("aaa").c.get("a").c.has("b"));
       });
@@ -94,14 +94,14 @@ describe("RadixTree", () => {
           rt.set(k, v);
         });
 
-        assert(rt.root.c.size() === 2);
+        assert(rt.root.c.size === 2);
         assert(rt.root.c.has("aaa"));
         assert(rt.root.c.has("bbb"));
 
-        assert(rt.root.c.get("aaa").c.size() === 1);
+        assert(rt.root.c.get("aaa").c.size === 1);
         assert(rt.root.c.get("aaa").c.has("a"));
 
-        assert(rt.root.c.get("aaa").c.get("a").c.size() === 2);
+        assert(rt.root.c.get("aaa").c.get("a").c.size === 2);
         assert(rt.root.c.get("aaa").c.get("a").c.has("a"));
         assert(rt.root.c.get("aaa").c.get("a").c.has("b"));
       });
@@ -166,7 +166,6 @@ describe("RadixTree", () => {
       assert(undefined === rt.getSearchRoot("abc3"));
       assert(undefined === rt.getSearchRoot("abd"));
       assert(undefined === rt.getSearchRoot("xxxxx"));
-      console.log(rt.getSearchRoot("xy"));
       assert(undefined === rt.getSearchRoot("xy"));
     });
   });
