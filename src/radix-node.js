@@ -10,18 +10,19 @@ const Deque = require("double-ended-queue");
  *  3. c, an edge list to other RadixNodes. Pairs of [key, node]
  */
 class RadixNode {
+
   /**
    * Create a RadixNode.
    *
-   * @param {Object}         Obj     - argument object
-   * @param {boolean}        [Obj.b] - whether or not this is a leaf node, i.e. a node containing a value
-   * @param {any}            [Obj.v] - the Value to associate to the key got you to this node
-   * @param {[string,any][]} [Obj.c] - outgoing edges/children, pairs of [key,node]
+   * @param {Object}         argObj     - argument object
+   * @param {boolean}        [argObj.b] - whether or not this is a leaf node, i.e. a node containing a value
+   * @param {any}            [argObj.v] - the Value to associate to the key got you to this node
+   * @param {[string,any][]} [argObj.c] - outgoing edges/children, pairs of [key,node]
    */
-  constructor({ b, v, c }={}) {
-    this.b = b || false;
-    this.v = v || undefined;
-    this.c = new RadixNodeEdges(c); // 'c' is for 'children'
+  constructor(argObj) {
+    this.b = argObj.b || false;
+    this.v = argObj.v || undefined;
+    this.c = new RadixNodeEdges(argObj.c); // 'c' is for 'children'
   }
 
 
