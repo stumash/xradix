@@ -13,9 +13,10 @@ class RadixNode {
   /**
    * Create a RadixNode.
    *
-   * @param {boolean}        [b] - whether or not this is a leaf node, i.e. a node containing a value
-   * @param {any}            [v] - the Value to associate to the key got you to this node
-   * @param {[string,any][]} [c] - outgoing edges/children, pairs of [key,node]
+   * @param {Object}         Obj     - argument object
+   * @param {boolean}        [Obj.b] - whether or not this is a leaf node, i.e. a node containing a value
+   * @param {any}            [Obj.v] - the Value to associate to the key got you to this node
+   * @param {[string,any][]} [Obj.c] - outgoing edges/children, pairs of [key,node]
    */
   constructor({ b, v, c }={}) {
     this.b = b || false;
@@ -46,13 +47,17 @@ class RadixNode {
    * Control the search type with the searchType parameter.
    *
    * @generator
-   * @param {string}  prefix      - the prefix shared by all nodes returned
-   * @param {pruner} [pruner]     - prune all nodes from search tree using this function. false to prune, true to keep
-   * @param {string} [searchType] - the type of search to do. One of SEARCH_TYPES
+   * @param {string}  prefix             - the prefix shared by all nodes returned
+   * @param {Object}  config             - config object
+   * @param {pruner} [config.pruner]     - prune nodes tree using this function. false to prune, true to keep
+   * @param {string} [config.searchType] - the type of search to do. One of SEARCH_TYPES
    *
    * @yields {depth: number, prefix: string, b: boolean, v: any, node: RadixNode}
    */
-  *subtreeTraverse(prefix, pruner=defaultPruner, searchType=SEARCH_TYPES.DEPTH_FIRST_POST_ORDER) {
+  *subtreeTraverse(prefix, config) {
+    const pruner = config.pruner || defaultPruner;
+    const searchType = config.searchType || SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
+
     const bfs = searchType === SEARCH_TYPES.BREADTH_FIRST;
     const dfsPre = searchType === SEARCH_TYPES.DEPTH_FIRST_PRE_ORDER;
     const dfsPost = searchType === SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
