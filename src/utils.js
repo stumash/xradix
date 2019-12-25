@@ -10,8 +10,11 @@ module.exports = {
    *
    * @param {string} s - the string from which to draw prefixes of decreasing length
    *
-   * @example: "abc" -> *["abc", "ab", "a"]
-   * @example: ""    -> *[]
+   * @example
+   * "abc" -> *["abc", "ab", "a"]
+   *
+   * @example
+   * "" -> *[]
    */
   decreasingPrefixesOf: function*(s) {
     for (let i = s.length; i > 0; i--) {
@@ -24,8 +27,11 @@ module.exports = {
    *
    * @param {string} s - the string from which to draw prefixes of increasing length
    *
-   * @example: "abc" -> *["a", "ab", "abc"]
-   * @example: ""    -> *[]
+   * @example
+   * "abc" -> *["a", "ab", "abc"]
+   *
+   * @example
+   * ""    -> *[]
    */
   increasingPrefixesOf: function*(s) {
     const slength = s.length;
@@ -53,8 +59,8 @@ module.exports = {
   /**
    * @function
    *
-   * @param   {Map(string->any)} m - the Map from which to find a key that shares a prefix with k
-   * @param   {string}           s - the string
+   * @param   {Map<string,any>} m - the Map from which to find a key that shares a prefix with k
+   * @param   {string}          s - the string
    *
    * @returns {string} - the first key in m that shares a prefix with s
    *

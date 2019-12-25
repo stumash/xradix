@@ -9,7 +9,7 @@
 class RadixNodeEdges {
 
   /**
-   * @param {[string,RadixNode][]} [knpairs] - key,node pairs to initialize the edge list
+   * @param {Array.<string|RadixNode>} [knpairs] - key,node pairs to initialize the edge list
    */
   constructor(knpairs) {
     this.m = new Map(); //                {string -> RadixNode}
@@ -81,21 +81,27 @@ class RadixNodeEdges {
    * A generator over all [key, node] pairs in the map. Returns pairs of values of the same type as those
    * that were added to the map via set(k, v)
    *
-   * @returns {*[[string, RadixNode]]} - [key, node] pairs that were inserted into the map via set(k, v)
+   * @generator
+   *
+   * @yields {Array.<string|RadixNode>} - [key, node] pairs that were inserted into the map via set(k, v)
    */
   *entries() { yield* this.m.entries(); }
 
   /**
    * A generator over all keys inserted into the map via set(k, v)
    *
-   * @returns {*[string]} - generator over all keys inserted inserted into the map
+   * @generator
+   *
+   * @yields {Array.<string>} - generator over all keys inserted inserted into the map
    */
   *keys() { yield* this.m.keys(); }
 
   /**
    * A generator over all values inserted into the map via set(k, v)
    *
-   * @returns {*[RadixNode]} - all nodes inserted into the map via set(k, v)
+   * @generator
+   *
+   * @yields {Array.<RadixNode>} - all nodes inserted into the map via set(k, v)
    */
   *values() { yield* this.m.values(); }
 }

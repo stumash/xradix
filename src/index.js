@@ -4,14 +4,12 @@ const { SEARCH_TYPES } = require("~/src/constants.js")
 /**
  * `xradix`: An e**X**tensible **RADIX** tree implementation.
  * 
- * @module xradix
+ * @example
+ * const rt = new RadixTree();
  *
  * @example
- *  const rt = new RadixTree();
- *
- * @example
- *  const rt2 = new RadixTree();
- *  const x = 5;
+ * const rt2 = new RadixTree();
+ * const x = 5;
  */
 module.exports = {
   RadixTree,

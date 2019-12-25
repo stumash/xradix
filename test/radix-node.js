@@ -69,7 +69,7 @@ describe("RadixNode", () => {
 
         const prune = (d,k,b,v) => true;
         const searchType = SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
-        for (let [depth, key, hasValue, value] of root.subtreeTraverse("", prune, searchType)) {
+        for (let {b: hasValue, v: value} of root.subtreeTraverse("", prune, searchType)) {
           if (hasValue) {
             visited.add(value.val);
             if (value.children) {
@@ -89,7 +89,7 @@ describe("RadixNode", () => {
 
         const prune = (d,k,b,v) => true;
         const searchType = SEARCH_TYPES.DEPTH_FIRST_PRE_ORDER;
-        for (let [depth, key, hasValue, value] of root.subtreeTraverse("", prune, searchType)) {
+        for (let {b: hasValue, v: value} of root.subtreeTraverse("", prune, searchType)) {
           if (hasValue) {
             visited.add(value.val);
             if (value.children) {
@@ -109,7 +109,7 @@ describe("RadixNode", () => {
 
         const prune = (d,k,b,v) => true;
         const searchType = SEARCH_TYPES.BREADTH_FIRST;
-        for (let [depth, key, hasValue, value] of root.subtreeTraverse("", prune, searchType)) {
+        for (let {depth, b: hasValue, v: value} of root.subtreeTraverse("", prune, searchType)) {
           if (hasValue) {
             visitedDepths.add(depth);
             if (value.children) {
