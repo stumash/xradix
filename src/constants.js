@@ -4,4 +4,7 @@ const SEARCH_TYPES = {
   DEPTH_FIRST_POST_ORDER: "POST_ORDER",
 }
 
+/**
+ * @module constants
+ */
 module.exports = { SEARCH_TYPES };
