@@ -14,7 +14,12 @@
     "radix tree",
     "radix",
     "tree",
-    "traversal"
+    "traversal",
+    "autocomplete",
+    "depth first",
+    "preorder",
+    "postorder",
+    "breadth first"
   ],
   "author": "Stuart Mashaal <stuart.mashaal@gmail.com>",
   "license": "MIT",
