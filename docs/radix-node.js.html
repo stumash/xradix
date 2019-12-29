@@ -27,7 +27,9 @@
 
 <nav >
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RadixNode.html">RadixNode</a><ul class='methods'><li data-type='method'><a href="RadixNode.html#addPrefixToChild">addPrefixToChild</a></li><li data-type='method'><a href="RadixNode.html#subtreeTraverse">subtreeTraverse</a></li></ul></li><li><a href="RadixNodeEdges.html">RadixNodeEdges</a><ul class='methods'><li data-type='method'><a href="RadixNodeEdges.html#delete">delete</a></li><li data-type='method'><a href="RadixNodeEdges.html#entries">entries</a></li><li data-type='method'><a href="RadixNodeEdges.html#findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="RadixNodeEdges.html#get">get</a></li><li data-type='method'><a href="RadixNodeEdges.html#has">has</a></li><li data-type='method'><a href="RadixNodeEdges.html#keys">keys</a></li><li data-type='method'><a href="RadixNodeEdges.html#set">set</a></li><li data-type='method'><a href="RadixNodeEdges.html#values">values</a></li></ul></li><li><a href="RadixTree.html">RadixTree</a><ul class='methods'><li data-type='method'><a href="RadixTree.html#delete">delete</a></li><li data-type='method'><a href="RadixTree.html#get">get</a></li><li data-type='method'><a href="RadixTree.html#getAll">getAll</a></li><li data-type='method'><a href="RadixTree.html#getSearchRoot">getSearchRoot</a></li><li data-type='method'><a href="RadixTree.html#set">set</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-constants.html">constants</a></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#.decreasingPrefixesOf">decreasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="module-utils.html#.increasingPrefixesOf">increasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.longestSharedPrefix">longestSharedPrefix</a></li></ul></li></ul>
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RadixNode.html">RadixNode</a><ul class='methods'><li data-type='method'><a href="RadixNode.html#addPrefixToChild">addPrefixToChild</a></li><li data-type='method'><a href="RadixNode.html#subtreeTraverse">subtreeTraverse</a></li></ul></li><li><a href="RadixTree.html">RadixTree</a><ul class='methods'><li data-type='method'><a href="RadixTree.html#set">set</a></li><li data-type='method'><a href="RadixTree.html#get">get</a></li><li data-type='method'><a href="RadixTree.html#getAll">getAll</a></li><li data-type='method'><a href="RadixTree.html#getAllNodes">getAllNodes</a></li><li data-type='method'><a href="RadixTree.html#getSearchRoot">getSearchRoot</a></li><li data-type='method'><a href="RadixTree.html#delete">delete</a></li></ul></li><li><a href="RadixNodeEdges.html">RadixNodeEdges</a><ul class='methods'><li data-type='method'><a href="RadixNodeEdges.html#findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="RadixNodeEdges.html#get">get</a></li><li data-type='method'><a href="RadixNodeEdges.html#set">set</a></li><li data-type='method'><a href="RadixNodeEdges.html#delete">delete</a></li><li data-type='method'><a href="RadixNodeEdges.html#has">has</a></li><li data-type='method'><a href="RadixNodeEdges.html#entries">entries</a></li><li data-type='method'><a href="RadixNodeEdges.html#keys">keys</a></li><li data-type='method'><a href="RadixNodeEdges.html#values">values</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a><ul class='members'><li data-type='member'><a href="module-utils.html#.defaultPruner">defaultPruner</a></li></ul><ul class='methods'><li data-type='method'><a href="module-utils.html#.decreasingPrefixesOf">decreasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.increasingPrefixesOf">increasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.longestSharedPrefix">longestSharedPrefix</a></li></ul></li><li><a href="module-constants.html">constants</a><ul class='members'><li data-type='member'><a href="module-constants.html#.SEARCH_TYPES">SEARCH_TYPES</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#pruner">pruner</a></li><li><a href="global.html#kvpair">kvpair</a></li><li><a href="global.html#knpair">knpair</a></li><li><a href="global.html#prefixMatch">prefixMatch</a></li><li><a href="global.html#searchType">searchType</a></li><li><a href="global.html#breadfirst">breadfirst</a></li><li><a href="global.html#depthfirstpre">depthfirstpre</a></li><li><a href="global.html#depthfirstpost">depthfirstpost</a></li></ul>
 </nav>
 
 <div id="main">
@@ -55,7 +57,7 @@ class RadixNode {
    * @param {Object}         [config={}] - argument object
    * @param {boolean}        [config.b]  - whether or not this node contains a value, or just points to other nodes
    * @param {any}            [config.v]  - the value to associate to the key that leads to this node
-   * @param {Array.&lt;string|any>} [config.c]  - outgoing edges/children, pairs of [key,node]
+   * @param {Array.&lt;knpair>} [config.c]  - outgoing edges/children, pairs of [key,node]
    */
   constructor(config={}) {
     this.b = config.b || false;
@@ -81,28 +83,19 @@ class RadixNode {
   }
 
   /**
-   * TODO FIXME
-   *
-   * Create type for prefixMatch 
-   * {depth: number, prefix: string, b: boolean, v: any, node: RadixNode}
-   *
-   * TODO FIXME
-   */
-
-  /**
-   * Iterate over all nodes of subtree rooted at this node. Prune the subtree using the prune(d,k,b,v) function.
+   * Iterate over all nodes of subtree rooted at this node. Prune the subtree using the provided pruner function.
    * Control the search type with the searchType parameter.
    *
    * @generator
    *
-   * @param {string}  prefix             - the prefix shared by all nodes returned
-   * @param {Object} [config={}]         - config object
-   * @param {pruner} [config.pruner]     - prune nodes tree using this function. false to prune, true to keep
-   * @param {string} [config.searchType] - the type of search to do. One of SEARCH_TYPES
+   * @param {string}     [prefix=""]         - the prefix shared by all nodes returned
+   * @param {Object}     [config={}]         - config object
+   * @param {pruner}     [config.pruner]     - prune nodes tree using this function. false to prune, true to keep
+   * @param {searchType} [config.searchType] - the type of tree traversal to do. Must be in constants.SEARCH_TYPES
    *
-   * @yields {{depth: number, prefix: string, b: boolean, v: any, node: RadixNode}}
+   * @yields {prefixMatch}
    */
-  *subtreeTraverse(prefix, config={}) {
+  *subtreeTraverse(prefix="", config={}) {
     const pruner = config.pruner || defaultPruner;
     const searchType = config.searchType || SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
 
@@ -128,8 +121,8 @@ class RadixNode {
       if (!visited.has(node)) {
         visited.add(node);
 
-        if (pruner(depth, prefix, node.b, node.v)) {
-          yield {depth, prefix, b:node.b, v:node.v, node};
+        if (pruner(depth, prefix, node.b, node.v, node.c)) {
+          yield {depth, prefix, hasValue:node.b, value:node.v, edges:node.c};
 
           for (const [k,child] of node.c.entries()) {
             if (!visited.has(child)) {
@@ -142,9 +135,9 @@ class RadixNode {
   }
 
   *_subtreeTraverseDfs(depth, prefix, pruner, preNotPost) {
-    if (pruner(depth, prefix, this.b, this.v)) {
+    if (pruner(depth, prefix, this.b, this.v, this.c)) {
       if (preNotPost) {
-        yield {depth, prefix, b:this.b, v:this.v, node:this};
+        yield {depth, prefix, b:this.b, v:this.v, edges:this.c};
       }
 
       for (const [k,node] of this.c.entries()) {
@@ -152,7 +145,7 @@ class RadixNode {
       }
 
       if (!preNotPost) {
-        yield {depth, prefix, b:this.b, v:this.v, node:this};
+        yield {depth, prefix, b:this.b, v:this.v, edges:this.c};
       }
     }
   }
@@ -173,12 +166,14 @@ module.exports = { RadixNode };
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Wed Dec 25 2019 02:58:59 GMT-0500 (EST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Dec 29 2019 09:38:19 GMT-0500 (EST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
 <script src="scripts/polyfill.js"></script>
 <script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
 
 
 

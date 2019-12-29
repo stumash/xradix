@@ -27,7 +27,9 @@
 
 <nav >
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RadixNode.html">RadixNode</a><ul class='methods'><li data-type='method'><a href="RadixNode.html#addPrefixToChild">addPrefixToChild</a></li><li data-type='method'><a href="RadixNode.html#subtreeTraverse">subtreeTraverse</a></li></ul></li><li><a href="RadixNodeEdges.html">RadixNodeEdges</a><ul class='methods'><li data-type='method'><a href="RadixNodeEdges.html#delete">delete</a></li><li data-type='method'><a href="RadixNodeEdges.html#entries">entries</a></li><li data-type='method'><a href="RadixNodeEdges.html#findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="RadixNodeEdges.html#get">get</a></li><li data-type='method'><a href="RadixNodeEdges.html#has">has</a></li><li data-type='method'><a href="RadixNodeEdges.html#keys">keys</a></li><li data-type='method'><a href="RadixNodeEdges.html#set">set</a></li><li data-type='method'><a href="RadixNodeEdges.html#values">values</a></li></ul></li><li><a href="RadixTree.html">RadixTree</a><ul class='methods'><li data-type='method'><a href="RadixTree.html#delete">delete</a></li><li data-type='method'><a href="RadixTree.html#get">get</a></li><li data-type='method'><a href="RadixTree.html#getAll">getAll</a></li><li data-type='method'><a href="RadixTree.html#getSearchRoot">getSearchRoot</a></li><li data-type='method'><a href="RadixTree.html#set">set</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-constants.html">constants</a></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#.decreasingPrefixesOf">decreasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="module-utils.html#.increasingPrefixesOf">increasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.longestSharedPrefix">longestSharedPrefix</a></li></ul></li></ul>
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RadixNode.html">RadixNode</a><ul class='methods'><li data-type='method'><a href="RadixNode.html#addPrefixToChild">addPrefixToChild</a></li><li data-type='method'><a href="RadixNode.html#subtreeTraverse">subtreeTraverse</a></li></ul></li><li><a href="RadixTree.html">RadixTree</a><ul class='methods'><li data-type='method'><a href="RadixTree.html#set">set</a></li><li data-type='method'><a href="RadixTree.html#get">get</a></li><li data-type='method'><a href="RadixTree.html#getAll">getAll</a></li><li data-type='method'><a href="RadixTree.html#getAllNodes">getAllNodes</a></li><li data-type='method'><a href="RadixTree.html#getSearchRoot">getSearchRoot</a></li><li data-type='method'><a href="RadixTree.html#delete">delete</a></li></ul></li><li><a href="RadixNodeEdges.html">RadixNodeEdges</a><ul class='methods'><li data-type='method'><a href="RadixNodeEdges.html#findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="RadixNodeEdges.html#get">get</a></li><li data-type='method'><a href="RadixNodeEdges.html#set">set</a></li><li data-type='method'><a href="RadixNodeEdges.html#delete">delete</a></li><li data-type='method'><a href="RadixNodeEdges.html#has">has</a></li><li data-type='method'><a href="RadixNodeEdges.html#entries">entries</a></li><li data-type='method'><a href="RadixNodeEdges.html#keys">keys</a></li><li data-type='method'><a href="RadixNodeEdges.html#values">values</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a><ul class='members'><li data-type='member'><a href="module-utils.html#.defaultPruner">defaultPruner</a></li></ul><ul class='methods'><li data-type='method'><a href="module-utils.html#.decreasingPrefixesOf">decreasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.increasingPrefixesOf">increasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.longestSharedPrefix">longestSharedPrefix</a></li></ul></li><li><a href="module-constants.html">constants</a><ul class='members'><li data-type='member'><a href="module-constants.html#.SEARCH_TYPES">SEARCH_TYPES</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#pruner">pruner</a></li><li><a href="global.html#kvpair">kvpair</a></li><li><a href="global.html#knpair">knpair</a></li><li><a href="global.html#prefixMatch">prefixMatch</a></li><li><a href="global.html#searchType">searchType</a></li><li><a href="global.html#breadfirst">breadfirst</a></li><li><a href="global.html#depthfirstpre">depthfirstpre</a></li><li><a href="global.html#depthfirstpost">depthfirstpost</a></li></ul>
 </nav>
 
 <div id="main">
@@ -285,7 +287,7 @@
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;(string|any)></span>
+<span class="param-type">Array.&lt;<a href="global.html#knpair">knpair</a>></span>
 
 
             
@@ -523,7 +525,7 @@ update intermediary's key to current child as needed.</p>
 
     
 
-    <h4 class="name" id="subtreeTraverse"><span class="type-signature">(generator) </span>subtreeTraverse<span class="signature">(prefix, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="subtreeTraverse"><span class="type-signature">(generator) </span>subtreeTraverse<span class="signature">(prefix<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#prefixMatch">prefixMatch</a>}</span></h4>
 
     
 
@@ -535,7 +537,7 @@ update intermediary's key to current child as needed.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="radix-node.js.html">radix-node.js</a>, <a href="radix-node.js.html#line61">line 61</a>
+        <a href="radix-node.js.html">radix-node.js</a>, <a href="radix-node.js.html#line52">line 52</a>
     </li></ul></dd>
     
 
@@ -575,7 +577,7 @@ update intermediary's key to current child as needed.</p>
 
 
 <div class="description">
-    <p>Iterate over all nodes of subtree rooted at this node. Prune the subtree using the prune(d,k,b,v) function.
+    <p>Iterate over all nodes of subtree rooted at this node. Prune the subtree using the provided pruner function.
 Control the search type with the searchType parameter.</p>
 </div>
 
@@ -633,6 +635,8 @@ Control the search type with the searchType parameter.</p>
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -642,6 +646,8 @@ Control the search type with the searchType parameter.</p>
 
             
                 <td class="default">
+                
+                    <code>""</code>
                 
                 </td>
             
@@ -719,7 +725,7 @@ Control the search type with the searchType parameter.</p>
             <td class="type">
             
                 
-<span class="param-type">pruner</span>
+<span class="param-type"><a href="global.html#pruner">pruner</a></span>
 
 
             
@@ -752,7 +758,7 @@ Control the search type with the searchType parameter.</p>
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="global.html#searchType">searchType</a></span>
 
 
             
@@ -772,7 +778,7 @@ Control the search type with the searchType parameter.</p>
 
             
 
-            <td class="description last"><p>the type of search to do. One of SEARCH_TYPES</p></td>
+            <td class="description last"><p>the type of tree traversal to do. Must be in constants.SEARCH_TYPES</p></td>
         </tr>
 
     
@@ -814,7 +820,7 @@ Control the search type with the searchType parameter.</p>
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#prefixMatch">prefixMatch</a></span>
 
 
     </dd>
@@ -842,12 +848,14 @@ Control the search type with the searchType parameter.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Wed Dec 25 2019 02:58:59 GMT-0500 (EST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Dec 29 2019 09:38:19 GMT-0500 (EST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
 <script src="scripts/polyfill.js"></script>
 <script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
 
 
 

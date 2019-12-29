@@ -27,7 +27,9 @@
 
 <nav >
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RadixNode.html">RadixNode</a><ul class='methods'><li data-type='method'><a href="RadixNode.html#addPrefixToChild">addPrefixToChild</a></li><li data-type='method'><a href="RadixNode.html#subtreeTraverse">subtreeTraverse</a></li></ul></li><li><a href="RadixNodeEdges.html">RadixNodeEdges</a><ul class='methods'><li data-type='method'><a href="RadixNodeEdges.html#delete">delete</a></li><li data-type='method'><a href="RadixNodeEdges.html#entries">entries</a></li><li data-type='method'><a href="RadixNodeEdges.html#findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="RadixNodeEdges.html#get">get</a></li><li data-type='method'><a href="RadixNodeEdges.html#has">has</a></li><li data-type='method'><a href="RadixNodeEdges.html#keys">keys</a></li><li data-type='method'><a href="RadixNodeEdges.html#set">set</a></li><li data-type='method'><a href="RadixNodeEdges.html#values">values</a></li></ul></li><li><a href="RadixTree.html">RadixTree</a><ul class='methods'><li data-type='method'><a href="RadixTree.html#delete">delete</a></li><li data-type='method'><a href="RadixTree.html#get">get</a></li><li data-type='method'><a href="RadixTree.html#getAll">getAll</a></li><li data-type='method'><a href="RadixTree.html#getSearchRoot">getSearchRoot</a></li><li data-type='method'><a href="RadixTree.html#set">set</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-constants.html">constants</a></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#.decreasingPrefixesOf">decreasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="module-utils.html#.increasingPrefixesOf">increasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.longestSharedPrefix">longestSharedPrefix</a></li></ul></li></ul>
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RadixNode.html">RadixNode</a><ul class='methods'><li data-type='method'><a href="RadixNode.html#addPrefixToChild">addPrefixToChild</a></li><li data-type='method'><a href="RadixNode.html#subtreeTraverse">subtreeTraverse</a></li></ul></li><li><a href="RadixTree.html">RadixTree</a><ul class='methods'><li data-type='method'><a href="RadixTree.html#set">set</a></li><li data-type='method'><a href="RadixTree.html#get">get</a></li><li data-type='method'><a href="RadixTree.html#getAll">getAll</a></li><li data-type='method'><a href="RadixTree.html#getAllNodes">getAllNodes</a></li><li data-type='method'><a href="RadixTree.html#getSearchRoot">getSearchRoot</a></li><li data-type='method'><a href="RadixTree.html#delete">delete</a></li></ul></li><li><a href="RadixNodeEdges.html">RadixNodeEdges</a><ul class='methods'><li data-type='method'><a href="RadixNodeEdges.html#findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="RadixNodeEdges.html#get">get</a></li><li data-type='method'><a href="RadixNodeEdges.html#set">set</a></li><li data-type='method'><a href="RadixNodeEdges.html#delete">delete</a></li><li data-type='method'><a href="RadixNodeEdges.html#has">has</a></li><li data-type='method'><a href="RadixNodeEdges.html#entries">entries</a></li><li data-type='method'><a href="RadixNodeEdges.html#keys">keys</a></li><li data-type='method'><a href="RadixNodeEdges.html#values">values</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a><ul class='members'><li data-type='member'><a href="module-utils.html#.defaultPruner">defaultPruner</a></li></ul><ul class='methods'><li data-type='method'><a href="module-utils.html#.decreasingPrefixesOf">decreasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.increasingPrefixesOf">increasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.longestSharedPrefix">longestSharedPrefix</a></li></ul></li><li><a href="module-constants.html">constants</a><ul class='members'><li data-type='member'><a href="module-constants.html#.SEARCH_TYPES">SEARCH_TYPES</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#pruner">pruner</a></li><li><a href="global.html#kvpair">kvpair</a></li><li><a href="global.html#knpair">knpair</a></li><li><a href="global.html#prefixMatch">prefixMatch</a></li><li><a href="global.html#searchType">searchType</a></li><li><a href="global.html#breadfirst">breadfirst</a></li><li><a href="global.html#depthfirstpre">depthfirstpre</a></li><li><a href="global.html#depthfirstpost">depthfirstpost</a></li></ul>
 </nav>
 
 <div id="main">
@@ -171,7 +173,7 @@
 
     
 
-    <h4 class="name" id="delete"><span class="type-signature"></span>delete<span class="signature">(k)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="set"><span class="type-signature"></span>set<span class="signature">(k, v<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -183,7 +185,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line140">line 140</a>
+        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -222,6 +224,10 @@
 
 
 
+<div class="description">
+    <p>Add a [key, value] pair to the RadixTree.</p>
+</div>
+
 
 
 
@@ -244,6 +250,8 @@
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -270,10 +278,51 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>the key to delete from the radix tree</p></td>
+            <td class="description last"><p>the key to insert into the radix tree. must have length &gt; 0</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the value to associate to the key in the radix tree</p></td>
         </tr>
 
     
@@ -463,7 +512,7 @@
 
     
 
-    <h4 class="name" id="getAll"><span class="type-signature">(generator) </span>getAll<span class="signature">(prefix, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {TODO}</span></h4>
+    <h4 class="name" id="getAll"><span class="type-signature">(generator) </span>getAll<span class="signature">(prefix, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#prefixMatch">prefixMatch</a>}</span></h4>
 
     
 
@@ -658,7 +707,7 @@
             <td class="type">
             
                 
-<span class="param-type">pruner</span>
+<span class="param-type"><a href="global.html#pruner">pruner</a></span>
 
 
             
@@ -691,7 +740,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="global.html#searchType">searchType</a></span>
 
 
             
@@ -711,7 +760,7 @@
 
             
 
-            <td class="description last"><p>the type of tree traversal to use for searching</p></td>
+            <td class="description last"><p>the type of tree traversal to do, must be in constants.SEARCH_TYPES</p></td>
         </tr>
 
     
@@ -753,7 +802,310 @@
     </dt>
     <dd>
         
-<span class="param-type">TODO</span>
+<span class="param-type"><a href="global.html#prefixMatch">prefixMatch</a></span>
+
+
+    </dd>
+</dl>
+		
+    
+
+        
+            
+
+    
+
+    <h4 class="name" id="getAllNodes"><span class="type-signature">(generator) </span>getAllNodes<span class="signature">(prefix, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#prefixMatch">prefixMatch</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line118">line 118</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Get all nodes for which the key k to reach that node satisfies k.startsWith(prefix)</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>prefix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>only return [k, v] pairs where k.startsWith(prefix)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>{}</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>the config object</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pruner</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#pruner">pruner</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>prune nodes from traversal</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>searchType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#searchType">searchType</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the type of tree traversal to do, must be in constants.SEARCH_TYPES</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+<h5>Yields:</h5>		
+		
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#prefixMatch">prefixMatch</a></span>
 
 
     </dd>
@@ -778,7 +1130,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line112">line 112</a>
+        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line144">line 144</a>
     </li></ul></dd>
     
 
@@ -820,7 +1172,7 @@
 <div class="description">
     <p>For a given prefix, find the shallowest node in the radix tree whose key either matches the prefix exactly
 or is the shortest matching key that is longer than the prefix.</p>
-<p>For example, if &quot;ab&quot; and &quot;abcd&quot; are inserted into the radix tree, the 'search root' of the prefix &quot;abc&quot; would
+<p>For example, if &quot;ab&quot; and &quot;abcd&quot; are inserted into the radix tree, the search root of the prefix &quot;abc&quot; would
 be the node matching &quot;abcd&quot;. The &quot;abcd&quot; node would be the root of the subtree containing all nodes whose keys
 start with &quot;abc&quot;, since there were no other keys that start with &quot;abc&quot; other than &quot;abcd&quot; and its children.</p>
 </div>
@@ -930,7 +1282,7 @@ start with &quot;abc&quot;, since there were no other keys that start with &quot
 
     
 
-    <h4 class="name" id="set"><span class="type-signature"></span>set<span class="signature">(k, v<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="delete"><span class="type-signature"></span>delete<span class="signature">(k)</span><span class="type-signature"></span></h4>
 
     
 
@@ -942,7 +1294,7 @@ start with &quot;abc&quot;, since there were no other keys that start with &quot
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line23">line 23</a>
+        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line172">line 172</a>
     </li></ul></dd>
     
 
@@ -981,10 +1333,6 @@ start with &quot;abc&quot;, since there were no other keys that start with &quot
 
 
 
-<div class="description">
-    <p>Add a [key, value] pair to the RadixTree.</p>
-</div>
-
 
 
 
@@ -1007,8 +1355,6 @@ start with &quot;abc&quot;, since there were no other keys that start with &quot
 
         <th>Type</th>
 
-        
-        <th>Attributes</th>
         
 
         
@@ -1035,51 +1381,10 @@ start with &quot;abc&quot;, since there were no other keys that start with &quot
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>the key to insert into the radix tree. must have length &gt; 0</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">any</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>the value to associate to the key in the radix tree</p></td>
+            <td class="description last"><p>the key to delete from the radix tree</p></td>
         </tr>
 
     
@@ -1124,12 +1429,14 @@ start with &quot;abc&quot;, since there were no other keys that start with &quot
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Wed Dec 25 2019 02:58:59 GMT-0500 (EST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Dec 29 2019 09:38:19 GMT-0500 (EST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
 <script src="scripts/polyfill.js"></script>
 <script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
 
 
 

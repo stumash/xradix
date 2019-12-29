@@ -27,7 +27,9 @@
 
 <nav >
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RadixNode.html">RadixNode</a><ul class='methods'><li data-type='method'><a href="RadixNode.html#addPrefixToChild">addPrefixToChild</a></li><li data-type='method'><a href="RadixNode.html#subtreeTraverse">subtreeTraverse</a></li></ul></li><li><a href="RadixNodeEdges.html">RadixNodeEdges</a><ul class='methods'><li data-type='method'><a href="RadixNodeEdges.html#delete">delete</a></li><li data-type='method'><a href="RadixNodeEdges.html#entries">entries</a></li><li data-type='method'><a href="RadixNodeEdges.html#findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="RadixNodeEdges.html#get">get</a></li><li data-type='method'><a href="RadixNodeEdges.html#has">has</a></li><li data-type='method'><a href="RadixNodeEdges.html#keys">keys</a></li><li data-type='method'><a href="RadixNodeEdges.html#set">set</a></li><li data-type='method'><a href="RadixNodeEdges.html#values">values</a></li></ul></li><li><a href="RadixTree.html">RadixTree</a><ul class='methods'><li data-type='method'><a href="RadixTree.html#delete">delete</a></li><li data-type='method'><a href="RadixTree.html#get">get</a></li><li data-type='method'><a href="RadixTree.html#getAll">getAll</a></li><li data-type='method'><a href="RadixTree.html#getSearchRoot">getSearchRoot</a></li><li data-type='method'><a href="RadixTree.html#set">set</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-constants.html">constants</a></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#.decreasingPrefixesOf">decreasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="module-utils.html#.increasingPrefixesOf">increasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.longestSharedPrefix">longestSharedPrefix</a></li></ul></li></ul>
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RadixNode.html">RadixNode</a><ul class='methods'><li data-type='method'><a href="RadixNode.html#addPrefixToChild">addPrefixToChild</a></li><li data-type='method'><a href="RadixNode.html#subtreeTraverse">subtreeTraverse</a></li></ul></li><li><a href="RadixTree.html">RadixTree</a><ul class='methods'><li data-type='method'><a href="RadixTree.html#set">set</a></li><li data-type='method'><a href="RadixTree.html#get">get</a></li><li data-type='method'><a href="RadixTree.html#getAll">getAll</a></li><li data-type='method'><a href="RadixTree.html#getAllNodes">getAllNodes</a></li><li data-type='method'><a href="RadixTree.html#getSearchRoot">getSearchRoot</a></li><li data-type='method'><a href="RadixTree.html#delete">delete</a></li></ul></li><li><a href="RadixNodeEdges.html">RadixNodeEdges</a><ul class='methods'><li data-type='method'><a href="RadixNodeEdges.html#findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="RadixNodeEdges.html#get">get</a></li><li data-type='method'><a href="RadixNodeEdges.html#set">set</a></li><li data-type='method'><a href="RadixNodeEdges.html#delete">delete</a></li><li data-type='method'><a href="RadixNodeEdges.html#has">has</a></li><li data-type='method'><a href="RadixNodeEdges.html#entries">entries</a></li><li data-type='method'><a href="RadixNodeEdges.html#keys">keys</a></li><li data-type='method'><a href="RadixNodeEdges.html#values">values</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a><ul class='members'><li data-type='member'><a href="module-utils.html#.defaultPruner">defaultPruner</a></li></ul><ul class='methods'><li data-type='method'><a href="module-utils.html#.decreasingPrefixesOf">decreasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.increasingPrefixesOf">increasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.longestSharedPrefix">longestSharedPrefix</a></li></ul></li><li><a href="module-constants.html">constants</a><ul class='members'><li data-type='member'><a href="module-constants.html#.SEARCH_TYPES">SEARCH_TYPES</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#pruner">pruner</a></li><li><a href="global.html#kvpair">kvpair</a></li><li><a href="global.html#knpair">knpair</a></li><li><a href="global.html#prefixMatch">prefixMatch</a></li><li><a href="global.html#searchType">searchType</a></li><li><a href="global.html#breadfirst">breadfirst</a></li><li><a href="global.html#depthfirstpre">depthfirstpre</a></li><li><a href="global.html#depthfirstpost">depthfirstpost</a></li></ul>
 </nav>
 
 <div id="main">
@@ -43,7 +45,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const { RadixNode } = require("~/src/radix-node.js");
-const { longestSharedPrefix, findKeyHavingSharedPrefix } = require("~/src/utils.js");
+const { defaultPruner, longestSharedPrefix } = require("~/src/utils.js");
 const { SEARCH_TYPES } = require("~/src/constants.js");
 
 /**
@@ -121,23 +123,55 @@ class RadixTree {
    *
    * @generator
    *
-   * @param {string} prefix                                     - only return [k, v] pairs where k.startsWith(prefix)
-   * @param {Object} [config={}]         - the config object
-   * @param {pruner} [config.pruner]     - prune nodes from traversal
-   * @param {string} [config.searchType] - the type of tree traversal to use for searching
+   * @param {string}     prefix              - only return [k, v] pairs where k.startsWith(prefix)
+   * @param {Object}     [config={}]         - the config object
+   * @param {pruner}     [config.pruner]     - prune nodes from traversal
+   * @param {searchType} [config.searchType] - the type of tree traversal to do, must be in constants.SEARCH_TYPES
    *
-   * @yields {TODO}
+   * @yields {prefixMatch}
    */
   *getAll(prefix, config) {
+    const pruner = config.pruner || utils.defaultPruner;
+    const searchType = config.searchType || SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
+    const newConfig = { pruner, searchType };
+
     const result = this.getSearchRoot(prefix);
     if (result) {
       const { extraPrefix, searchRoot } = result;
       const searchRootPrefix = prefix + extraPrefix;
-      for (const prefixMatch of searchRoot.subtreeTraverse()) {
-        const { b } = prefixMatch;
-        if (b) {
+      for (const prefixMatch of searchRoot.subtreeTraverse(searchRootPrefix, newConfig)) {
+        const { hasValue } = prefixMatch;
+        if (hasValue) {
           yield prefixMatch;
         }
+      }
+    }
+  }
+
+
+  /**
+   * Get all nodes for which the key k to reach that node satisfies k.startsWith(prefix)
+   *
+   * @generator
+   *
+   * @param {string}     prefix              - only return [k, v] pairs where k.startsWith(prefix)
+   * @param {Object}     [config={}]         - the config object
+   * @param {pruner}     [config.pruner]     - prune nodes from traversal
+   * @param {searchType} [config.searchType] - the type of tree traversal to do, must be in constants.SEARCH_TYPES
+   *
+   * @yields {prefixMatch}
+   */
+  *getAllNodes(prefix, config) {
+    const pruner = config.pruner || utils.defaultPruner;
+    const searchType = config.searchType || SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
+    const newConfig = { pruner, searchType };
+
+    const result = this.getSearchRoot(prefix);
+    if (result) {
+      const { extraPrefix, searchRoot } = result;
+      const searchRootPrefix = prefix + extraPrefix;
+      for (const prefixMatch of searchRoot.subtreeTraverse(searchRootPrefix, newConfig)) {
+        yield prefixMatch;
       }
     }
   }
@@ -146,7 +180,7 @@ class RadixTree {
    * For a given prefix, find the shallowest node in the radix tree whose key either matches the prefix exactly
    * or is the shortest matching key that is longer than the prefix.
    *
-   * For example, if "ab" and "abcd" are inserted into the radix tree, the 'search root' of the prefix "abc" would
+   * For example, if "ab" and "abcd" are inserted into the radix tree, the search root of the prefix "abc" would
    * be the node matching "abcd". The "abcd" node would be the root of the subtree containing all nodes whose keys
    * start with "abc", since there were no other keys that start with "abc" other than "abcd" and its children.
    *
@@ -201,12 +235,14 @@ module.exports = { RadixTree };
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Wed Dec 25 2019 02:58:59 GMT-0500 (EST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Dec 29 2019 09:38:19 GMT-0500 (EST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
 <script src="scripts/polyfill.js"></script>
 <script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
 
 
 

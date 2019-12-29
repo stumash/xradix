@@ -1,15 +1,19 @@
 /**
- * A special map data structure where keys are strings and values can be anything (though RadixTree uses
- * this class only to store RadixNode objects).
+ * A special map data structure where keys are string and values are RadixNode, which maintains a single invariant:
+ *  - Only a single key can start with a particular character
  *
- * For any given character c, only a single key whose first character is c can be in the map at once.
- *
- * This allows for O(1) lookup for keys that share a first letter with any given input key.
+ * This invariant means that we can find the key that shares a prefix with a given string in O(1).
  */
 class RadixNodeEdges {
 
   /**
-   * @param {Array.<string|RadixNode>} [knpairs] - key,node pairs to initialize the edge list
+   * @param {Array<knpair>} [knpairs] - [key,node] pairs to initialize the edge list
+   *
+   * @example
+   * const rne = new RadixNodeEdges([
+   *   ["aaa", new RadixNode()],
+   *   ["bbb", new RadixNode()]
+   * ]);
    */
   constructor(knpairs) {
     this.m = new Map(); //                {string -> RadixNode}
@@ -83,7 +87,7 @@ class RadixNodeEdges {
    *
    * @generator
    *
-   * @yields {Array.<string|RadixNode>} - [key, node] pairs that were inserted into the map via set(k, v)
+   * @yields {Array.<knpair>} - [key, node] pairs that were inserted into the map via set(k, v)
    */
   *entries() { yield* this.m.entries(); }
 

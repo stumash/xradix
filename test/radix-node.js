@@ -63,13 +63,13 @@ describe("RadixNode", () => {
     });
 
     describe("depth first search - post order", () => {
-      it("should yield nodes in post order", () => {
+      it("should yield nodes in post order (descendant first)", () => {
         // check that for every node visited, all its descendants are already visited
         const visited = new Set();
 
         const prune = (d,k,b,v) => true;
         const searchType = SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
-        for (let {b: hasValue, v: value} of root.subtreeTraverse("", prune, searchType)) {
+        for (let {hasValue, value} of root.subtreeTraverse("", prune, searchType)) {
           if (hasValue) {
             visited.add(value.val);
             if (value.children) {
@@ -83,13 +83,13 @@ describe("RadixNode", () => {
     });
 
     describe("depth first search - pre order", () => {
-      it("should yield nodes in pre order", () => {
+      it("should yield nodes in pre order (descendant last)", () => {
         // check that for every node visited, all its descendants are not yet visited
         const visited = new Set();
 
-        const prune = (d,k,b,v) => true;
+        const pruner = (d,k,b,v,c) => true;
         const searchType = SEARCH_TYPES.DEPTH_FIRST_PRE_ORDER;
-        for (let {b: hasValue, v: value} of root.subtreeTraverse("", prune, searchType)) {
+        for (let {hasValue, value} of root.subtreeTraverse("", pruner, searchType)) {
           if (hasValue) {
             visited.add(value.val);
             if (value.children) {
@@ -103,13 +103,13 @@ describe("RadixNode", () => {
     });
 
     describe("breadth first search", () => {
-      it("should yield nodes in breadth order", () => {
+      it("should yield nodes in breadth order (shallowest first)", () => {
         // check that for every node visited, no nodes of greater depth have yet been visited
         const visitedDepths = new Set();
 
-        const prune = (d,k,b,v) => true;
+        const pruner = (d,k,b,v,c) => true;
         const searchType = SEARCH_TYPES.BREADTH_FIRST;
-        for (let {depth, b: hasValue, v: value} of root.subtreeTraverse("", prune, searchType)) {
+        for (let {depth, hasValue, value} of root.subtreeTraverse("", pruner, searchType)) {
           if (hasValue) {
             visitedDepths.add(depth);
             if (value.children) {

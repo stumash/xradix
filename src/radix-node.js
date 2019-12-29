@@ -11,7 +11,7 @@ class RadixNode {
    * @param {Object}         [config={}] - argument object
    * @param {boolean}        [config.b]  - whether or not this node contains a value, or just points to other nodes
    * @param {any}            [config.v]  - the value to associate to the key that leads to this node
-   * @param {Array.<string|any>} [config.c]  - outgoing edges/children, pairs of [key,node]
+   * @param {Array.<knpair>} [config.c]  - outgoing edges/children, pairs of [key,node]
    */
   constructor(config={}) {
     this.b = config.b || false;
@@ -37,28 +37,19 @@ class RadixNode {
   }
 
   /**
-   * TODO FIXME
-   *
-   * Create type for prefixMatch 
-   * {depth: number, prefix: string, b: boolean, v: any, node: RadixNode}
-   *
-   * TODO FIXME
-   */
-
-  /**
-   * Iterate over all nodes of subtree rooted at this node. Prune the subtree using the prune(d,k,b,v) function.
+   * Iterate over all nodes of subtree rooted at this node. Prune the subtree using the provided pruner function.
    * Control the search type with the searchType parameter.
    *
    * @generator
    *
-   * @param {string}  prefix             - the prefix shared by all nodes returned
-   * @param {Object} [config={}]         - config object
-   * @param {pruner} [config.pruner]     - prune nodes tree using this function. false to prune, true to keep
-   * @param {string} [config.searchType] - the type of search to do. One of SEARCH_TYPES
+   * @param {string}     [prefix=""]         - the prefix shared by all nodes returned
+   * @param {Object}     [config={}]         - config object
+   * @param {pruner}     [config.pruner]     - prune nodes tree using this function. false to prune, true to keep
+   * @param {searchType} [config.searchType] - the type of tree traversal to do. Must be in constants.SEARCH_TYPES
    *
-   * @yields {{depth: number, prefix: string, b: boolean, v: any, node: RadixNode}}
+   * @yields {prefixMatch}
    */
-  *subtreeTraverse(prefix, config={}) {
+  *subtreeTraverse(prefix="", config={}) {
     const pruner = config.pruner || defaultPruner;
     const searchType = config.searchType || SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
 
@@ -84,8 +75,8 @@ class RadixNode {
       if (!visited.has(node)) {
         visited.add(node);
 
-        if (pruner(depth, prefix, node.b, node.v)) {
-          yield {depth, prefix, b:node.b, v:node.v, node};
+        if (pruner(depth, prefix, node.b, node.v, node.c)) {
+          yield {depth, prefix, hasValue:node.b, value:node.v, edges:node.c};
 
           for (const [k,child] of node.c.entries()) {
             if (!visited.has(child)) {
@@ -98,9 +89,9 @@ class RadixNode {
   }
 
   *_subtreeTraverseDfs(depth, prefix, pruner, preNotPost) {
-    if (pruner(depth, prefix, this.b, this.v)) {
+    if (pruner(depth, prefix, this.b, this.v, this.c)) {
       if (preNotPost) {
-        yield {depth, prefix, b:this.b, v:this.v, node:this};
+        yield {depth, prefix, b:this.b, v:this.v, edges:this.c};
       }
 
       for (const [k,node] of this.c.entries()) {
@@ -108,7 +99,7 @@ class RadixNode {
       }
 
       if (!preNotPost) {
-        yield {depth, prefix, b:this.b, v:this.v, node:this};
+        yield {depth, prefix, b:this.b, v:this.v, edges:this.c};
       }
     }
   }

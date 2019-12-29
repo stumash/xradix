@@ -27,7 +27,9 @@
 
 <nav >
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RadixNode.html">RadixNode</a><ul class='methods'><li data-type='method'><a href="RadixNode.html#addPrefixToChild">addPrefixToChild</a></li><li data-type='method'><a href="RadixNode.html#subtreeTraverse">subtreeTraverse</a></li></ul></li><li><a href="RadixNodeEdges.html">RadixNodeEdges</a><ul class='methods'><li data-type='method'><a href="RadixNodeEdges.html#delete">delete</a></li><li data-type='method'><a href="RadixNodeEdges.html#entries">entries</a></li><li data-type='method'><a href="RadixNodeEdges.html#findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="RadixNodeEdges.html#get">get</a></li><li data-type='method'><a href="RadixNodeEdges.html#has">has</a></li><li data-type='method'><a href="RadixNodeEdges.html#keys">keys</a></li><li data-type='method'><a href="RadixNodeEdges.html#set">set</a></li><li data-type='method'><a href="RadixNodeEdges.html#values">values</a></li></ul></li><li><a href="RadixTree.html">RadixTree</a><ul class='methods'><li data-type='method'><a href="RadixTree.html#delete">delete</a></li><li data-type='method'><a href="RadixTree.html#get">get</a></li><li data-type='method'><a href="RadixTree.html#getAll">getAll</a></li><li data-type='method'><a href="RadixTree.html#getSearchRoot">getSearchRoot</a></li><li data-type='method'><a href="RadixTree.html#set">set</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-constants.html">constants</a></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#.decreasingPrefixesOf">decreasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="module-utils.html#.increasingPrefixesOf">increasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.longestSharedPrefix">longestSharedPrefix</a></li></ul></li></ul>
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RadixNode.html">RadixNode</a><ul class='methods'><li data-type='method'><a href="RadixNode.html#addPrefixToChild">addPrefixToChild</a></li><li data-type='method'><a href="RadixNode.html#subtreeTraverse">subtreeTraverse</a></li></ul></li><li><a href="RadixTree.html">RadixTree</a><ul class='methods'><li data-type='method'><a href="RadixTree.html#set">set</a></li><li data-type='method'><a href="RadixTree.html#get">get</a></li><li data-type='method'><a href="RadixTree.html#getAll">getAll</a></li><li data-type='method'><a href="RadixTree.html#getAllNodes">getAllNodes</a></li><li data-type='method'><a href="RadixTree.html#getSearchRoot">getSearchRoot</a></li><li data-type='method'><a href="RadixTree.html#delete">delete</a></li></ul></li><li><a href="RadixNodeEdges.html">RadixNodeEdges</a><ul class='methods'><li data-type='method'><a href="RadixNodeEdges.html#findKeyHavingSharedPrefix">findKeyHavingSharedPrefix</a></li><li data-type='method'><a href="RadixNodeEdges.html#get">get</a></li><li data-type='method'><a href="RadixNodeEdges.html#set">set</a></li><li data-type='method'><a href="RadixNodeEdges.html#delete">delete</a></li><li data-type='method'><a href="RadixNodeEdges.html#has">has</a></li><li data-type='method'><a href="RadixNodeEdges.html#entries">entries</a></li><li data-type='method'><a href="RadixNodeEdges.html#keys">keys</a></li><li data-type='method'><a href="RadixNodeEdges.html#values">values</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a><ul class='members'><li data-type='member'><a href="module-utils.html#.defaultPruner">defaultPruner</a></li></ul><ul class='methods'><li data-type='method'><a href="module-utils.html#.decreasingPrefixesOf">decreasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.increasingPrefixesOf">increasingPrefixesOf</a></li><li data-type='method'><a href="module-utils.html#.longestSharedPrefix">longestSharedPrefix</a></li></ul></li><li><a href="module-constants.html">constants</a><ul class='members'><li data-type='member'><a href="module-constants.html#.SEARCH_TYPES">SEARCH_TYPES</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#pruner">pruner</a></li><li><a href="global.html#kvpair">kvpair</a></li><li><a href="global.html#knpair">knpair</a></li><li><a href="global.html#prefixMatch">prefixMatch</a></li><li><a href="global.html#searchType">searchType</a></li><li><a href="global.html#breadfirst">breadfirst</a></li><li><a href="global.html#depthfirstpre">depthfirstpre</a></li><li><a href="global.html#depthfirstpost">depthfirstpost</a></li></ul>
 </nav>
 
 <div id="main">
@@ -55,7 +57,7 @@
         <div class="container-overview">
         
             
-                <div class="description"><p>Some utility functions for the rest of the code to use.</p></div>
+                <div class="description"><p>Some utility functions and type definitions.</p></div>
             
 
             
@@ -153,18 +155,12 @@
     
 
     
-
-    
-        <h3 class="subsection-title">Methods</h3>
+        <h3 class="subsection-title">Members</h3>
 
         
             
+<h4 class="name" id=".defaultPruner"><span class="type-signature">(static) </span>defaultPruner<span class="type-signature"> :<a href="global.html#pruner">pruner</a></span></h4>
 
-    
-
-    <h4 class="name" id=".decreasingPrefixesOf"><span class="type-signature">(generator, static) </span>decreasingPrefixesOf<span class="signature">(s)</span><span class="type-signature"></span></h4>
-
-    
 
 
 
@@ -174,7 +170,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line19">line 19</a>
+        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line86">line 86</a>
     </li></ul></dd>
     
 
@@ -215,6 +211,89 @@
 
 
 
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="global.html#pruner">pruner</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".decreasingPrefixesOf"><span class="type-signature">(generator, static) </span>decreasingPrefixesOf<span class="signature">(s)</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Get all prefixes of a given string in descending order of length.</p>
+</div>
+
+
+
 
 
 
@@ -223,9 +302,11 @@
 
     <h5>Examples</h5>
     
-    <pre class="prettyprint"><code>"abc" -> *["abc", "ab", "a"]</code></pre>
+    <pre class="prettyprint"><code>for (const s of utils.decreasingPrefixesOf("abc")) {
+   console.log(s); // prints "abc", "ab", "a"
+}</code></pre>
 
-    <pre class="prettyprint"><code>"" -> *[]</code></pre>
+    <pre class="prettyprint"><code>for (const s of utils.decreasingPrefixesOf("")) { } // loop never entered</code></pre>
 
 
 
@@ -294,175 +375,10 @@
 
 
 
-
-
+		
+<h5>Yields:</h5>		
+		
         
-            
-
-    
-
-    <h4 class="name" id=".findKeyHavingSharedPrefix"><span class="type-signature">(static) </span>findKeyHavingSharedPrefix<span class="signature">(m, s)</span><span class="type-signature"> &rarr; {string}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line71">line 71</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const m = new Map([ ['foobar', 17], ['alkdfjalskd', 49] ])
- findKeyHavingSharedPrefix(m, 'foox') // 'foobar'</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>m</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Map.&lt;string, any></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the Map from which to find a key that shares a prefix with k</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>s</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the string</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>the first key in m that shares a prefix with s</li>
-</ul>
-</div>
-
 
 
 <dl class="param-type">
@@ -476,10 +392,8 @@
 
     </dd>
 </dl>
-
+		
     
-
-
 
         
             
@@ -498,7 +412,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line36">line 36</a>
+        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -537,6 +451,10 @@
 
 
 
+<div class="description">
+    <p>Get all prefixes of a given string in ascending order of length.</p>
+</div>
+
 
 
 
@@ -547,9 +465,11 @@
 
     <h5>Examples</h5>
     
-    <pre class="prettyprint"><code>"abc" -> *["a", "ab", "abc"]</code></pre>
+    <pre class="prettyprint"><code>for (const s of utils.increasingPrefixesOf("abc")) {
+   console.log(s); // prints "a", "ab", "abc"
+}</code></pre>
 
-    <pre class="prettyprint"><code>""    -> *[]</code></pre>
+    <pre class="prettyprint"><code>for (const s of utils.increasingPrefixesOf("")) { } // never enters loops</code></pre>
 
 
 
@@ -618,7 +538,17 @@
 
 
 
+		
+<h5>Yields:</h5>		
+		
+        
+<div class="param-desc">
+    string
+</div>
 
+
+		
+    
 
         
             
@@ -637,7 +567,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line51">line 51</a>
+        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line77">line 77</a>
     </li></ul></dd>
     
 
@@ -676,12 +606,25 @@
 
 
 
+<div class="description">
+    <p>Get the longest shared prefix of two strings.</p>
+</div>
 
 
 
 
 
 
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>utils.longestSharedPrefix("abc", "ab"); // "ab"</code></pre>
+
+    <pre class="prettyprint"><code>utils.longestSharedPrefix("abc", "xx"); // undefined</code></pre>
+
+    <pre class="prettyprint"><code>utils.longestSharedPrefix("abc", "")</code></pre>
 
 
 
@@ -803,263 +746,6 @@
     
 
     
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
-
-    
-
-    <h4 class="name" id="~pruner"><span class="type-signature"></span>pruner<span class="signature">(depth, key, hasValue, value, node)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line79">line 79</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>The default function used to prune nodes from the traversal during radix tree search. Note that
-this default function always returns <code>true</code> - in other words, no nodes are pruned by default.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>depth</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the depth of the current node from the searchRoot</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the key associated with the current node</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>hasValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>whether or not there is a value associated to the key of the current node</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">any</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the value (undefined if it doesn't exist) associated tot the key of the current node</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>node</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="RadixNode.html">RadixNode</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the node itself</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>false to prune the node, true to keep it and its descendants in the search</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-            
-    
 
     
 </article>
@@ -1076,12 +762,14 @@ this default function always returns <code>true</code> - in other words, no node
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Wed Dec 25 2019 02:58:59 GMT-0500 (EST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Dec 29 2019 09:38:19 GMT-0500 (EST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
 <script src="scripts/polyfill.js"></script>
 <script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
 
 
 

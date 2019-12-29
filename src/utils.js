@@ -1,20 +1,29 @@
 /**
- * Some utility functions for the rest of the code to use.
+ * Some utility functions and type definitions.
  *
  * @module utils
  */
+
+const defaultPruner = () => true;
+
 module.exports = {
 
   /**
+   * Get all prefixes of a given string in descending order of length.
+   *
    * @generator
    *
    * @param {string} s - the string from which to draw prefixes of decreasing length
    *
-   * @example
-   * "abc" -> *["abc", "ab", "a"]
+   * @yields {string}
    *
    * @example
-   * "" -> *[]
+   * for (const s of utils.decreasingPrefixesOf("abc")) {
+   *    console.log(s); // prints "abc", "ab", "a"
+   * }
+   *
+   * @example
+   * for (const s of utils.decreasingPrefixesOf("")) { } // loop never entered
    */
   decreasingPrefixesOf: function*(s) {
     for (let i = s.length; i > 0; i--) {
@@ -23,15 +32,21 @@ module.exports = {
   },
 
   /**
+   * Get all prefixes of a given string in ascending order of length.
+   *
    * @generator
    *
    * @param {string} s - the string from which to draw prefixes of increasing length
    *
-   * @example
-   * "abc" -> *["a", "ab", "abc"]
+   * @yields string
    *
    * @example
-   * ""    -> *[]
+   * for (const s of utils.increasingPrefixesOf("abc")) {
+   *    console.log(s); // prints "a", "ab", "abc"
+   * }
+   *
+   * @example
+   * for (const s of utils.increasingPrefixesOf("")) { } // never enters loops
    */
   increasingPrefixesOf: function*(s) {
     const slength = s.length;
@@ -41,12 +56,23 @@ module.exports = {
   },
 
   /**
+   * Get the longest shared prefix of two strings.
+   *
    * @function
    *
    * @param {string} s1 - the first string
    * @param {string} s2 - the second string
    *
    * @returns {string} - the longest shared prefix of s1 and s2, undefined if no shared prefix
+   *
+   * @example
+   * utils.longestSharedPrefix("abc", "ab"); // "ab"
+   *
+   * @example
+   * utils.longestSharedPrefix("abc", "xx"); // undefined
+   *
+   * @example
+   * utils.longestSharedPrefix("abc", "")
    */
   longestSharedPrefix: function (s1, s2) {
     const maxLen = Math.max(s1.length, s2.length);
@@ -56,42 +82,48 @@ module.exports = {
     return i > 0 ? s1.slice(0, i) : undefined;
   },
 
-  /**
-   * @function
-   *
-   * @param   {Map<string,any>} m - the Map from which to find a key that shares a prefix with k
-   * @param   {string}          s - the string
-   *
-   * @returns {string} - the first key in m that shares a prefix with s
-   *
-   * @example
-   *  const m = new Map([ ['foobar', 17], ['alkdfjalskd', 49] ])
-   *  findKeyHavingSharedPrefix(m, 'foox') // 'foobar'
-   */
-  findKeyHavingSharedPrefix: function(m, s) {
-    for (let k of m.keys()) {
-      if (longestSharedPrefix(k, s)) {
-        return k
-      }
-    }
-  },
+  /** @type {pruner} */
+  defaultPruner
+};
 
-  /**
-   * The default function used to prune nodes from the traversal during radix tree search. Note that
-   * this default function always returns `true` - in other words, no nodes are pruned by default.
-   *
-   * @function
-   * @callback pruner
-   *
-   * @param {number}    depth    - the depth of the current node from the searchRoot
-   * @param {string}    key      - the key associated with the current node
-   * @param {boolean}   hasValue - whether or not there is a value associated to the key of the current node
-   * @param {any}       value    - the value (undefined if it doesn't exist) associated tot the key of the current node
-   * @param {RadixNode} node     - the node itself
-   *
-   * @returns {boolean} - false to prune the node, true to keep it and its descendants in the search
-   */
-  defaultPruner: function(depth, key, hasValue, value, node) {
-    return true;
-  }
-}
+/**
+ * @callback pruner
+ *
+ * @param {number}         depth    - the depth of the current node from the searchRoot
+ * @param {string}         key      - the key associated with the current node
+ * @param {boolean}        hasValue - whether or not there is a value associated to the key of the current node
+ * @param {any}            value    - the value associated to the key of the current node
+ * @param {RadixNodeEdges} edges    - edges to the child nodes
+ *
+ * @returns {boolean} - false to prune the node, true to keep it and its descendants in the search
+ */
+
+/**
+ * @typedef {Object} kvpair
+ * @property {string} 0
+ * @property {any} 1
+ *
+ * @example
+ * // an array of type [string, any] is a valid kvpair
+ * const kvpair = ["hello", "there"];
+ */
+
+/**
+ * @typedef {Object} knpair
+ * @property {string}    0
+ * @property {RadixNode} 1
+ *
+ * @example
+ * // an array of size 2 is a valid knpair
+ * const knpair = ["hello", new RadixNode()]
+ */
+
+/**
+ * @typedef {Object} prefixMatch
+ *
+ * @property {number}         depth
+ * @property {string}         prefix
+ * @property {boolean}        hasValue
+ * @property {any}            value
+ * @property {RadixNodeEdges} edges
+ */
