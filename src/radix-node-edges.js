@@ -64,7 +64,10 @@ class RadixNodeEdges {
    * @returns {boolean} - true if the deletion succeeded, else false
    */
   delete(k) {
-    return this.m.delete(k) && this.firstCharToKeyMap.delete(k[0]);
+    return (
+      this.m.has(k)    && this.firstCharToKeyMap.has(k[0])    &&
+      this.m.delete(k) && this.firstCharToKeyMap.delete(k[0])
+    );
   }
 
   /**

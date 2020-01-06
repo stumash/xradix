@@ -9,16 +9,22 @@ class RadixTree {
 
   /**
    * Create a new RadixTree.
+   *
+   * @param {Array<kvpair>} [kvpairs=[]] the [key, value] pairs with which to seed the radix tree
    */
-  constructor() {
+  constructor(kvpairs=[]) {
     this.root = new RadixNode();
+
+    for (const [k,v] of kvpairs) {
+      this.set(k, v);
+    }
   }
 
   /**
    * Add a [key, value] pair to the RadixTree.
    *
-   * @param {string}  k  - the key to insert into the radix tree. must have length > 0
-   * @param {any}    [v] - the value to associate to the key in the radix tree
+   * @param {string}  k  the key to insert into the radix tree. must have length > 0
+   * @param {any}    [v] the value to associate to the key in the radix tree
    */
   set(k, v) {
     if (k.length > 0) {
@@ -31,13 +37,13 @@ class RadixTree {
       currNode.b = true;
       currNode.v = v;
     } else {
-      const matchingChild = currNode.c.findKeyHavingSharedPrefix(k);
-      if (!matchingChild) {
+      const matchingChildKey = currNode.c.findKeyHavingSharedPrefix(k);
+      if (!matchingChildKey) {
         currNode.c.set(k, new RadixNode({ b:true, v }));
       } else {
-        const sharedPrefix = longestSharedPrefix(matchingChild, k);
-        if (sharedPrefix.length < matchingChild.length) {
-          currNode.addPrefixToChild(sharedPrefix, matchingChild);
+        const sharedPrefix = longestSharedPrefix(matchingChildKey, k);
+        if (sharedPrefix.length < matchingChildKey.length) {
+          currNode.addPrefixToChild(sharedPrefix, matchingChildKey);
         }
         this._set(k.slice(sharedPrefix.length), v, currNode.c.get(sharedPrefix));
       }
@@ -47,8 +53,8 @@ class RadixTree {
   /**
    * Return the value associated to a key in the RadixTree.
    *
-   * @param   {string} k - the key to look for. must have length > 0
-   * @returns {any}      - the value associated to the key. if key not found, return undefined
+   * @param   {string} k      the key to look for. must have length > 0
+   * @returns {any|undefined} the value associated to the key. if key not found, return undefined
    */
   get(k) {
     if (k.length > 0) {
@@ -62,10 +68,10 @@ class RadixTree {
         return currNode.v;
       }
     } else {
-      const matchingChild = currNode.c.findKeyHavingSharedPrefix(k);
-      if (matchingChild) {
-        const sharedPrefix = longestSharedPrefix(matchingChild, k);
-        if (sharedPrefix === matchingChild) {
+      const matchingChildKey = currNode.c.findKeyHavingSharedPrefix(k);
+      if (matchingChildKey) {
+        const sharedPrefix = longestSharedPrefix(matchingChildKey, k);
+        if (sharedPrefix === matchingChildKey) {
           return this._get(k.slice(sharedPrefix.length), currNode.c.get(sharedPrefix));
         }
       }
@@ -73,59 +79,32 @@ class RadixTree {
   }
 
   /**
-   * Get all k,v pairs where k.startsWith(prefix)
+   * Get the prefixMatch object for every [k,v] pair where k.startsWith(prefix).
    *
    * @generator
    *
-   * @param {string}     prefix              - only return [k, v] pairs where k.startsWith(prefix)
-   * @param {Object}     [config={}]         - the config object
-   * @param {pruner}     [config.pruner]     - prune nodes from traversal
-   * @param {searchType} [config.searchType] - the type of tree traversal to do, must be in constants.SEARCH_TYPES
+   * @param {string}     prefix              only return [k, v] pairs where k.startsWith(prefix)
+   * @param {Object}     [config={}]         the config object
+   * @param {pruner}     [config.pruner]     prune nodes from traversal
+   * @param {searchType} [config.searchType] the type of tree traversal to do, must be in constants.SEARCH_TYPES
+   * @param {boolean}    [config.allNodes]   include prefixMatch objects for all nodes, not just those having values
    *
    * @yields {prefixMatch}
    */
-  *getAll(prefix, config) {
-    const pruner = config.pruner || utils.defaultPruner;
+  *getAll(prefix, config={}) {
+    const pruner = config.pruner || defaultPruner;
     const searchType = config.searchType || SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
-    const newConfig = { pruner, searchType };
+    const allNodes = config.allNodes || false;
+    const newConfig = { pruner, searchType, allNodes };
 
     const result = this.getSearchRoot(prefix);
     if (result) {
       const { extraPrefix, searchRoot } = result;
       const searchRootPrefix = prefix + extraPrefix;
       for (const prefixMatch of searchRoot.subtreeTraverse(searchRootPrefix, newConfig)) {
-        const { hasValue } = prefixMatch;
-        if (hasValue) {
+        if (config.allNodes || prefixMatch.hasValue) {
           yield prefixMatch;
         }
-      }
-    }
-  }
-
-
-  /**
-   * Get all nodes for which the key k to reach that node satisfies k.startsWith(prefix)
-   *
-   * @generator
-   *
-   * @param {string}     prefix              - only return [k, v] pairs where k.startsWith(prefix)
-   * @param {Object}     [config={}]         - the config object
-   * @param {pruner}     [config.pruner]     - prune nodes from traversal
-   * @param {searchType} [config.searchType] - the type of tree traversal to do, must be in constants.SEARCH_TYPES
-   *
-   * @yields {prefixMatch}
-   */
-  *getAllNodes(prefix, config) {
-    const pruner = config.pruner || utils.defaultPruner;
-    const searchType = config.searchType || SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
-    const newConfig = { pruner, searchType };
-
-    const result = this.getSearchRoot(prefix);
-    if (result) {
-      const { extraPrefix, searchRoot } = result;
-      const searchRootPrefix = prefix + extraPrefix;
-      for (const prefixMatch of searchRoot.subtreeTraverse(searchRootPrefix, newConfig)) {
-        yield prefixMatch;
       }
     }
   }
@@ -138,8 +117,9 @@ class RadixTree {
    * be the node matching "abcd". The "abcd" node would be the root of the subtree containing all nodes whose keys
    * start with "abc", since there were no other keys that start with "abc" other than "abcd" and its children.
    *
-   * @param   {string}                                       prefix - the prefix for which to find the searchRoot
-   * @returns {{extraPrefix: string, searchRoot: RadixNode}}        - undefined if not found
+   * @param   {string} prefix the prefix for which to find the searchRoot
+   *
+   * @returns {searchRootMatch|undefined}
    */
   getSearchRoot(prefix) {
     return this._getSearchRoot(prefix, this.root);
@@ -149,28 +129,76 @@ class RadixTree {
     if (k.length === 0) {
       return { extraPrefix: k, searchRoot: currNode };
     } else {
-      const matchingChild = currNode.c.findKeyHavingSharedPrefix(k);
-      if (matchingChild) {
-        const sharedPrefix = longestSharedPrefix(matchingChild, k);
-        if (sharedPrefix.length < matchingChild.length) {
+      const matchingChildKey = currNode.c.findKeyHavingSharedPrefix(k);
+      if (matchingChildKey) {
+        const sharedPrefix = longestSharedPrefix(matchingChildKey, k);
+        if (sharedPrefix.length < matchingChildKey.length) {
           if (sharedPrefix.length === k.length) {
             return {
-              extraPrefix: matchingChild.slice(sharedPrefix.length),
-              searchRoot: currNode.c.get(matchingChild)
+              extraPrefix: matchingChildKey.slice(sharedPrefix.length),
+              searchRoot: currNode.c.get(matchingChildKey)
             };
           }
-        } else if (sharedPrefix.length === matchingChild.length){
-          return this._getSearchRoot(k.slice(sharedPrefix.length), currNode.c.get(matchingChild));
+        } else if (sharedPrefix.length === matchingChildKey.length){
+          return this._getSearchRoot(k.slice(sharedPrefix.length), currNode.c.get(matchingChildKey));
         }
       }
     }
   }
 
   /**
-   * @param {string} k - the key to delete from the radix tree
+   * Delete the k,v pair for the given key k from the radix tree.
+   *
+   * @param {string} k the key to delete from the radix tree
+   *
+   * @returns {boolean} true if success, false if key k to delete not found
    */
   delete(k) {
-    // TODO FIXME UNIMPLEMENTED
+    if (k.length === 0) {
+      return false;
+    } else {
+      return this._delete(
+        k,
+        this.root,
+        [undefined, undefined],
+        [undefined, undefined]
+      );
+    }
+  }
+
+  _delete(k, currNode, [parent, pKey], [grandparent, gpKey]) {
+    // TODO FIXME
+    if (k.length === 0) {
+      if (currNode.b) {
+        // TODO: do deletion
+        currNode.b = false;
+        currNode.v = undefined;
+
+        if (currNode.c.size < 2) {
+          parent.c.delete(pKey);
+
+          if (currNode.c.size === 1) {
+            //
+          }
+        }
+        return true;
+      }
+    } else {
+      const matchingChildKey = currNode.c.findKeyHavingSharedPrefix(k);
+      if (matchingChildKey) {
+        const sharedPrefix = longestSharedPrefix(matchingChildKey, k);
+        if (sharedPrefix === matchingChildKey) {
+          return this._delete(
+            k.slice(matchingChildKey.length),
+            currNode.c.get(matchingChildKey),
+            [currNode, matchingChildKey],
+            [parent,   pKey]
+          );
+        }
+      }
+    }
+
+    return false;
   }
 }
 

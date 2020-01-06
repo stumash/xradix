@@ -127,3 +127,10 @@ module.exports = {
  * @property {any}            value
  * @property {RadixNodeEdges} edges
  */
+
+/**
+ * @typedef {Object} searchRootMatch
+ *
+ * @property {string}    extraPrefix
+ * @property {RadixNode} searchRoot
+ */

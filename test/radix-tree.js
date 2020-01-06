@@ -1,6 +1,8 @@
 const assert = require("assert");
 
 const { RadixTree } = require("~/src/radix-tree.js");
+const { defaultPruner } = require("~/src/utils.js");
+const { SEARCH_TYPES } = require("~/src/constants.js");
 
 describe("RadixTree", () => {
   describe(".set(k, v) .get(k)", () => {
@@ -167,6 +169,46 @@ describe("RadixTree", () => {
       assert(undefined === rt.getSearchRoot("abd"));
       assert(undefined === rt.getSearchRoot("xxxxx"));
       assert(undefined === rt.getSearchRoot("xy"));
+    });
+  });
+
+  describe(".getAll(prefix, { pruner:defaultPruner, searchType:SEARCH_TYPES.DEPTH_FIRST_POST_ORDER })", () => {
+    const rt = new RadixTree();
+    const kvs = [
+      "foobar", "foobark", "foobaz", "foo",
+      "plop",   "pluck",   "plucky", "plunck"
+    ];
+    kvs.forEach(kv => rt.set(kv, kv));
+
+    const pruner = defaultPruner;
+    const searchType = SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
+    const config = { pruner, searchType };
+
+    it("should yield no elements when the prefix is not in the tree", () => {
+      let enteredLoop = false;
+
+      for (const _ of rt.getAll("junk", config)) {
+        enteredLoop = true;
+      }
+
+      assert(!enteredLoop);
+    });
+
+    it("should yield a prefixMatch for every value in the tree when prefix is ''", () => {
+      const vals = new Set();
+      for (const { value } of rt.getAll("", { pruner, searchType })) {
+        vals.add(value);
+      }
+
+      kvs.forEach(kv => assert(vals.has(kv)));
+    });
+
+    it("should yield all prefixMatch objects for which their key k starts with prefix", () => {
+      for (const k of kvs) {
+        for (const { value } of rt.getAll(k)) {
+          assert(value.startsWith(k));
+        }
+      }
     });
   });
 });

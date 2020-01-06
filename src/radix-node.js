@@ -91,7 +91,7 @@ class RadixNode {
   *_subtreeTraverseDfs(depth, prefix, pruner, preNotPost) {
     if (pruner(depth, prefix, this.b, this.v, this.c)) {
       if (preNotPost) {
-        yield {depth, prefix, b:this.b, v:this.v, edges:this.c};
+        yield {depth, prefix, hasValue:this.b, value:this.v, edges:this.c};
       }
 
       for (const [k,node] of this.c.entries()) {
@@ -99,7 +99,7 @@ class RadixNode {
       }
 
       if (!preNotPost) {
-        yield {depth, prefix, b:this.b, v:this.v, edges:this.c};
+        yield {depth, prefix, hasValue:this.b, value:this.v, edges:this.c};
       }
     }
   }

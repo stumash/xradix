@@ -9,7 +9,7 @@ const DEPTH_FIRST_POST_ORDER = "POST_ORDER";
 module.exports = {
   /** @type {Object<string,searchType>} */
   SEARCH_TYPES: {
-    /** @type {breadfirst} */
+    /** @type {breadthfirst} */
     BREADTH_FIRST,
     /** @type {depthfirstpre} */
     DEPTH_FIRST_PRE_ORDER,
@@ -19,11 +19,11 @@ module.exports = {
 };
 
 /**
- * @typedef {breadfirst|depthfirstpre|depthfirstpost} searchType
+ * @typedef {breadthfirst|depthfirstpre|depthfirstpost} searchType
  */
 
 /**
- * @typedef {string} breadfirst
+ * @typedef {string} breadthfirst
  */
 
 /**
