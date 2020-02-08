@@ -160,13 +160,12 @@ class RadixTree {
       return this._delete(
         k,
         this.root,
-        [undefined, undefined],
         [undefined, undefined]
       );
     }
   }
 
-  _delete(k, currNode, [parent, pKey], [grandparent, gpKey]) {
+  _delete(k, currNode, [parent, pKey]) {
     // TODO FIXME
     if (k.length === 0) {
       if (currNode.b) {
@@ -174,13 +173,11 @@ class RadixTree {
         currNode.b = false;
         currNode.v = undefined;
 
-        if (currNode.c.size < 2) {
+        if (currNode.c.size === 1) {
+        } else if (currNode.c.size === 0) {
           parent.c.delete(pKey);
-
-          if (currNode.c.size === 1) {
-            //
-          }
         }
+
         return true;
       }
     } else {
@@ -191,8 +188,7 @@ class RadixTree {
           return this._delete(
             k.slice(matchingChildKey.length),
             currNode.c.get(matchingChildKey),
-            [currNode, matchingChildKey],
-            [parent,   pKey]
+            [currNode, matchingChildKey]
           );
         }
       }
