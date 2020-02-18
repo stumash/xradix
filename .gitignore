@@ -1,1 +1,6 @@
+# javascript
 node_modules/
+
+# intellij
+.idea/
+*iml
