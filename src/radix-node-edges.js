@@ -59,15 +59,23 @@ class RadixNodeEdges {
   }
 
   /**
-   * @param {string} k - the key to use to delete
+   * Delete a key from this RadixNodeEdges. Cannot corrupt the state of the edges list.
+   *
+   * @param {string} k - the key to delete
    *
    * @returns {boolean} - true if the deletion succeeded, else false
    */
   delete(k) {
-    return (
-      this.m.has(k)    && this.firstCharToKeyMap.has(k[0])    &&
-      this.m.delete(k) && this.firstCharToKeyMap.delete(k[0])
-    );
+    if (this.m.has(k) && this.firstCharToKeyMap.has(k[0])) {
+      if (this.m.delete(k)) {
+        if (this.firstCharToKeyMap.delete(k[0])) {
+          return true;
+        } else {
+          this.m.set(k)
+        }
+      }
+    }
+    return false;
   }
 
   /**

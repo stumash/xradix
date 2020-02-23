@@ -114,15 +114,15 @@ module.exports = {
  * @property {RadixNode} 1
  *
  * @example
- * // an array of size 2 is a valid knpair
+ * // an array of type [string, RadixNode] is a valid knpair
  * const knpair = ["hello", new RadixNode()]
  */
 
 /**
- * @typedef {Object} prefixMatch
+ * @typedef {Object} keyMatch
  *
  * @property {number}         depth
- * @property {string}         prefix
+ * @property {string}         key
  * @property {boolean}        hasValue
  * @property {any}            value
  * @property {RadixNodeEdges} edges

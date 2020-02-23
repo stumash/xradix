@@ -53,33 +53,45 @@ class RadixTree {
   /**
    * Return the value associated to a key in the RadixTree.
    *
-   * @param   {string} k      the key to look for. must have length > 0
-   * @returns {any|undefined} the value associated to the key. if key not found, return undefined
+   * @param   {string}  k                       the key to look for. must have length > 0
+   * @param   {object}  [config={}]             the config object
+   * @param   {boolean} [config.allNodes=false]
+   *
+   * @returns {keyMatch|undefined} the keyMatch for the given key k. if k not found, return undefined
    */
-  get(k) {
+  get(k, config={}) {
+    const allNodes = config.allNodes || false;
+    const newConfig = { allNodes };
+
     if (k.length > 0) {
-      return this._get(k, this.root);
+      return this._get(k, k, this.root, 0, newConfig);
     }
   }
 
-  _get(k, currNode) {
+  _get(fullKey, k, currNode, depth, config) {
     if (k.length === 0) {
-      if (currNode.b) {
-        return currNode.v;
+      if (currNode.b || config.allNodes) {
+        return { depth, key: fullKey, hasValue: currNode.b, value: currNode.v, edges: currNode.c };
       }
     } else {
       const matchingChildKey = currNode.c.findKeyHavingSharedPrefix(k);
       if (matchingChildKey) {
         const sharedPrefix = longestSharedPrefix(matchingChildKey, k);
         if (sharedPrefix === matchingChildKey) {
-          return this._get(k.slice(sharedPrefix.length), currNode.c.get(sharedPrefix));
+          return this._get(
+              fullKey,
+              k.slice(sharedPrefix.length),
+              currNode.c.get(sharedPrefix),
+              depth+1,
+              config
+          );
         }
       }
     }
   }
 
   /**
-   * Get the prefixMatch object for every [k,v] pair where k.startsWith(prefix).
+   * Get the keyMatch object for every [k,v] pair where k.startsWith(prefix).
    *
    * @generator
    *
@@ -87,9 +99,11 @@ class RadixTree {
    * @param {Object}     [config={}]         the config object
    * @param {pruner}     [config.pruner]     prune nodes from traversal
    * @param {searchType} [config.searchType] the type of tree traversal to do, must be in constants.SEARCH_TYPES
-   * @param {boolean}    [config.allNodes]   include prefixMatch objects for all nodes, not just those having values
+   * @param {boolean}    [config.allNodes]   include keyMatch objects for all nodes, not just those having values
    *
-   * @yields {prefixMatch}
+   * @yields {keyMatch} the keyMatch object for each key in the RadixTree that starts with prefix
+   *
+   * @desc Note: the depth property of the keyMatch is relative to the searchRoot of the given prefix.
    */
   *getAll(prefix, config={}) {
     const pruner = config.pruner || defaultPruner;
@@ -101,9 +115,9 @@ class RadixTree {
     if (result) {
       const { extraPrefix, searchRoot } = result;
       const searchRootPrefix = prefix + extraPrefix;
-      for (const prefixMatch of searchRoot.subtreeTraverse(searchRootPrefix, newConfig)) {
-        if (config.allNodes || prefixMatch.hasValue) {
-          yield prefixMatch;
+      for (const keyMatch of searchRoot.subtreeTraverse(searchRootPrefix, newConfig)) {
+        if (newConfig.allNodes || keyMatch.hasValue) {
+          yield keyMatch;
         }
       }
     }
@@ -165,19 +179,24 @@ class RadixTree {
     }
   }
 
-  _delete(k, currNode, [parent, pKey]) {
-    // TODO FIXME
+  _delete(k, currNode, [parent, parentKey]) {
     if (k.length === 0) {
       if (currNode.b) {
-        // TODO: do deletion
         currNode.b = false;
         currNode.v = undefined;
-
         if (currNode.c.size === 1) {
+          const [childKey, child] = currNode.c.entries().next().value;
+          if (!currNode.c.delete(childKey)) {
+            return false;
+          }
+          if (!parent.c.delete(parentKey)) {
+            return false;
+          }
+          const newChildKey = parentKey + childKey;
+          parent.c.set(newChildKey, child);
         } else if (currNode.c.size === 0) {
-          parent.c.delete(pKey);
+          parent.c.delete(parentKey);
         }
-
         return true;
       }
     } else {

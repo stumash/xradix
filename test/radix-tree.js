@@ -5,7 +5,7 @@ const { defaultPruner } = require("~/src/utils.js");
 const { SEARCH_TYPES } = require("~/src/constants.js");
 
 describe("RadixTree", () => {
-  describe(".set(k, v) .get(k)", () => {
+  describe(".set(k, v) and .get(k)", () => {
     let rt;
 
     beforeEach(() => {
@@ -25,7 +25,7 @@ describe("RadixTree", () => {
 
       it("should retrieve every value for every inserted k,v pair", () => {
         orthogonal_kvpairs.forEach(([k, v]) => {
-          assert(rt.get(k) === v)
+          assert(rt.get(k).value === v)
         });
       });
 
@@ -61,7 +61,7 @@ describe("RadixTree", () => {
           rt.set(k, v);
         });
         kvpairs.forEach(([k, v]) => {
-          assert(rt.get(k) === v);
+          assert(rt.get(k).value === v);
         });
       });
 
@@ -70,7 +70,7 @@ describe("RadixTree", () => {
           rt.set(k, v);
         });
         kvpairs.forEach(([k, v]) => {
-          assert(rt.get(k) === v);
+          assert(rt.get(k).value === v);
         });
       });
 
@@ -210,5 +210,49 @@ describe("RadixTree", () => {
         }
       }
     });
+  });
+
+  describe(".delete(k)", () => {
+    let rt;
+    const keys = [
+      "foobar", "foobark", "foobaz", "foo",
+      "plop",   "pluck",   "plucky", "plunck"
+    ];
+
+    beforeEach(() => {
+      rt = new RadixTree(keys.map(k => [k, true]));
+    });
+
+    it("should find all keys before deletion", () => {
+      keys.forEach(k => assert(rt.get(k)));
+    });
+
+    it("should find all remaining keys after each deletion", () => {
+      let remainingKvs = keys.map(kv => kv);
+      keys.forEach(kv => {
+        rt.delete(kv);
+        remainingKvs.splice(remainingKvs.indexOf(kv), 1); // remove kv from remainingKvs
+
+        remainingKvs.forEach(remainingKv => {
+          assert(rt.get(remainingKv))
+        });
+      });
+    });
+
+    it("should not find any deleted keys after each deletion", () => {
+      let deletedKvs = [];
+      keys.forEach(kv => {
+        deletedKvs.push(kv);
+        rt.delete(kv);
+
+        deletedKvs.forEach(kv => {
+            assert(rt.get(kv) === undefined) // not found
+        })
+      });
+    });
+  });
+
+  describe("integration tests", () => {
+    // TODO FIXME
   });
 });

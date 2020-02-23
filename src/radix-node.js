@@ -47,7 +47,7 @@ class RadixNode {
    * @param {pruner}     [config.pruner]     - prune nodes tree using this function. false to prune, true to keep
    * @param {searchType} [config.searchType] - the type of tree traversal to do. Must be in constants.SEARCH_TYPES
    *
-   * @yields {prefixMatch}
+   * @yields {keyMatch}
    */
   *subtreeTraverse(prefix="", config={}) {
     const pruner = config.pruner || defaultPruner;
