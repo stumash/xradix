@@ -421,7 +421,7 @@
 
     
 
-    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(k)</span><span class="type-signature"> &rarr; {any|undefined}</span></h4>
+    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(k, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#keyMatch">keyMatch</a>|undefined}</span></h4>
 
     
 
@@ -433,7 +433,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line59">line 59</a>
+        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line62">line 62</a>
     </li></ul></dd>
     
 
@@ -499,7 +499,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -524,10 +528,130 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last"><p>the key to look for. must have length &gt; 0</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>{}</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>the config object</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>allNodes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>false</code>
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -553,7 +677,7 @@
 
         
 <div class="param-desc">
-    <p>the value associated to the key. if key not found, return undefined</p>
+    <p>the keyMatch for the given key k. if k not found, return undefined</p>
 </div>
 
 
@@ -564,7 +688,7 @@
     </dt>
     <dd>
         
-<span class="param-type">any</span>
+<span class="param-type"><a href="global.html#keyMatch">keyMatch</a></span>
 |
 
 <span class="param-type">undefined</span>
@@ -594,7 +718,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line96">line 96</a>
+        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line108">line 108</a>
     </li></ul></dd>
     
 
@@ -634,7 +758,7 @@
 
 
 <div class="description usertext">
-    <p>Note: the <code>depth</code> of the <code>keyMatch</code> is relative to the searchRoot of the given prefix.</p>
+    <p>Note: the depth property of the keyMatch is relative to the searchRoot of the given prefix.</p>
 </div>
 
 
@@ -898,7 +1022,7 @@
 		
         
 <div class="param-desc">
-    the <code>keyMatch</code> object for each key in the RadixTree that starts with <code>prefix</code>
+    the keyMatch object for each key in the RadixTree that starts with prefix
 </div>
 
 
@@ -934,7 +1058,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line126">line 126</a>
+        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line138">line 138</a>
     </li></ul></dd>
     
 
@@ -1095,7 +1219,7 @@ start with &quot;abc&quot;, since there were no other keys that start with &quot
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line158">line 158</a>
+        <a href="radix-tree.js.html">radix-tree.js</a>, <a href="radix-tree.js.html#line170">line 170</a>
     </li></ul></dd>
     
 
@@ -1256,7 +1380,7 @@ start with &quot;abc&quot;, since there were no other keys that start with &quot
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sat Feb 22 2020 21:06:47 GMT-0500 (GMT-05:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sat Feb 22 2020 22:50:12 GMT-0500 (GMT-05:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
