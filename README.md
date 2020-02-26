@@ -11,7 +11,7 @@ This data structure is a performant and simple choice for implementing autocompl
 ## Examples
 
 ```javascript
-const {RadixTree } = require('xradix');
+const { RadixTree } = require('xradix');
 
 const rt = new RadixTree();
 rt.set("xx",     1);        // equivalently,
