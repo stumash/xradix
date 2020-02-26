@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "mocha",
-    "docs": "rm -rf docs/* && jsdoc --readme README.md src/index.js -c jsdoc.json"
+    "docs": "rm -rf docs/*s/ docs/*.html && jsdoc --readme README.md src/index.js -c jsdoc.json"
   },
   "keywords": [
     "compressed prefix tree",

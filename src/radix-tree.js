@@ -107,7 +107,7 @@ class RadixTree {
    */
   *getAll(prefix, config={}) {
     const pruner = config.pruner || defaultPruner;
-    const searchType = config.searchType || SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
+    const searchType = config.searchType || SEARCH_TYPES.DEPTH_FIRST_PRE_ORDER;
     const allNodes = config.allNodes || false;
     const newConfig = { pruner, searchType, allNodes };
 
