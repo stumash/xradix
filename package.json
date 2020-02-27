@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "mocha",
-    "docs": "rm -rf docs/*s/ docs/*.html && jsdoc --readme README.md src/index.js -c jsdoc.json"
+    "docs": "rm -rf docs && jsdoc --readme README.md src/index.js -c jsdoc.json"
   },
   "keywords": [
     "compressed prefix tree",
@@ -24,11 +24,9 @@
   "author": "Stuart Mashaal <stuart.mashaal@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "coveralls": "^3.0.9",
     "docdash": "^1.1.1",
     "jsdoc": "^3.6.3",
-    "mocha": "^6.2.2",
-    "mocha-lcov-reporter": "^1.3.0"
+    "mocha": "^6.2.2"
   },
   "dependencies": {
     "double-ended-queue": "^2.1.0-0",
