@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/stumash/xradix.svg?branch=master)](https://travis-ci.com/stumash/xradix)
-[![Coverage Status](https://coveralls.io/repos/github/stumash/xradix/badge.svg?branch=master)](https://coveralls.io/github/stumash/xradix?branch=master)
 
 # xradix
 
