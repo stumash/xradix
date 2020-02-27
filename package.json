@@ -2,11 +2,14 @@
   "name": "xradix",
   "version": "1.0.0",
   "description": "an implementation of the radix tree data structure, designed for extensibility",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "mocha",
-    "docs": "rm -rf docs && jsdoc --readme README.md src/index.js -c jsdoc.json"
+  "author": "Stuart Mashaal <stuart.mashaal@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://stumash.github.io/xradix/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stumash/xradix"
   },
+  "bugs": "https://github.com/stumash/xradix/issues",
   "keywords": [
     "compressed prefix tree",
     "prefix tree",
@@ -21,8 +24,11 @@
     "postorder",
     "breadth first"
   ],
-  "author": "Stuart Mashaal <stuart.mashaal@gmail.com>",
-  "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha",
+    "docs": "rm -rf docs && jsdoc --readme README.md src/index.js -c jsdoc.json"
+  },
   "devDependencies": {
     "docdash": "^1.1.1",
     "jsdoc": "^3.6.3",
