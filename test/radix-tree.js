@@ -1,8 +1,8 @@
 const assert = require("assert");
 
-const { RadixTree } = require("~/src/radix-tree.js");
-const { defaultPruner } = require("~/src/utils.js");
-const { SEARCH_TYPES } = require("~/src/constants.js");
+const { RadixTree } = require("../src/radix-tree");
+const { defaultPruner } = require("../src/utils");
+const { SEARCH_TYPES } = require("../src/constants");
 
 describe("RadixTree", () => {
   describe(".set(k, v) and .get(k)", () => {

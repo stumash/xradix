@@ -1,8 +1,8 @@
 const assert = require("assert");
 
-const { defaultPruner } = require("~/src/utils.js");
-const { RadixNode } = require("~/src/radix-node.js");
-const { SEARCH_TYPES } = require("~/src/constants.js");
+const { defaultPruner } = require("../src/utils");
+const { RadixNode } = require("../src/radix-node");
+const { SEARCH_TYPES } = require("../src/constants");
 
 describe("RadixNode", () => {
   describe(".addPrefixToChild(prefix, child)", () => {

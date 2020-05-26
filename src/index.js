@@ -1,5 +1,5 @@
-const { RadixTree } = require("~/src/radix-tree.js");
-const { SEARCH_TYPES } = require("~/src/constants.js")
+const { RadixTree } = require("./radix-tree");
+const { SEARCH_TYPES } = require("./constants")
 
 module.exports = {
   RadixTree,
