@@ -35,8 +35,7 @@
     "mocha": "^6.2.2"
   },
   "dependencies": {
-    "double-ended-queue": "^2.1.0-0",
-    "wavy": "^1.0.4"
+    "double-ended-queue": "^2.1.0-0"
   },
   "engine": {
     "node": ">=8.10.0"
