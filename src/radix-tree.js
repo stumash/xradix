@@ -1,6 +1,6 @@
-const { RadixNode } = require("~/src/radix-node.js");
-const { defaultPruner, longestSharedPrefix } = require("~/src/utils.js");
-const { SEARCH_TYPES } = require("~/src/constants.js");
+const { RadixNode } = require("./radix-node");
+const { defaultPruner, longestSharedPrefix } = require("./utils");
+const { SEARCH_TYPES } = require("./constants");
 
 /**
  * The RadixTree class

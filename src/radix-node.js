@@ -1,6 +1,6 @@
-const { SEARCH_TYPES } = require("~/src/constants.js");
-const { defaultPruner } = require("~/src/utils.js");
-const { RadixNodeEdges } = require("~/src/radix-node-edges.js");
+const { SEARCH_TYPES } = require("./constants");
+const { defaultPruner } = require("./utils");
+const { RadixNodeEdges } = require("./radix-node-edges");
 const Deque = require("double-ended-queue");
 
 class RadixNode {

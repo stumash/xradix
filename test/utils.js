@@ -4,7 +4,7 @@ const {
   decreasingPrefixesOf,
   longestSharedPrefix,
   findKeyHavingSharedPrefix,
-} = require("~/src/utils");
+} = require("../src/utils");
 
 describe("utils", () => {
   describe("#increasingPrefixesOf(s)", () => {

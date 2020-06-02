@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { RadixNodeEdges } = require("~/src/radix-node-edges.js");
+const { RadixNodeEdges } = require("../src/radix-node-edges");
 
 describe("RadixNodeEdges", () => {
   describe(".set(k,v) .get(k)", () => {
