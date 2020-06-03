@@ -25,7 +25,7 @@ rt.set("xxCx",   7);        // ])
 
 which creates this tree, whose node depths are marked above it
 
-<!-- some useful unicode characters:   ─ │ ┌ └ ┤ ├   -->
+<!-- some useful unicode characters:   ─ │ ┌ └ ┤ ├ -->
 
 ```
    0            1           2         3         4           5
@@ -47,22 +47,22 @@ rt.get("not in the tree");// undefined
 
 rt.getAll("");
 /* generator* [
-  { key: "xx",     value: 1, depth: 1, ...},          default traversal: DFS pre-order
-  { key: "xxA",    value: 2, depth: 2, ...},          notice the node with no value is skipped
-  { key: "xxB",    value: 3, depth: 2, ...},
-  { key: "xxC",    value: 4, depth: 2, ...},
-  { key: "xxCx",   value: 7, depth: 3, ...},
-  { key: "xxCxx1", value: 5, depth: 4, ...},
-  { key: "xxCxx2", value: 6, depth: 4, ...}
+  { key: "xx",     value: 1, depth: 1, ... },          default traversal: DFS pre-order
+  { key: "xxA",    value: 2, depth: 2, ... },          notice the node with no value is skipped
+  { key: "xxB",    value: 3, depth: 2, ... },
+  { key: "xxC",    value: 4, depth: 2, ... },
+  { key: "xxCx",   value: 7, depth: 3, ... },
+  { key: "xxCxxA", value: 5, depth: 4, ... },
+  { key: "xxCxxB", value: 6, depth: 4, ... }
 ] */
 
 rt.get("xxCxx");// undefined
 rt.get("xxCxx", { allNodes: true });// {key: "xxCxx", value: undefined, depth: 4, ...}
 
-rt.getAll("xxC", { allNodes: true });
+rt.getAll("xxCxx", { allNodes: true });
 /* generator* [
- { key: "xxC",  value: undefined, depth: 0, ... },
- { key: "xxc2", value: 6,         depth: 1, ... },
- { key: "xxC1", value: 5,         depth: 1, ... }     sibling nodes in random order
+ { key: "xxCxx",  value: undefined, depth: 0, ... },
+ { key: "xxcxxA", value: 6,         depth: 1, ... },
+ { key: "xxCxxB", value: 5,         depth: 1, ... }    sibling nodes in random order
 ] */
 ```
