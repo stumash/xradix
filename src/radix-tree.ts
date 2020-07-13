@@ -1,45 +1,48 @@
-const { RadixNode } = require("./radix-node");
-const { defaultPruner, longestSharedPrefix } = require("./utils");
-const { SEARCH_TYPES } = require("./constants");
+import RadixNode from "./radix-node";
+import { defaultPruner, longestSharedPrefix } from "./utils";
+import { SearchType, Pruner, KeyMatch, SearchRootMatch } from "./constants";
 
 /**
  * The RadixTree class
  */
-class RadixTree {
+export default class RadixTree<T> {
+  root: RadixNode<T>;
 
   /**
    * Create a new RadixTree.
    *
-   * @param {Array<kvpair>} [kvpairs=[]] the [key, value] pairs with which to seed the radix tree
+   * @param kvpairs the [key, value] pairs with which to initialize the radix tree
    */
-  constructor(kvpairs=[]) {
-    this.root = new RadixNode();
+  constructor(kvpairs?: Array<[string, T]>) {
+    this.root = new RadixNode<T>();
 
-    for (const [k,v] of kvpairs) {
-      this.set(k, v);
+    if (kvpairs) {
+      for (const [k,v] of kvpairs) {
+        this.set(k, v);
+      }
     }
   }
 
   /**
    * Add a [key, value] pair to the RadixTree.
    *
-   * @param {string}  k  the key to insert into the radix tree. must have length > 0
-   * @param {any}    [v] the value to associate to the key in the radix tree
+   * @param k the key to insert into the radix tree. must have length > 0
+   * @param v the value to associate to the key in the radix tree
    */
-  set(k, v) {
+  set(k: string, v: T) {
     if (k.length > 0) {
       this._set(k, v, this.root);
     }
   }
 
-  _set(k, v, currNode) {
+  _set(k: string, v: T, currNode: RadixNode<T>) {
     if (k.length === 0) {
       currNode.b = true;
       currNode.v = v;
     } else {
       const matchingChildKey = currNode.c.findKeyHavingSharedPrefix(k);
       if (!matchingChildKey) {
-        currNode.c.set(k, new RadixNode({ b:true, v }));
+        currNode.c.set(k, new RadixNode(true, v));
       } else {
         const sharedPrefix = longestSharedPrefix(matchingChildKey, k);
         if (sharedPrefix.length < matchingChildKey.length) {
@@ -53,24 +56,20 @@ class RadixTree {
   /**
    * Return the value associated to a key in the RadixTree.
    *
-   * @param   {string}  k                       the key to look for. must have length > 0
-   * @param   {object}  [config={}]             the config object
-   * @param   {boolean} [config.allNodes=false]
+   * @param k                       the key to look for. must have length > 0
+   * @param allNodes
    *
-   * @returns {keyMatch|undefined} the keyMatch for the given key k. if k not found, return undefined
+   * @returns the keyMatch for the given key k. if k not found, return undefined
    */
-  get(k, config={}) {
-    const allNodes = config.allNodes || false;
-    const newConfig = { allNodes };
-
+  get(k: string, allNodes?: boolean): KeyMatch<T>|undefined {
     if (k.length > 0) {
-      return this._get(k, k, this.root, 0, newConfig);
+      return this._get(k, k, this.root, 0, allNodes||false);
     }
   }
 
-  _get(fullKey, k, currNode, depth, config) {
+  _get(fullKey: string, k: string, currNode: RadixNode<T>, depth: number, allNodes: boolean): KeyMatch<T>|undefined {
     if (k.length === 0) {
-      if (currNode.b || config.allNodes) {
+      if (currNode.b || allNodes) {
         return { depth, key: fullKey, hasValue: currNode.b, value: currNode.v, edges: currNode.c };
       }
     } else {
@@ -83,7 +82,7 @@ class RadixTree {
               k.slice(sharedPrefix.length),
               currNode.c.get(sharedPrefix),
               depth+1,
-              config
+              allNodes
           );
         }
       }
@@ -91,32 +90,35 @@ class RadixTree {
   }
 
   /**
-   * Get the keyMatch object for every [k,v] pair where k.startsWith(prefix).
+   * Get the KeyMatch object for every [k,v] pair where k.startsWith(prefix).
    *
    * @generator
    *
-   * @param {string}     prefix              only return [k, v] pairs where k.startsWith(prefix)
-   * @param {Object}     [config={}]         the config object
-   * @param {pruner}     [config.pruner]     prune nodes from traversal
-   * @param {searchType} [config.searchType] the type of tree traversal to do, must be in constants.SEARCH_TYPES
-   * @param {boolean}    [config.allNodes]   include keyMatch objects for all nodes, not just those having values
+   * @param prefix            only return KeyMatch for keys k where k.startsWith(prefix)
+   * @param config            configuration for behavior of this function
+   * @param config.pruner     prune nodes from traversal
+   * @param config.searchType the type of tree traversal to do, must be in constants.SEARCH_TYPES
+   * @param config.allNodes   include keyMatch objects for all nodes, not just those having values
    *
-   * @yields {keyMatch} the keyMatch object for each key in the RadixTree that starts with prefix
+   * @yields the KeyMatch object for each key in the RadixTree that starts with prefix
    *
-   * @desc Note: the depth property of the keyMatch is relative to the searchRoot of the given prefix.
+   * @desc Note: the depth property of the KeyMatch is relative to the searchRoot of the given prefix.
    */
-  *getAll(prefix, config={}) {
+  *getAll(
+    prefix: string,
+    config: { pruner?: Pruner<T>, searchType?: SearchType, allNodes?: boolean }={}
+  ): IterableIterator<KeyMatch<T>>
+  {
     const pruner = config.pruner || defaultPruner;
-    const searchType = config.searchType || SEARCH_TYPES.DEPTH_FIRST_PRE_ORDER;
+    const searchType = config.searchType || SearchType.DepthFirstPreorder;
     const allNodes = config.allNodes || false;
-    const newConfig = { pruner, searchType, allNodes };
 
     const result = this.getSearchRoot(prefix);
     if (result) {
       const { extraPrefix, searchRoot } = result;
       const searchRootPrefix = prefix + extraPrefix;
-      for (const keyMatch of searchRoot.subtreeTraverse(searchRootPrefix, newConfig)) {
-        if (newConfig.allNodes || keyMatch.hasValue) {
+      for (const keyMatch of searchRoot.subtreeTraverse(searchRootPrefix, {pruner, searchType})) {
+        if (allNodes || keyMatch.hasValue) {
           yield keyMatch;
         }
       }
@@ -131,15 +133,13 @@ class RadixTree {
    * be the node matching "abcd". The "abcd" node would be the root of the subtree containing all nodes whose keys
    * start with "abc", since there were no other keys that start with "abc" other than "abcd" and its children.
    *
-   * @param   {string} prefix the prefix for which to find the searchRoot
-   *
-   * @returns {searchRootMatch|undefined}
+   * @param   prefix the prefix for which to find the searchRoot
    */
-  getSearchRoot(prefix) {
+  getSearchRoot(prefix: string): SearchRootMatch<T>|undefined {
     return this._getSearchRoot(prefix, this.root);
   }
 
-  _getSearchRoot(k, currNode) {
+  _getSearchRoot(k: string, currNode: RadixNode<T>): SearchRootMatch<T>|undefined {
     if (k.length === 0) {
       return { extraPrefix: k, searchRoot: currNode };
     } else {
@@ -163,11 +163,11 @@ class RadixTree {
   /**
    * Delete the k,v pair for the given key k from the radix tree.
    *
-   * @param {string} k the key to delete from the radix tree
+   * @param   k the key to delete from the radix tree
    *
-   * @returns {boolean} true if success, false if key k to delete not found
+   * @returns true if success, false if k not found
    */
-  delete(k) {
+  delete(k: string): boolean {
     if (k.length === 0) {
       return false;
     } else {
@@ -179,7 +179,7 @@ class RadixTree {
     }
   }
 
-  _delete(k, currNode, [parent, parentKey]) {
+  _delete(k: string, currNode: RadixNode<T>, [parent, parentKey]: [RadixNode<T>, string]): boolean {
     if (k.length === 0) {
       if (currNode.b) {
         currNode.b = false;
@@ -216,5 +216,3 @@ class RadixTree {
     return false;
   }
 }
-
-module.exports = { RadixTree };

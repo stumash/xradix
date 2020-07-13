@@ -24,20 +24,28 @@
     "postorder",
     "breadth first"
   ],
-  "main": "src/index.js",
+  "main": "out/src/index.js",
+  "types": "out/src/index.d.ts",
   "scripts": {
-    "test": "mocha",
-    "docs": "rm -rf docs && jsdoc --readme README.md src/index.js -c jsdoc.json"
+    "test": "mocha out/test/*js",
+    "tsc": "tsc",
+    "build": "npm run tsc",
+    "clean": "rm -rf out",
+    "cb": "npm run clean && npm run build",
+    "ct": "npm run cb && npm run test",
+    "prepare": "npm run tsc"
   },
   "devDependencies": {
-    "docdash": "^1.1.1",
-    "jsdoc": "^3.6.3",
-    "mocha": "^6.2.2"
+    "@types/double-ended-queue": "^2.1.1",
+    "@types/mocha": "^8.0.0",
+    "@types/node": "^14.0.22",
+    "mocha": "^6.2.2",
+    "typescript": "^3.9.6"
   },
   "dependencies": {
     "double-ended-queue": "^2.1.0-0"
   },
   "engine": {
-    "node": ">=8.10.0"
+    "node": ">=12.13.0"
   }
 }

@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ES6",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+        "outDir": "out",
+        "declaration": true,
+        "declarationDir": "out",
+        "esModuleInterop": true
+    },
+    "include": [
+        "src/*",
+        "test/*"
+    ]
+}

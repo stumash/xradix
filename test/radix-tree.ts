@@ -1,12 +1,11 @@
-const assert = require("assert");
-
-const { RadixTree } = require("../src/radix-tree");
-const { defaultPruner } = require("../src/utils");
-const { SEARCH_TYPES } = require("../src/constants");
+import { strict as assert } from "assert";
+import RadixTree from "../src/radix-tree";
+import { defaultPruner } from "../src/utils";
+import { SearchType } from "../src/constants";
 
 describe("RadixTree", () => {
   describe(".set(k, v) and .get(k)", () => {
-    let rt;
+    let rt: RadixTree<string>;
 
     beforeEach(() => {
       rt = new RadixTree();
@@ -30,7 +29,7 @@ describe("RadixTree", () => {
       });
 
       it("should have depth 1", () => {
-        orthogonal_kvpairs.forEach(([k, v]) => {
+        orthogonal_kvpairs.forEach(([k, _]) => {
           assert(rt.root.c.get(k).c.size === 0);
         });
       });
@@ -126,7 +125,7 @@ describe("RadixTree", () => {
       ["xxxx", "val5"],
     ]
 
-    let rt;
+    let rt: RadixTree<string>;
     beforeEach(() => {
       rt = new RadixTree();
       kvpairs.forEach(([k,v]) => rt.set(k, v));
@@ -172,8 +171,8 @@ describe("RadixTree", () => {
     });
   });
 
-  describe(".getAll(prefix, { pruner:defaultPruner, searchType:SEARCH_TYPES.DEPTH_FIRST_POST_ORDER })", () => {
-    const rt = new RadixTree();
+  describe(".getAll(prefix, { pruner:defaultPruner, searchType:SearchType.DepthFirstPostorder })", () => {
+    const rt = new RadixTree<string>();
     const kvs = [
       "foobar", "foobark", "foobaz", "foo",
       "plop",   "pluck",   "plucky", "plunck"
@@ -181,7 +180,7 @@ describe("RadixTree", () => {
     kvs.forEach(kv => rt.set(kv, kv));
 
     const pruner = defaultPruner;
-    const searchType = SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
+    const searchType = SearchType.DepthFirstPostorder;
     const config = { pruner, searchType };
 
     it("should yield no elements when the prefix is not in the tree", () => {
@@ -213,7 +212,7 @@ describe("RadixTree", () => {
   });
 
   describe(".delete(k)", () => {
-    let rt;
+    let rt: RadixTree<boolean>;
     const keys = [
       "foobar", "foobark", "foobaz", "foo",
       "plop",   "pluck",   "plucky", "plunck"
@@ -240,7 +239,7 @@ describe("RadixTree", () => {
     });
 
     it("should not find any deleted keys after each deletion", () => {
-      let deletedKvs = [];
+      let deletedKvs: Array<string> = [];
       keys.forEach(kv => {
         deletedKvs.push(kv);
         rt.delete(kv);

@@ -1,8 +1,7 @@
-const assert = require("assert");
-
-const { defaultPruner } = require("../src/utils");
-const { RadixNode } = require("../src/radix-node");
-const { SEARCH_TYPES } = require("../src/constants");
+import { strict as assert } from "assert";
+import { defaultPruner } from "../src/utils";
+import RadixNode from "../src/radix-node";
+import { SearchType } from "../src/constants";
 
 describe("RadixNode", () => {
   describe(".addPrefixToChild(prefix, child)", () => {
@@ -11,7 +10,7 @@ describe("RadixNode", () => {
       const value = "xxx";
       const prefix = "test";
 
-      const childNode = new RadixNode({ b:true, v:value })
+      const childNode = new RadixNode(true, value)
       const node = new RadixNode();
       node.c.set(originalKey, childNode);
 
@@ -22,10 +21,10 @@ describe("RadixNode", () => {
   });
 
   describe(".subtreeTraverse(prefix, filter, searchType)", () => {
-    let root;
-    let parent;
-    let children;
-    let grandchildren;
+    let root: RadixNode<{ val: string, children?: Array<string>}>;
+    let parent: RadixNode<{ val: string, children?: Array<string>}>;
+    let children: Array<RadixNode<{ val: string, children?: Array<string>}>>;
+    let grandchildren: Array<RadixNode<{ val: string, children?: Array<string>}>>;
 
     before(() => {
       // build the "tree" (just the nodes) for the following entries:
@@ -36,31 +35,31 @@ describe("RadixNode", () => {
       //   Xb1:val6, Xb2:val7
 
       grandchildren = [
-        new RadixNode({ b: true, v: { val: "val4" } }),
-        new RadixNode({ b: true, v: { val: "val5" } }),
-        new RadixNode({ b: true, v: { val: "val6" } }),
-        new RadixNode({ b: true, v: { val: "val7" } }),
+        new RadixNode(true, { val: "val4" }),
+        new RadixNode(true, { val: "val5" } ),
+        new RadixNode(true, { val: "val6" } ),
+        new RadixNode(true, { val: "val7" } ),
       ];
 
       children = [
-        new RadixNode({ b: true, v: { val: "val2", children: ["val4", "val5"] }, c: [
+        new RadixNode( true, { val: "val2", children: ["val4", "val5"] }, [
           ["1", grandchildren[0]],
           ["2", grandchildren[1]],
-        ] }),
-        new RadixNode({ b: true, v: { val: "val3", children: ["val6", "val7"] }, c: [
+        ] ),
+        new RadixNode( true, { val: "val3", children: ["val6", "val7"] }, [
           ["1", grandchildren[2]],
           ["2", grandchildren[3]],
-        ] })
+        ] )
       ];
 
-      parent = new RadixNode({ b: true, v: { val: "val1", children: ["val2", "val3"] }, c: [
+      parent = new RadixNode( true, { val: "val1", children: ["val2", "val3"] }, [
         ["a", children[0]],
         ["b", children[1]],
-      ] });
+      ] );
 
-      root = new RadixNode({ b: true, v: { val: "val0", children: ["val1"] }, c: [
+      root = new RadixNode( true, { val: "val0", children: ["val1"] }, [
         ["X", parent],
-      ] });
+      ] );
     });
 
     describe("depth first search - post order", () => {
@@ -69,7 +68,7 @@ describe("RadixNode", () => {
         const visited = new Set();
 
         const pruner = defaultPruner;
-        const searchType = SEARCH_TYPES.DEPTH_FIRST_POST_ORDER;
+        const searchType = SearchType.DepthFirstPostorder;
         const config = { pruner, searchType };
 
         for (let {hasValue, value} of root.subtreeTraverse("", config)) {
@@ -91,7 +90,7 @@ describe("RadixNode", () => {
         const visited = new Set();
 
         const pruner = defaultPruner;
-        const searchType = SEARCH_TYPES.DEPTH_FIRST_PRE_ORDER;
+        const searchType = SearchType.DepthFirstPreorder;
         const config = { pruner, searchType };
 
         for (let {hasValue, value} of root.subtreeTraverse("", config)) {
@@ -113,7 +112,7 @@ describe("RadixNode", () => {
         const visitedDepths = new Set();
 
         const pruner = defaultPruner;
-        const searchType = SEARCH_TYPES.BREADTH_FIRST;
+        const searchType = SearchType.BreadFirst;
         const config = { pruner, searchType };
 
         for (let {depth, hasValue, value} of root.subtreeTraverse("", config)) {

@@ -1,10 +1,5 @@
-const assert = require("assert");
-const {
-  increasingPrefixesOf,
-  decreasingPrefixesOf,
-  longestSharedPrefix,
-  findKeyHavingSharedPrefix,
-} = require("../src/utils");
+import { strict as assert } from "assert";
+import { increasingPrefixesOf, decreasingPrefixesOf, longestSharedPrefix } from "../src/utils";
 
 describe("utils", () => {
   describe("#increasingPrefixesOf(s)", () => {
