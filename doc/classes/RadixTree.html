@@ -1,0 +1,1356 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>xradix documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">xradix documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Classes</li>
+  <li>RadixTree</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/radix-tree.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The RadixTree class</p>
+
+            </p>
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#root">root</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#_delete">_delete</a>
+                            </li>
+                            <li>
+                                <a href="#_get">_get</a>
+                            </li>
+                            <li>
+                                <a href="#_getSearchRoot">_getSearchRoot</a>
+                            </li>
+                            <li>
+                                <a href="#_set">_set</a>
+                            </li>
+                            <li>
+                                <a href="#delete">delete</a>
+                            </li>
+                            <li>
+                                <a href="#get">get</a>
+                            </li>
+                            <li>
+                                <a href="#getAll">getAll</a>
+                            </li>
+                            <li>
+                                <a href="#getSearchRoot">getSearchRoot</a>
+                            </li>
+                            <li>
+                                <a href="#set">set</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(kvpairs?: Array<>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/radix-tree.ts:9</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Create a new RadixTree.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>kvpairs</td>
+                                                  
+                                                        <td>
+                                                                    <code>Array&lt;&gt;</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            Yes
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>the [key, value] pairs with which to initialize the radix tree</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="root"></a>
+                        <span class="name">
+                            <b>
+                            root</b>
+                            <a href="#root"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/RadixNode.html" target="_self" >RadixNode&lt;T&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/radix-tree.ts:9</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_delete"></a>
+                    <span class="name">
+                        <b>
+                            _delete
+                        </b>
+                        <a href="#_delete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>_delete(k: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, currNode: <a href="../classes/RadixNode.html">RadixNode<T></a>, undefined: <a href="../classes/RadixNode.html">[RadixNode, string]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="182"
+                            class="link-to-prism">src/radix-tree.ts:182</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>k</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>currNode</td>
+                                    <td>
+                                                <code><a href="../classes/RadixNode.html" target="_self" >RadixNode&lt;T&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                                <code><a href="../classes/RadixNode.html" target="_self" >[RadixNode, string]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_get"></a>
+                    <span class="name">
+                        <b>
+                            _get
+                        </b>
+                        <a href="#_get"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>_get(fullKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, k: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, currNode: <a href="../classes/RadixNode.html">RadixNode<T></a>, depth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, allNodes: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="70"
+                            class="link-to-prism">src/radix-tree.ts:70</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>fullKey</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>k</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>currNode</td>
+                                    <td>
+                                                <code><a href="../classes/RadixNode.html" target="_self" >RadixNode&lt;T&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>depth</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>allNodes</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#KeyMatch" target="_self" >KeyMatch | undefined</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_getSearchRoot"></a>
+                    <span class="name">
+                        <b>
+                            _getSearchRoot
+                        </b>
+                        <a href="#_getSearchRoot"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>_getSearchRoot(k: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, currNode: <a href="../classes/RadixNode.html">RadixNode<T></a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="142"
+                            class="link-to-prism">src/radix-tree.ts:142</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>k</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>currNode</td>
+                                    <td>
+                                                <code><a href="../classes/RadixNode.html" target="_self" >RadixNode&lt;T&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#SearchRootMatch" target="_self" >SearchRootMatch | undefined</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_set"></a>
+                    <span class="name">
+                        <b>
+                            _set
+                        </b>
+                        <a href="#_set"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>_set(k: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, v: T, currNode: <a href="../classes/RadixNode.html">RadixNode<T></a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">src/radix-tree.ts:38</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>k</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>v</td>
+                                    <td>
+                                            <code>T</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>currNode</td>
+                                    <td>
+                                                <code><a href="../classes/RadixNode.html" target="_self" >RadixNode&lt;T&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="delete"></a>
+                    <span class="name">
+                        <b>
+                            delete
+                        </b>
+                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>delete(k: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="170"
+                            class="link-to-prism">src/radix-tree.ts:170</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Delete the k,v pair for the given key k from the radix tree.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>k</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>the key to delete from the radix tree</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>true if success, false if k not found</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="get"></a>
+                    <span class="name">
+                        <b>
+                            get
+                        </b>
+                        <a href="#get"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>get(k: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, allNodes?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="64"
+                            class="link-to-prism">src/radix-tree.ts:64</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Return the value associated to a key in the RadixTree.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>k</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>the key to look for. must have length &gt; 0</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>allNodes</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                    <td>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#KeyMatch" target="_self" >KeyMatch | undefined</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the keyMatch for the given key k. if k not found, return undefined</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAll"></a>
+                    <span class="name">
+                        <b>
+                            getAll
+                        </b>
+                        <a href="#getAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAll(prefix: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, config: literal type)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="107"
+                            class="link-to-prism">src/radix-tree.ts:107</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Get the KeyMatch object for every [k,v] pair where k.startsWith(prefix).</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>prefix</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>only return KeyMatch for keys k where k.startsWith(prefix)</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>config</td>
+                                    <td>
+                                            <code>literal type</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>{}</code>
+                                    </td>
+
+                                    <td>
+                                        <p>configuration for behavior of this function</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#KeyMatch" target="_self" >IterableIterator&lt;KeyMatch&lt;T&gt;&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSearchRoot"></a>
+                    <span class="name">
+                        <b>
+                            getSearchRoot
+                        </b>
+                        <a href="#getSearchRoot"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getSearchRoot(prefix: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="138"
+                            class="link-to-prism">src/radix-tree.ts:138</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>For a given prefix, find the shallowest node in the radix tree whose key either matches the prefix exactly
+or is the shortest matching key that is longer than the prefix.</p>
+<p>For example, if &quot;ab&quot; and &quot;abcd&quot; are inserted into the radix tree, the search root of the prefix &quot;abc&quot; would
+be the node matching &quot;abcd&quot;. The &quot;abcd&quot; node would be the root of the subtree containing all nodes whose keys
+start with &quot;abc&quot;, since there were no other keys that start with &quot;abc&quot; other than &quot;abcd&quot; and its children.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>prefix</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>the prefix for which to find the searchRoot</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#SearchRootMatch" target="_self" >SearchRootMatch | undefined</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="set"></a>
+                    <span class="name">
+                        <b>
+                            set
+                        </b>
+                        <a href="#set"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>set(k: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, v: T)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/radix-tree.ts:32</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Add a [key, value] pair to the RadixTree.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>k</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>the key to insert into the radix tree. must have length &gt; 0</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>v</td>
+                                    <td>
+                                            <code>T</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>the value to associate to the key in the radix tree</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import RadixNode from &quot;./radix-node&quot;;
+import { defaultPruner, longestSharedPrefix } from &quot;./utils&quot;;
+import { SearchType, Pruner, KeyMatch, SearchRootMatch } from &quot;./constants&quot;;
+
+/**
+ * The RadixTree class
+ */
+export default class RadixTree&lt;T&gt; {
+  root: RadixNode&lt;T&gt;;
+
+  /**
+   * Create a new RadixTree.
+   *
+   * @param kvpairs the [key, value] pairs with which to initialize the radix tree
+   */
+  constructor(kvpairs?: Array&lt;[string, T]&gt;) {
+    this.root &#x3D; new RadixNode&lt;T&gt;();
+
+    if (kvpairs) {
+      for (const [k,v] of kvpairs) {
+        this.set(k, v);
+      }
+    }
+  }
+
+  /**
+   * Add a [key, value] pair to the RadixTree.
+   *
+   * @param k the key to insert into the radix tree. must have length &gt; 0
+   * @param v the value to associate to the key in the radix tree
+   */
+  set(k: string, v: T) {
+    if (k.length &gt; 0) {
+      this._set(k, v, this.root);
+    }
+  }
+
+  _set(k: string, v: T, currNode: RadixNode&lt;T&gt;) {
+    if (k.length &#x3D;&#x3D;&#x3D; 0) {
+      currNode.b &#x3D; true;
+      currNode.v &#x3D; v;
+    } else {
+      const matchingChildKey &#x3D; currNode.c.findKeyHavingSharedPrefix(k);
+      if (!matchingChildKey) {
+        currNode.c.set(k, new RadixNode(true, v));
+      } else {
+        const sharedPrefix &#x3D; longestSharedPrefix(matchingChildKey, k);
+        if (sharedPrefix.length &lt; matchingChildKey.length) {
+          currNode.addPrefixToChild(sharedPrefix, matchingChildKey);
+        }
+        this._set(k.slice(sharedPrefix.length), v, currNode.c.get(sharedPrefix));
+      }
+    }
+  }
+
+  /**
+   * Return the value associated to a key in the RadixTree.
+   *
+   * @param k                       the key to look for. must have length &gt; 0
+   * @param allNodes
+   *
+   * @returns the keyMatch for the given key k. if k not found, return undefined
+   */
+  get(k: string, allNodes?: boolean): KeyMatch&lt;T&gt;|undefined {
+    if (k.length &gt; 0) {
+      return this._get(k, k, this.root, 0, allNodes||false);
+    }
+  }
+
+  _get(fullKey: string, k: string, currNode: RadixNode&lt;T&gt;, depth: number, allNodes: boolean): KeyMatch&lt;T&gt;|undefined {
+    if (k.length &#x3D;&#x3D;&#x3D; 0) {
+      if (currNode.b || allNodes) {
+        return { depth, key: fullKey, hasValue: currNode.b, value: currNode.v, edges: currNode.c };
+      }
+    } else {
+      const matchingChildKey &#x3D; currNode.c.findKeyHavingSharedPrefix(k);
+      if (matchingChildKey) {
+        const sharedPrefix &#x3D; longestSharedPrefix(matchingChildKey, k);
+        if (sharedPrefix &#x3D;&#x3D;&#x3D; matchingChildKey) {
+          return this._get(
+              fullKey,
+              k.slice(sharedPrefix.length),
+              currNode.c.get(sharedPrefix),
+              depth+1,
+              allNodes
+          );
+        }
+      }
+    }
+  }
+
+  /**
+   * Get the KeyMatch object for every [k,v] pair where k.startsWith(prefix).
+   *
+   * @generator
+   *
+   * @param prefix            only return KeyMatch for keys k where k.startsWith(prefix)
+   * @param config            configuration for behavior of this function
+   * @param config.pruner     prune nodes from traversal
+   * @param config.searchType the type of tree traversal to do, must be in constants.SEARCH_TYPES
+   * @param config.allNodes   include keyMatch objects for all nodes, not just those having values
+   *
+   * @yields the KeyMatch object for each key in the RadixTree that starts with prefix
+   *
+   * @desc Note: the depth property of the KeyMatch is relative to the searchRoot of the given prefix.
+   */
+  *getAll(
+    prefix: string,
+    config: { pruner?: Pruner&lt;T&gt;, searchType?: SearchType, allNodes?: boolean }&#x3D;{}
+  ): IterableIterator&lt;KeyMatch&lt;T&gt;&gt;
+  {
+    const pruner &#x3D; config.pruner || defaultPruner;
+    const searchType &#x3D; config.searchType || SearchType.DepthFirstPreorder;
+    const allNodes &#x3D; config.allNodes || false;
+
+    const result &#x3D; this.getSearchRoot(prefix);
+    if (result) {
+      const { extraPrefix, searchRoot } &#x3D; result;
+      const searchRootPrefix &#x3D; prefix + extraPrefix;
+      for (const keyMatch of searchRoot.subtreeTraverse(searchRootPrefix, {pruner, searchType})) {
+        if (allNodes || keyMatch.hasValue) {
+          yield keyMatch;
+        }
+      }
+    }
+  }
+
+  /**
+   * For a given prefix, find the shallowest node in the radix tree whose key either matches the prefix exactly
+   * or is the shortest matching key that is longer than the prefix.
+   *
+   * For example, if &quot;ab&quot; and &quot;abcd&quot; are inserted into the radix tree, the search root of the prefix &quot;abc&quot; would
+   * be the node matching &quot;abcd&quot;. The &quot;abcd&quot; node would be the root of the subtree containing all nodes whose keys
+   * start with &quot;abc&quot;, since there were no other keys that start with &quot;abc&quot; other than &quot;abcd&quot; and its children.
+   *
+   * @param   prefix the prefix for which to find the searchRoot
+   */
+  getSearchRoot(prefix: string): SearchRootMatch&lt;T&gt;|undefined {
+    return this._getSearchRoot(prefix, this.root);
+  }
+
+  _getSearchRoot(k: string, currNode: RadixNode&lt;T&gt;): SearchRootMatch&lt;T&gt;|undefined {
+    if (k.length &#x3D;&#x3D;&#x3D; 0) {
+      return { extraPrefix: k, searchRoot: currNode };
+    } else {
+      const matchingChildKey &#x3D; currNode.c.findKeyHavingSharedPrefix(k);
+      if (matchingChildKey) {
+        const sharedPrefix &#x3D; longestSharedPrefix(matchingChildKey, k);
+        if (sharedPrefix.length &lt; matchingChildKey.length) {
+          if (sharedPrefix.length &#x3D;&#x3D;&#x3D; k.length) {
+            return {
+              extraPrefix: matchingChildKey.slice(sharedPrefix.length),
+              searchRoot: currNode.c.get(matchingChildKey)
+            };
+          }
+        } else if (sharedPrefix.length &#x3D;&#x3D;&#x3D; matchingChildKey.length){
+          return this._getSearchRoot(k.slice(sharedPrefix.length), currNode.c.get(matchingChildKey));
+        }
+      }
+    }
+  }
+
+  /**
+   * Delete the k,v pair for the given key k from the radix tree.
+   *
+   * @param   k the key to delete from the radix tree
+   *
+   * @returns true if success, false if k not found
+   */
+  delete(k: string): boolean {
+    if (k.length &#x3D;&#x3D;&#x3D; 0) {
+      return false;
+    } else {
+      return this._delete(
+        k,
+        this.root,
+        [undefined, undefined]
+      );
+    }
+  }
+
+  _delete(k: string, currNode: RadixNode&lt;T&gt;, [parent, parentKey]: [RadixNode&lt;T&gt;, string]): boolean {
+    if (k.length &#x3D;&#x3D;&#x3D; 0) {
+      if (currNode.b) {
+        currNode.b &#x3D; false;
+        currNode.v &#x3D; undefined;
+        if (currNode.c.size &#x3D;&#x3D;&#x3D; 1) {
+          const [childKey, child] &#x3D; currNode.c.entries().next().value;
+          if (!currNode.c.delete(childKey)) {
+            return false;
+          }
+          if (!parent.c.delete(parentKey)) {
+            return false;
+          }
+          const newChildKey &#x3D; parentKey + childKey;
+          parent.c.set(newChildKey, child);
+        } else if (currNode.c.size &#x3D;&#x3D;&#x3D; 0) {
+          parent.c.delete(parentKey);
+        }
+        return true;
+      }
+    } else {
+      const matchingChildKey &#x3D; currNode.c.findKeyHavingSharedPrefix(k);
+      if (matchingChildKey) {
+        const sharedPrefix &#x3D; longestSharedPrefix(matchingChildKey, k);
+        if (sharedPrefix &#x3D;&#x3D;&#x3D; matchingChildKey) {
+          return this._delete(
+            k.slice(matchingChildKey.length),
+            currNode.c.get(matchingChildKey),
+            [currNode, matchingChildKey]
+          );
+        }
+      }
+    }
+
+    return false;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'RadixTree.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

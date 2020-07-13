@@ -15,15 +15,16 @@ enum SearchType {
 /**
  * @callback Pruner
  *
- * @param depth    - the depth of the current node from the searchRoot
- * @param key      - the key associated with the current node
- * @param hasValue - whether or not there is a value associated to the key of the current node
- * @param value    - the value associated to the key of the current node
- * @param edges    - edges to the child nodes
+ * @template T
+ * @param {number} depth            - the depth of the current node from the searchRoot
+ * @param {string} key              - the key associated with the current node
+ * @param {boolean} hasValue        - whether or not there is a value associated to the key of the current node
+ * @param {T} value                 - the value associated to the key of the current node
+ * @param {RadixNodeEdges<T>} edges - edges to the child nodes
  *
  * @returns false to prune the node, true to keep it and its descendants in the search
  */
-type Pruner<T> = (depth: number, key: string, hasValue: boolean, value: any, edges: RadixNodeEdges<T>) => boolean;
+type Pruner<T> = (depth: number, key: string, hasValue: boolean, value: T, edges: RadixNodeEdges<T>) => boolean;
 
 /**
  * @typedef KeyMatch

@@ -27,6 +27,7 @@
   "main": "out/src/index.js",
   "types": "out/src/index.d.ts",
   "scripts": {
+    "doc": "rm -rf doc/* && compodoc -p tsconfig.json -d doc",
     "test": "mocha out/test/*js",
     "tsc": "tsc",
     "build": "npm run tsc",
@@ -36,6 +37,7 @@
     "prepare": "npm run tsc"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.11",
     "@types/double-ended-queue": "^2.1.1",
     "@types/mocha": "^8.0.0",
     "@types/node": "^14.0.22",
