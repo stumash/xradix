@@ -1,54 +1,55 @@
 {
-  "name": "xradix",
-  "version": "2.0.0",
-  "description": "an implementation of the radix tree data structure, designed for extensibility",
-  "author": "Stuart Mashaal <stuart.mashaal@gmail.com>",
-  "license": "MIT",
-  "homepage": "https://stumash.github.io/xradix/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/stumash/xradix"
-  },
-  "bugs": "https://github.com/stumash/xradix/issues",
-  "keywords": [
-    "compressed prefix tree",
-    "prefix tree",
-    "prefix",
-    "radix tree",
-    "radix",
-    "tree",
-    "traversal",
-    "autocomplete",
-    "depth first",
-    "preorder",
-    "postorder",
-    "breadth first"
-  ],
-  "main": "out/src/index.js",
-  "types": "out/src/index.d.ts",
-  "scripts": {
-    "doc": "rm -rf docs/* && typedoc --mode file --excludePrivate --out docs src",
-    "test": "mocha out/test/*js",
-    "tsc": "tsc",
-    "build": "npm run tsc",
-    "clean": "rm -rf out",
-    "cb": "npm run clean && npm run build",
-    "ct": "npm run cb && npm run test",
-    "prepare": "npm run tsc"
-  },
-  "devDependencies": {
-    "@types/double-ended-queue": "^2.1.1",
-    "@types/mocha": "^8.0.0",
-    "@types/node": "^14.0.22",
-    "mocha": "^6.2.2",
-    "prettier": "^2.0.5",
-    "typedoc": "^0.17.8",
-    "typescript": "^3.9.6"
-  },
-  "dependencies": {
-    "double-ended-queue": "^2.1.0-0"
-  },
-  "engine": {
-    "node": ">=12.13.0"
-  }
+    "name": "xradix",
+    "version": "2.0.1",
+    "description": "an implementation of the radix tree data structure, designed for extensibility",
+    "author": "Stuart Mashaal <stuart.mashaal@gmail.com>",
+    "license": "MIT",
+    "homepage": "https://stumash.github.io/xradix/",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/stumash/xradix"
+    },
+    "bugs": "https://github.com/stumash/xradix/issues",
+    "keywords": [
+        "compressed prefix tree",
+        "prefix tree",
+        "prefix",
+        "radix tree",
+        "radix",
+        "tree",
+        "traversal",
+        "autocomplete",
+        "depth first",
+        "preorder",
+        "postorder",
+        "breadth first"
+    ],
+    "main": "out/src/index.js",
+    "types": "out/src/index.d.ts",
+    "files": ["out/src/"],
+    "scripts": {
+        "doc": "rm -rf docs/* && typedoc --mode file --excludePrivate --out docs src",
+        "test": "mocha out/test/*js",
+        "tsc": "tsc",
+        "build": "npm run tsc",
+        "clean": "rm -rf out",
+        "cb": "npm run clean && npm run build",
+        "ct": "npm run cb && npm run test",
+        "prepare": "npm run tsc"
+    },
+    "devDependencies": {
+        "@types/double-ended-queue": "^2.1.1",
+        "@types/mocha": "^8.0.0",
+        "@types/node": "^14.0.22",
+        "mocha": "^6.2.2",
+        "prettier": "^2.0.5",
+        "typedoc": "^0.17.8",
+        "typescript": "^3.9.6"
+    },
+    "dependencies": {
+        "double-ended-queue": "^2.1.0-0"
+    },
+    "engine": {
+        "node": ">=12.13.0"
+    }
 }
