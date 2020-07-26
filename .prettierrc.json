@@ -1,0 +1,6 @@
+{
+    "filepath": "src/index.ts",
+    "useTabs": false,
+    "mode": "modules",
+    "excludePrivate": true
+}

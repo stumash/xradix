@@ -1,0 +1,484 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>xradix</title>
+	<meta name="description" content="Documentation for xradix">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">xradix</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>xradix</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Enumerations</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-enum"><a href="enums/searchtype.html" class="tsd-kind-icon">Search<wbr>Type</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/radixnode.html" class="tsd-kind-icon">Radix<wbr>Node</a></li>
+								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/radixnodeedges.html" class="tsd-kind-icon">Radix<wbr>Node<wbr>Edges</a></li>
+								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/radixtree.html" class="tsd-kind-icon">Radix<wbr>Tree</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="globals.html#keymatch" class="tsd-kind-icon">Key<wbr>Match</a></li>
+								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="globals.html#pruner" class="tsd-kind-icon">Pruner</a></li>
+								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="globals.html#searchrootmatch" class="tsd-kind-icon">Search<wbr>Root<wbr>Match</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function"><a href="globals.html#decreasingprefixesof" class="tsd-kind-icon">decreasing<wbr>Prefixes<wbr>Of</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#defaultpruner" class="tsd-kind-icon">default<wbr>Pruner</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#increasingprefixesof" class="tsd-kind-icon">increasing<wbr>Prefixes<wbr>Of</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#longestsharedprefix" class="tsd-kind-icon">longest<wbr>Shared<wbr>Prefix</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
+					<a name="keymatch" class="tsd-anchor"></a>
+					<h3>Key<wbr>Match</h3>
+					<div class="tsd-signature tsd-kind-icon">Key<wbr>Match&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>depth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>edges<span class="tsd-signature-symbol">: </span><a href="classes/radixnodeedges.html" class="tsd-signature-type">RadixNodeEdges</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>hasValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/stumash/xradix/blob/33f2977/src/constants.ts#L38">constants.ts:38</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>property</dt>
+							<dd><p>depth</p>
+							</dd>
+							<dt>property</dt>
+							<dd><p>key</p>
+							</dd>
+							<dt>property</dt>
+							<dd><p>hasValue</p>
+							</dd>
+							<dt>property</dt>
+							<dd><p>value</p>
+							</dd>
+							<dt>property</dt>
+							<dd><p>edges</p>
+							</dd>
+						</dl>
+					</div>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>T</h4>
+						</li>
+					</ul>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>depth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>edges<span class="tsd-signature-symbol">: </span><a href="classes/radixnodeedges.html" class="tsd-signature-type">RadixNodeEdges</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>has<wbr>Value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
+					<a name="pruner" class="tsd-anchor"></a>
+					<h3>Pruner</h3>
+					<div class="tsd-signature tsd-kind-icon">Pruner&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>depth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, hasValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, edges<span class="tsd-signature-symbol">: </span><a href="classes/radixnodeedges.html" class="tsd-signature-type">RadixNodeEdges</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/stumash/xradix/blob/33f2977/src/constants.ts#L27">constants.ts:27</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>param</dt>
+							<dd><p>the depth of the current node from the searchRoot</p>
+							</dd>
+							<dt>param</dt>
+							<dd><p>the key associated with the current node</p>
+							</dd>
+							<dt>param</dt>
+							<dd><p>whether or not there is a value associated to the key of the current node</p>
+							</dd>
+							<dt>param</dt>
+							<dd><p>the value associated to the key of the current node</p>
+							</dd>
+							<dt>param</dt>
+							<dd><p>edges to the child nodes</p>
+							</dd>
+							<dt>returns</dt>
+							<dd><p>false to prune the node, true to keep it and its descendants in the search</p>
+							</dd>
+						</dl>
+					</div>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>T</h4>
+						</li>
+					</ul>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>depth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, hasValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, edges<span class="tsd-signature-symbol">: </span><a href="classes/radixnodeedges.html" class="tsd-signature-type">RadixNodeEdges</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>depth: <span class="tsd-signature-type">number</span></h5>
+											</li>
+											<li>
+												<h5>key: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>hasValue: <span class="tsd-signature-type">boolean</span></h5>
+											</li>
+											<li>
+												<h5>value: <span class="tsd-signature-type">T</span></h5>
+											</li>
+											<li>
+												<h5>edges: <a href="classes/radixnodeedges.html" class="tsd-signature-type">RadixNodeEdges</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
+					<a name="searchrootmatch" class="tsd-anchor"></a>
+					<h3>Search<wbr>Root<wbr>Match</h3>
+					<div class="tsd-signature tsd-kind-icon">Search<wbr>Root<wbr>Match&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>extraPrefix<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>searchRoot<span class="tsd-signature-symbol">: </span><a href="classes/radixnode.html" class="tsd-signature-type">RadixNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/stumash/xradix/blob/33f2977/src/constants.ts#L46">constants.ts:46</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>property</dt>
+							<dd><p>extraPrefix</p>
+							</dd>
+							<dt>property</dt>
+							<dd><p>searchRoot</p>
+							</dd>
+						</dl>
+					</div>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>T</h4>
+						</li>
+					</ul>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>extra<wbr>Prefix<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>search<wbr>Root<span class="tsd-signature-symbol">: </span><a href="classes/radixnode.html" class="tsd-signature-type">RadixNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="decreasingprefixesof" class="tsd-anchor"></a>
+					<h3>decreasing<wbr>Prefixes<wbr>Of</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">decreasing<wbr>Prefixes<wbr>Of<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/stumash/xradix/blob/33f2977/src/utils.ts#L16">utils.ts:16</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get all prefixes of a given string in descending order of length.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>for (const s of utils.decreasingPrefixesOf(&quot;abc&quot;)) {
+											console.log(s); // prints &quot;abc&quot;, &quot;ab&quot;, &quot;a&quot;
+										}</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>for (const s of utils.decreasingPrefixesOf(&quot;&quot;)) { } // loop never entered</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>s: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="defaultpruner" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> default<wbr>Pruner</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">default<wbr>Pruner<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/stumash/xradix/blob/33f2977/src/utils.ts#L3">utils.ts:3</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">true</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="increasingprefixesof" class="tsd-anchor"></a>
+					<h3>increasing<wbr>Prefixes<wbr>Of</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">increasing<wbr>Prefixes<wbr>Of<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/stumash/xradix/blob/33f2977/src/utils.ts#L33">utils.ts:33</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get all prefixes of a given string in ascending order of length.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>for (const s of utils.increasingPrefixesOf(&quot;abc&quot;)) {
+											console.log(s); // prints &quot;a&quot;, &quot;ab&quot;, &quot;abc&quot;
+										}</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>for (const s of utils.increasingPrefixesOf(&quot;&quot;)) { } // never enters loops</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>s: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="longestsharedprefix" class="tsd-anchor"></a>
+					<h3>longest<wbr>Shared<wbr>Prefix</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">longest<wbr>Shared<wbr>Prefix<span class="tsd-signature-symbol">(</span>s1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, s2<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/stumash/xradix/blob/33f2977/src/utils.ts#L57">utils.ts:57</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the longest shared prefix of two strings.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>utils.longestSharedPrefix(&quot;abc&quot;, &quot;ab&quot;); // &quot;ab&quot;</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>utils.longestSharedPrefix(&quot;abc&quot;, &quot;xx&quot;); // undefined</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>utils.longestSharedPrefix(&quot;abc&quot;, &quot;&quot;)</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>s1: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the first string</p>
+									</div>
+								</li>
+								<li>
+									<h5>s2: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the second string</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+							<ul>
+								<li>the longest shared prefix of s1 and s2, undefined if no shared prefix</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals current ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/searchtype.html" class="tsd-kind-icon">Search<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/radixnode.html" class="tsd-kind-icon">Radix<wbr>Node</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/radixnodeedges.html" class="tsd-kind-icon">Radix<wbr>Node<wbr>Edges</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/radixtree.html" class="tsd-kind-icon">Radix<wbr>Tree</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#keymatch" class="tsd-kind-icon">Key<wbr>Match</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#pruner" class="tsd-kind-icon">Pruner</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#searchrootmatch" class="tsd-kind-icon">Search<wbr>Root<wbr>Match</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#decreasingprefixesof" class="tsd-kind-icon">decreasing<wbr>Prefixes<wbr>Of</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#defaultpruner" class="tsd-kind-icon">default<wbr>Pruner</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#increasingprefixesof" class="tsd-kind-icon">increasing<wbr>Prefixes<wbr>Of</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#longestsharedprefix" class="tsd-kind-icon">longest<wbr>Shared<wbr>Prefix</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
