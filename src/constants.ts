@@ -7,7 +7,7 @@ import RadixNode from "./radix-node"
  * @enum {string}
  */
 enum SearchType {
-  BreadFirst = "BREADTH_FIRST",
+  BreadthFirst = "BREADTH_FIRST",
   DepthFirstPreorder = "DEPTH_FIRST_PRE_ORDER",
   DepthFirstPostorder = "DEPTH_FIRST_POST_ORDER",
 };

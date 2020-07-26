@@ -27,7 +27,7 @@
   "main": "out/src/index.js",
   "types": "out/src/index.d.ts",
   "scripts": {
-    "doc": "rm -rf doc/* && compodoc -p tsconfig.json -d doc",
+    "doc": "rm -rf docs/* && typedoc --mode file --excludePrivate --out docs src",
     "test": "mocha out/test/*js",
     "tsc": "tsc",
     "build": "npm run tsc",
@@ -37,11 +37,12 @@
     "prepare": "npm run tsc"
   },
   "devDependencies": {
-    "@compodoc/compodoc": "^1.1.11",
     "@types/double-ended-queue": "^2.1.1",
     "@types/mocha": "^8.0.0",
     "@types/node": "^14.0.22",
     "mocha": "^6.2.2",
+    "prettier": "^2.0.5",
+    "typedoc": "^0.17.8",
     "typescript": "^3.9.6"
   },
   "dependencies": {

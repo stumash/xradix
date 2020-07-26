@@ -112,7 +112,7 @@ describe("RadixNode", () => {
         const visitedDepths = new Set();
 
         const pruner = defaultPruner;
-        const searchType = SearchType.BreadFirst;
+        const searchType = SearchType.BreadthFirst;
         const config = { pruner, searchType };
 
         for (let {depth, hasValue, value} of root.subtreeTraverse("", config)) {
