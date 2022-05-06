@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/stumash/xradix.svg?branch=master)](https://travis-ci.com/stumash/xradix)
+https://www.buymeacoffee.com/afJNIsbfLk
 
 # xradix
 
