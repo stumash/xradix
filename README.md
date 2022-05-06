@@ -10,17 +10,17 @@ This data structure is a performant and simple choice for implementing autocompl
 
 ## Examples
 
-```javascript
+```typescript
 const { RadixTree } = require('xradix');
 
-const rt = new RadixTree();
-rt.set("xx",     1);        // equivalently,
-rt.set("xxA",    2);        //
-rt.set("xxB",    3);        //
-rt.set("xxC",    4);        // new RadixTree([
-rt.set("xxCxxA", 5);        //   ["xx",     1], ["xxA",    2], ["xxB",  3], ["xxC",  4],
-rt.set("xxCxxB", 6);        //   ["xxCxxA", 5], ["xxCxxB", 6], ["xxCx", 7]
-rt.set("xxCx",   7);        // ]) 
+const rt = new RadixTree<number>();
+rt.set("xx",     1); // equivalently,
+rt.set("xxA",    2); //
+rt.set("xxB",    3); //
+rt.set("xxC",    4); // new RadixTree([
+rt.set("xxCxxA", 5); //   ["xx",     1], ["xxA",    2], ["xxB",  3], ["xxC",  4],
+rt.set("xxCxxB", 6); //   ["xxCxxA", 5], ["xxCxxB", 6], ["xxCx", 7]
+rt.set("xxCx",   7); // ])
 ```
 
 which creates this tree, whose node depths are marked above it
@@ -39,7 +39,7 @@ which creates this tree, whose node depths are marked above it
 
 this tree now has the following behaviour:
 
-```javascript
+```typescript
 rt.get("xxCx").value;// 7
 rt.get("xxCx").depth;// 3
 
@@ -47,13 +47,13 @@ rt.get("not in the tree");// undefined
 
 rt.getAll("");
 /* generator* [
-  { key: "xx",     value: 1, depth: 1, ... },          default traversal: DFS pre-order
-  { key: "xxA",    value: 2, depth: 2, ... },          notice the node with no value is skipped
+  { key: "xx",     value: 1, depth: 1, ... }, default traversal: DFS pre-order
+  { key: "xxA",    value: 2, depth: 2, ... }, notice the node with no value is skipped
   { key: "xxB",    value: 3, depth: 2, ... },
   { key: "xxC",    value: 4, depth: 2, ... },
   { key: "xxCx",   value: 7, depth: 3, ... },
   { key: "xxCxxA", value: 5, depth: 4, ... },
-  { key: "xxCxxB", value: 6, depth: 4, ... }
+  { key: "xxCxxB", value: 6, depth: 4, ... },
 ] */
 
 rt.get("xxCxx");// undefined
@@ -63,6 +63,6 @@ rt.getAll("xxCxx", { allNodes: true });
 /* generator* [
  { key: "xxCxx",  value: undefined, depth: 0, ... },
  { key: "xxcxxA", value: 6,         depth: 1, ... },
- { key: "xxCxxB", value: 5,         depth: 1, ... }    sibling nodes in random order
+ { key: "xxCxxB", value: 5,         depth: 1, ... }, sibling nodes in random order
 ] */
 ```
