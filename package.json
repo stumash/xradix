@@ -26,10 +26,13 @@
     ],
     "main": "out/src/index.js",
     "types": "out/src/index.d.ts",
-    "files": ["out/src/"],
+    "files": [
+        "out/src/"
+    ],
     "scripts": {
         "doc": "rm -rf docs/* && typedoc --mode file --excludePrivate --out docs src",
-        "test": "mocha out/test/*js",
+        "test": "mocha out/test/*js --fgrep 'RadixTree Performance' --invert",
+        "testwperf": "mocha out/test/*js",
         "tsc": "tsc",
         "build": "npm run tsc",
         "clean": "rm -rf out",
@@ -38,11 +41,15 @@
         "prepare": "npm run tsc"
     },
     "devDependencies": {
+        "@types/asciichart": "^1.5.6",
         "@types/double-ended-queue": "^2.1.1",
         "@types/mocha": "^8.0.0",
         "@types/node": "^14.0.22",
+        "@types/regression": "^2.0.2",
+        "asciichart": "^1.5.25",
         "mocha": "^6.2.2",
         "prettier": "^2.0.5",
+        "regression": "^2.0.1",
         "typedoc": "^0.17.8",
         "typescript": "^3.9.6"
     },
