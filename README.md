@@ -1,3 +1,5 @@
+[![Build and Test](https://github.com/stumash/xradix/actions/workflows/ci.yml/badge.svg)](https://github.com/stumash/xradix/actions/workflows/ci.yml)
+
 # xradix
 
 A fast, clean, tested, and documented implementation of the [Radix Tree](https://en.wikipedia.org/wiki/Radix_tree) data structure.
