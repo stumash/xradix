@@ -2,17 +2,13 @@ name: Build and Test
 
 
 on:
-  inputs:
-    w_perf_test:
-      type: boolean
-      default: false
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
 
 jobs:
-  build:
+  build_and_test:
     runs-on: gh-runner-small
     steps:
       - uses: actions/checkout@v3
@@ -24,8 +20,4 @@ jobs:
       - name: build
         run: npm run build
       - name: test
-        if: ${{ !inputs.w_perf_test }}
         run: npm run test
-      - name: test_w_perf
-        if: ${{ inputs.w_perf_test }}
-        run: npm run testwperf
