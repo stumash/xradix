@@ -1,0 +1,31 @@
+name: Build and Test
+
+
+on:
+  inputs:
+    w_perf_test:
+      type: boolean
+      default: false
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: gh-runner-small
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 12.13
+      - name: install
+        run: npm install
+      - name: build
+        run: npm run build
+      - name: test
+        if: ${{ !inputs.w_perf_test }}
+        run: npm run test
+      - name: test_w_perf
+        if: ${{ inputs.w_perf_test }}
+        run: npm run testwperf
