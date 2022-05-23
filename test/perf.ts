@@ -32,7 +32,7 @@ describe("RadixTree Performance", function() {
       this.timeout(0) // let this be slow test
 
       // minimum permitted r2
-      const MIN_ALLOWED_R2 = 0.70
+      const MIN_ALLOWED_R2 = 0.68
 
       const results = KEY_SIZE_RANGE.map(keySize => {
         const toInsert = makeArray(OPS_PER_ITER, () => randomString(keySize))
