@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/stumash/xradix.svg?branch=master)](https://travis-ci.com/stumash/xradix)
-
 # xradix
 
 A fast, clean, tested, and documented implementation of the [Radix Tree](https://en.wikipedia.org/wiki/Radix_tree) data structure.

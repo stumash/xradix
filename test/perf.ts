@@ -31,8 +31,6 @@ describe("RadixTree Performance", function() {
     it("insertion speed should be linear in keySize", function(this: Mocha.Context) {
       this.timeout(0) // let this be slow test
 
-      // maximum permitted regression slope
-      const MAX_ALLOWED_AVG_DURATION_MS_PER_KEYSIZE = 35 / MAX_KEY_SIZE
       // minimum permitted r2
       const MIN_ALLOWED_R2 = 0.70
 
@@ -53,11 +51,6 @@ describe("RadixTree Performance", function() {
         regression_result.r2 >= MIN_ALLOWED_R2,
         `r2:${r2} < ${MIN_ALLOWED_R2} too small`,
       )
-      const slope = regression_result.equation[0]
-      assert(
-        slope <= MAX_ALLOWED_AVG_DURATION_MS_PER_KEYSIZE,
-        `slope:${slope} > ${MAX_ALLOWED_AVG_DURATION_MS_PER_KEYSIZE} too steep`,
-      )
     })
   })
 
@@ -65,8 +58,6 @@ describe("RadixTree Performance", function() {
     it("lookup speed should be linear in keySize", function(this: Mocha.Context) {
       this.timeout(0) // let this be slow test
 
-      // maximum permitted regression slope
-      const MAX_ALLOWED_AVG_DURATION_MS_PER_KEYSIZE = 24 / MAX_KEY_SIZE
       // minimum permitted r2
       const MIN_ALLOWED_R2 = 0.70
 
@@ -88,11 +79,6 @@ describe("RadixTree Performance", function() {
         regression_result.r2 >= MIN_ALLOWED_R2,
         `r2:${r2} < ${MIN_ALLOWED_R2} too small`,
       )
-      const slope = regression_result.equation[0]
-      assert(
-        slope <= MAX_ALLOWED_AVG_DURATION_MS_PER_KEYSIZE,
-        `slope:${slope} > ${MAX_ALLOWED_AVG_DURATION_MS_PER_KEYSIZE} too steep`,
-      )
     })
   })
 
@@ -100,8 +86,6 @@ describe("RadixTree Performance", function() {
     it("deletion speed should be linear in keySize", function(this: Mocha.Context) {
       this.timeout(0) // let this be slow test
 
-      // maximum permitted regression slope
-      const MAX_ALLOWED_AVG_DURATION_MS_PER_KEYSIZE = 24 / MAX_KEY_SIZE
       // minimum permitted r2
       const MIN_ALLOWED_R2 = 0.70
 
@@ -122,11 +106,6 @@ describe("RadixTree Performance", function() {
       assert(
         regression_result.r2 >= MIN_ALLOWED_R2,
         `r2:${r2} < ${MIN_ALLOWED_R2} too small`,
-      )
-      const slope = regression_result.equation[0]
-      assert(
-        slope <= MAX_ALLOWED_AVG_DURATION_MS_PER_KEYSIZE,
-        `slope:${slope} > ${MAX_ALLOWED_AVG_DURATION_MS_PER_KEYSIZE} too steep`,
       )
     })
   })
