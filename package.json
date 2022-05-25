@@ -32,7 +32,8 @@
     "scripts": {
         "doc": "rm -rf docs/* && typedoc --mode file --excludePrivate --out docs src",
         "test": "mocha out/test/*js --fgrep 'RadixTree Performance' --invert",
-        "testwperf": "mocha out/test/*js",
+        "testwperf": "SHOW_TIME=true mocha out/test/*js",
+        "testwperf-showplot": "SHOW_TIME=true SHOW_PLOT=true mocha out/test/*js",
         "tsc": "tsc",
         "build": "npm run tsc",
         "clean": "rm -rf out",

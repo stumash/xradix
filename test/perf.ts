@@ -21,6 +21,29 @@ const lower_letters = "abcdefghijklmnopqrstuvwxyz"
 const random_lower_letter: () => string =
   () => lower_letters[Math.floor(Math.random() * lower_letters.length)]
 
+/**
+ * Given the results of a performance test, print the performance plot and/or the avg operation duration
+ */
+const prettyPrintTest = (
+  results: {keySize: number, durationMs: number}[],
+  opsPerIter: number,
+) => {
+  if (SHOW_PLOT)
+    console.log(plot(results.map(r => r.durationMs)))
+
+  const w = 15
+  if (SHOW_TIME)
+    console.log(
+      `${pl("keysize", w)}${pl("avg duration", w)}`,
+      results
+        .filter((_, i) => i % 15 === 0)
+        .map(r => `${pl(`${r.keySize}`, w)}${pl(`${r.durationMs / opsPerIter}`, w)}`),
+    )
+}
+const pl = (s: string, w: number) => s.padStart(w)
+const parseBool = (s: any) => s === "true" ? true : s === "false" ? false : undefined
+const [SHOW_PLOT, SHOW_TIME] = [parseBool(process.env['SHOW_PLOT']), parseBool(process.env['SHOW_TIME'])]
+
 describe("RadixTree Performance", function() {
   const OPS_PER_ITER = 1000
 
@@ -32,7 +55,7 @@ describe("RadixTree Performance", function() {
       this.timeout(0) // let this be slow test
 
       // minimum permitted r2
-      const MIN_ALLOWED_R2 = 0.70
+      const MIN_ALLOWED_R2 = 0.60
 
       const results = KEY_SIZE_RANGE.map(keySize => {
         const toInsert = makeArray(OPS_PER_ITER, () => randomString(keySize))
@@ -43,12 +66,12 @@ describe("RadixTree Performance", function() {
         return { keySize, durationMs: performance.now() - start }
       })
 
-      console.log(plot(results.map(r => r.durationMs)))
+      prettyPrintTest(results.map(r => ({ ...r, durationMs: r.durationMs })), OPS_PER_ITER)
 
       const regression_result = linear_regression(results.map((r) => [r.keySize, r.durationMs]))
       const r2 = regression_result.r2
       assert(
-        regression_result.r2 >= MIN_ALLOWED_R2,
+        r2 >= MIN_ALLOWED_R2,
         `r2:${r2} < ${MIN_ALLOWED_R2} too small`,
       )
     })
@@ -71,7 +94,7 @@ describe("RadixTree Performance", function() {
         return { keySize: size , durationMs: performance.now() - start }
       })
 
-      console.log(plot(results.map(r => r.durationMs)))
+      prettyPrintTest(results.map(r => ({ ...r, durationMs: r.durationMs })), OPS_PER_ITER)
 
       const regression_result = linear_regression(results.map((r) => [r.keySize, r.durationMs]))
       const r2 = regression_result.r2
@@ -99,7 +122,7 @@ describe("RadixTree Performance", function() {
         return { keySize , durationMs: performance.now() - start }
       })
 
-      console.log(plot(results.map(r => r.durationMs)))
+      prettyPrintTest(results.map(r => ({ ...r, durationMs: r.durationMs })), OPS_PER_ITER)
 
       const regression_result = linear_regression(results.map((r) => [r.keySize, r.durationMs]))
       const r2 = regression_result.r2
