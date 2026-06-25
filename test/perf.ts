@@ -32,6 +32,20 @@ const median = (fn: () => void, reps: number): number => {
   return xs[xs.length >> 1];
 };
 
+/**
+ * Run fn repeatedly for at least minMs wall-clock milliseconds and return the
+ * average ms-per-call. Fast operations automatically accumulate thousands of
+ * iterations; slow ones get fewer. Every result is well above timing noise
+ * regardless of how fast fn is.
+ */
+const timeOp = (fn: () => void, minMs: number = 50): number => {
+  fn(); // warm up
+  let iters = 0;
+  const start = performance.now();
+  do { fn(); iters++; } while (performance.now() - start < minMs);
+  return (performance.now() - start) / iters;
+};
+
 const parseBool = (s: any) =>
   s === "true" ? true : s === "false" ? false : undefined;
 const [SHOW_PLOT, SHOW_TIME] = [
@@ -206,52 +220,141 @@ describe("RadixTree Performance", function () {
     });
   });
 
-  // ── 3. Prefix query: getAll vs naive Map scan ──────────────────────────────
+  // ── 3. Prefix query: getAll speedup grows with prefix length ─────────────
   //
-  // The whole point of a radix tree over a plain Map is prefix lookup:
-  //   RadixTree.getAll(prefix) → O(prefix_len + result_count)
-  //   Map scan                 → O(N * prefix_len)   always
+  // RadixTree.getAll(prefix) is O(prefix_len + result_count).
+  // A naive Map scan is O(N) regardless of prefix or results.
   //
-  // With N=50k and a 2-char prefix (~74 expected matches), the radix tree
-  // should be comfortably faster. We assert a minimum 10x advantage to give
-  // the CI headroom while still proving the fundamental property.
+  // Each extra prefix character cuts expected result count by ~26x while Map
+  // cost stays flat, so the speedup ratio grows with prefix length. We assert:
+  //   a) ratio is always >= 50x at prefix length 3 (practical autocomplete floor)
+  //   b) the ratio strictly increases as prefix length grows — but only checked
+  //      when radix time is above NOISE_FLOOR_MS; at very long prefixes (~0 results)
+  //      radix time is sub-millisecond and timing noise dominates.
+  //
+  // Note: at prefix length 1 (~1923 expected results with N=50k) radix can be
+  // *slower* than the Map scan because generator yield overhead per result
+  // outweighs the cost of a single Map.keys() scan. This is expected and fine —
+  // the use case is multi-character prefix queries, not single-character ones.
 
-  describe(".getAll(prefix) — prefix query advantage", () => {
-    it("should be faster than naive Map scan", function (this: Mocha.Context) {
+  describe(".getAll(prefix) — speedup grows with prefix length", () => {
+    it("should be at least 50x faster than Map scan at prefix length 3, and improve as prefix grows", function (this: Mocha.Context) {
       this.timeout(0);
-      const N = 50000, L = 16, ITERS = 500;
+      const N = 50000, KEY_LEN = 16;
 
-      // Build tree and map from the same keys
-      const keys = makeArray(N, () => randomString(L));
+      const keys = makeArray(N, () => randomString(KEY_LEN));
       const rt = new RadixTree<number>();
       keys.forEach((k) => rt.set(k, 1));
       const m = new Map<string, number>();
       keys.forEach((k) => m.set(k, 1));
 
-      // Use a 2-char prefix derived from an actual key so it's guaranteed to
-      // match at least one entry; on average ~74 matches with 50k/26^2 keys.
-      const prefix = keys[Math.floor(N / 2)].slice(0, 2);
+      // Derive prefixes of increasing length from the same key so each is a
+      // genuine prefix of a stored key (guaranteed non-empty result set).
+      const baseKey = keys[Math.floor(N / 2)];
 
-      const radixMs = median(() => {
-        for (let i = 0; i < ITERS; i++) for (const _ of rt.getAll(prefix)) {}
-      }, 5);
+      // We test two ranges with different goals:
+      //
+      // ASSERT_LENGTHS (1–3): result counts are ~1923, ~74, ~3 — meaningfully
+      // different, so both radix time and the ratio change substantially at each
+      // step. We assert strict monotonic improvement here.
+      //
+      // DISPLAY_LENGTHS (4–5): result count is ~0 at both lengths, so radix time
+      // has already bottomed out at pure navigation overhead (~0.2µs). The ratio
+      // plateaus and is dominated by map cache-warming across the sequence.
+      // We display these but do not assert monotonic — the property being tested
+      // (fewer results → faster radix) is no longer observable once result count
+      // hits zero.
+      const ASSERT_LENGTHS  = [1, 2, 3];
+      const DISPLAY_LENGTHS = [4, 5];
 
-      const mapMs = median(() => {
-        for (let i = 0; i < ITERS; i++)
-          for (const k of m.keys()) if (k.startsWith(prefix)) {}
-      }, 5);
+      // timeOp runs each operation for a fixed wall-clock duration so every
+      // measurement accumulates enough iterations to be well above timing noise,
+      // even for sub-microsecond operations.
+      const measure = (pLen: number) => {
+        const prefix = baseKey.slice(0, pLen);
+        const radixMsPerOp = timeOp(() => { for (const _ of rt.getAll(prefix)) {} });
+        const mapMsPerOp   = timeOp(() => { for (const k of m.keys()) if (k.startsWith(prefix)) {} });
+        return { pLen, prefix, radixMsPerOp, mapMsPerOp, ratio: mapMsPerOp / radixMsPerOp };
+      };
+
+      const assertResults  = ASSERT_LENGTHS.map(measure);
+      const displayResults = DISPLAY_LENGTHS.map(measure);
+      const allResults     = [...assertResults, ...displayResults];
 
       if (SHOW_TIME) {
-        console.log(
-          `\n.getAll('${prefix}') x${ITERS}: radix ${radixMs.toFixed(1)}ms  map-scan ${mapMs.toFixed(1)}ms  ratio ${(mapMs / radixMs).toFixed(1)}x`
-        );
+        const w = 12;
+        console.log("\n.getAll speedup by prefix length (µs per call)");
+        console.log(pl("prefixLen", w), pl("prefix", w), pl("radix µs", w), pl("map µs", w), pl("ratio", w));
+        for (const r of allResults)
+          console.log(
+            pl(`${r.pLen}`, w), pl(r.prefix, w),
+            pl((r.radixMsPerOp * 1000).toFixed(2), w),
+            pl((r.mapMsPerOp  * 1000).toFixed(2), w),
+            pl(`${r.ratio.toFixed(1)}x`, w)
+          );
       }
 
-      const speedup = mapMs / radixMs;
+      // floor: 3-char prefix must be at least 50x faster than Map scan
+      const atThree = assertResults[assertResults.length - 1];
       assert(
-        speedup >= 10,
-        `radix getAll not fast enough vs Map scan: ${radixMs.toFixed(1)}ms vs ${mapMs.toFixed(1)}ms (${speedup.toFixed(1)}x, need ≥10x)`
+        atThree.ratio >= 50,
+        `.getAll speedup at prefix length 3: ${atThree.ratio.toFixed(1)}x (need ≥50x)`
       );
+
+      // direction: ratio must strictly increase across prefix lengths 1→2→3,
+      // where result counts drop enough (~26x per step) to produce a clear signal.
+      for (let i = 1; i < assertResults.length; i++) {
+        assert(
+          assertResults[i].ratio > assertResults[i - 1].ratio,
+          `.getAll speedup should grow with prefix length: got ${assertResults[i-1].ratio.toFixed(1)}x at L=${assertResults[i-1].pLen} then ${assertResults[i].ratio.toFixed(1)}x at L=${assertResults[i].pLen}`
+        );
+      }
+    });
+  });
+
+  // ── 4. Overhead vs native Map for exact get/set ───────────────────────────
+  //
+  // A radix tree is not a drop-in Map replacement for exact lookups; the extra
+  // structure costs something. We document the overhead here so it's visible
+  // in CI, and assert it stays within a reasonable bound.
+
+  describe("exact-lookup overhead vs native Map", () => {
+    it("set and get should each be within 20x of Map performance", function (this: Mocha.Context) {
+      this.timeout(0);
+      const N = 50000, L = 20, REPS = 7;
+
+      const keys = makeArray(N, () => randomString(L));
+
+      const radixSetMs = median(() => {
+        const rt = new RadixTree<number>();
+        keys.forEach((k) => rt.set(k, 1));
+      }, REPS);
+      const mapSetMs = median(() => {
+        const m = new Map<string, number>();
+        keys.forEach((k) => m.set(k, 1));
+      }, REPS);
+
+      const rt = new RadixTree<number>();
+      keys.forEach((k) => rt.set(k, 1));
+      const m = new Map<string, number>();
+      keys.forEach((k) => m.set(k, 1));
+
+      const radixGetMs = median(() => keys.forEach((k) => rt.get(k)), REPS);
+      const mapGetMs   = median(() => keys.forEach((k) => m.get(k)),  REPS);
+
+      const setOverhead = radixSetMs / mapSetMs;
+      const getOverhead = radixGetMs / mapGetMs;
+
+      if (SHOW_TIME) {
+        const w = 12;
+        console.log("\nexact-lookup overhead vs Map");
+        console.log(pl("op", w), pl("radix ms", w), pl("map ms", w), pl("overhead", w));
+        console.log(pl("set", w), pl(radixSetMs.toFixed(2), w), pl(mapSetMs.toFixed(2), w), pl(`${setOverhead.toFixed(1)}x`, w));
+        console.log(pl("get", w), pl(radixGetMs.toFixed(2), w), pl(mapGetMs.toFixed(2), w), pl(`${getOverhead.toFixed(1)}x`, w));
+      }
+
+      assert(setOverhead < 20, `set overhead vs Map: ${setOverhead.toFixed(1)}x (limit 20x)`);
+      assert(getOverhead < 20, `get overhead vs Map: ${getOverhead.toFixed(1)}x (limit 20x)`);
     });
   });
 });
