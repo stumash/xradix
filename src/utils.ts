@@ -63,12 +63,36 @@ function longestSharedPrefix(s1: string, s2: string): string|undefined {
 };
 
 /**
+ * The number of leading characters shared between an edge label and a key, where the comparison of
+ * the key begins at index keyStart. Allocation-free: compares UTF-16 code units directly so that a
+ * tree descent never has to build intermediate substrings.
+ *
+ * @param label    - the edge label to compare against
+ * @param key      - the full key being inserted/looked up
+ * @param keyStart - the index in key at which to start comparing
+ *
+ * @returns the count of shared leading characters (0 if none)
+ *
+ * @example
+ * sharedPrefixLength("abc", "xxabd", 2); // 2  (compares "abc" against "abd")
+ */
+function sharedPrefixLength(label: string, key: string, keyStart: number): number {
+  const max = Math.min(label.length, key.length - keyStart);
+  let i = 0;
+  while (i < max && label.charCodeAt(i) === key.charCodeAt(keyStart + i)) {
+    i++;
+  }
+  return i;
+};
+
+/**
  * Some utility functions and type definitions.
  */
 export {
   decreasingPrefixesOf,
   increasingPrefixesOf,
   longestSharedPrefix,
+  sharedPrefixLength,
   defaultPruner,
 };
 

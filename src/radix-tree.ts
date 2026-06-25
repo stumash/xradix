@@ -1,5 +1,5 @@
 import RadixNode from "./radix-node";
-import { defaultPruner, longestSharedPrefix } from "./utils";
+import { defaultPruner, sharedPrefixLength } from "./utils";
 import { SearchType, Pruner, KeyMatch, SearchRootMatch } from "./constants";
 
 /**
@@ -31,28 +31,26 @@ export default class RadixTree<T> {
    */
   set(k: string, v: T) {
     if (k.length > 0) {
-      this._set(k, v, this.root);
+      this._set(k, v, this.root, 0);
     }
   }
 
-  private _set(k: string, v: T, currNode: RadixNode<T>) {
-    if (k.length === 0) {
+  private _set(k: string, v: T, currNode: RadixNode<T>, start: number) {
+    if (start === k.length) {
       currNode.b = true;
       currNode.v = v;
     } else {
-      const matchingChildKey = currNode.c.findKeyHavingSharedPrefix(k);
-      if (!matchingChildKey) {
-        currNode.c.set(k, new RadixNode(true, v));
+      const entry = currNode.c.getChild(k, start);
+      if (entry === undefined) {
+        currNode.c.set(k.slice(start), new RadixNode(true, v));
       } else {
-        const sharedPrefix = longestSharedPrefix(matchingChildKey, k);
-        if (sharedPrefix.length < matchingChildKey.length) {
-          currNode.addPrefixToChild(sharedPrefix, matchingChildKey);
-        }
-        this._set(
-          k.slice(sharedPrefix.length),
-          v,
-          currNode.c.get(sharedPrefix)
-        );
+        const [label, child] = entry;
+        const n = sharedPrefixLength(label, k, start);
+        const next =
+          n < label.length
+            ? currNode.addPrefixToChild(label.slice(0, n), label)
+            : child;
+        this._set(k, v, next, start + n);
       }
     }
   }
@@ -67,18 +65,18 @@ export default class RadixTree<T> {
    */
   get(k: string, allNodes?: boolean): KeyMatch<T> | undefined {
     if (k.length > 0) {
-      return this._get(k, k, this.root, 0, allNodes || false);
+      return this._get(k, this.root, 0, 0, allNodes || false);
     }
   }
 
   private _get(
     fullKey: string,
-    k: string,
     currNode: RadixNode<T>,
+    start: number,
     depth: number,
     allNodes: boolean
   ): KeyMatch<T> | undefined {
-    if (k.length === 0) {
+    if (start === fullKey.length) {
       if (currNode.b || allNodes) {
         return {
           depth,
@@ -89,17 +87,12 @@ export default class RadixTree<T> {
         };
       }
     } else {
-      const matchingChildKey = currNode.c.findKeyHavingSharedPrefix(k);
-      if (matchingChildKey) {
-        const sharedPrefix = longestSharedPrefix(matchingChildKey, k);
-        if (sharedPrefix === matchingChildKey) {
-          return this._get(
-            fullKey,
-            k.slice(sharedPrefix.length),
-            currNode.c.get(sharedPrefix),
-            depth + 1,
-            allNodes
-          );
+      const entry = currNode.c.getChild(fullKey, start);
+      if (entry !== undefined) {
+        const [label, child] = entry;
+        const n = sharedPrefixLength(label, fullKey, start);
+        if (n === label.length) {
+          return this._get(fullKey, child, start + n, depth + 1, allNodes);
         }
       }
     }
@@ -160,31 +153,29 @@ export default class RadixTree<T> {
    * @returns the SearchRootMatch if one is found
    */
   getSearchRoot(prefix: string): SearchRootMatch<T> | undefined {
-    return this._getSearchRoot(prefix, this.root);
+    return this._getSearchRoot(prefix, this.root, 0);
   }
 
   private _getSearchRoot(
     k: string,
-    currNode: RadixNode<T>
+    currNode: RadixNode<T>,
+    start: number
   ): SearchRootMatch<T> | undefined {
-    if (k.length === 0) {
-      return { extraPrefix: k, searchRoot: currNode };
+    if (start === k.length) {
+      return { extraPrefix: "", searchRoot: currNode };
     } else {
-      const matchingChildKey = currNode.c.findKeyHavingSharedPrefix(k);
-      if (matchingChildKey) {
-        const sharedPrefix = longestSharedPrefix(matchingChildKey, k);
-        if (sharedPrefix.length < matchingChildKey.length) {
-          if (sharedPrefix.length === k.length) {
-            return {
-              extraPrefix: matchingChildKey.slice(sharedPrefix.length),
-              searchRoot: currNode.c.get(matchingChildKey)
-            };
+      const entry = currNode.c.getChild(k, start);
+      if (entry !== undefined) {
+        const [label, child] = entry;
+        const n = sharedPrefixLength(label, k, start);
+        const remaining = k.length - start;
+        if (n < label.length) {
+          if (n === remaining) {
+            return { extraPrefix: label.slice(n), searchRoot: child };
           }
-        } else if (sharedPrefix.length === matchingChildKey.length) {
-          return this._getSearchRoot(
-            k.slice(sharedPrefix.length),
-            currNode.c.get(matchingChildKey)
-          );
+        } else {
+          // n === label.length: the whole edge was consumed, descend
+          return this._getSearchRoot(k, child, start + n);
         }
       }
     }
@@ -201,16 +192,18 @@ export default class RadixTree<T> {
     if (k.length === 0) {
       return false;
     } else {
-      return this._delete(k, this.root, [undefined, undefined]);
+      return this._delete(k, this.root, 0, undefined, undefined);
     }
   }
 
   private _delete(
     k: string,
     currNode: RadixNode<T>,
-    [parent, parentKey]: [RadixNode<T>, string]
+    start: number,
+    parent: RadixNode<T> | undefined,
+    parentKey: string | undefined
   ): boolean {
-    if (k.length === 0) {
+    if (start === k.length) {
       if (currNode.b) {
         currNode.b = false;
         currNode.v = undefined;
@@ -230,15 +223,12 @@ export default class RadixTree<T> {
         return true;
       }
     } else {
-      const matchingChildKey = currNode.c.findKeyHavingSharedPrefix(k);
-      if (matchingChildKey) {
-        const sharedPrefix = longestSharedPrefix(matchingChildKey, k);
-        if (sharedPrefix === matchingChildKey) {
-          return this._delete(
-            k.slice(matchingChildKey.length),
-            currNode.c.get(matchingChildKey),
-            [currNode, matchingChildKey]
-          );
+      const entry = currNode.c.getChild(k, start);
+      if (entry !== undefined) {
+        const [label, child] = entry;
+        const n = sharedPrefixLength(label, k, start);
+        if (n === label.length) {
+          return this._delete(k, child, start + n, currNode, label);
         }
       }
     }

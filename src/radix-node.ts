@@ -23,8 +23,10 @@ export default class RadixNode<T> {
    *
    * @param prefix - the prefix of child to act as key to new intermediary node. length > 0
    * @param child  - the existing child key. length > 0 and child.startsWith(prefix)
+   *
+   * @returns the newly created intermediary node (now keyed by prefix)
    */
-  addPrefixToChild(prefix: string, child: string) {
+  addPrefixToChild(prefix: string, child: string): RadixNode<T> {
     const childNode = this.c.get(child);
     this.c.delete(child);
 
@@ -32,6 +34,8 @@ export default class RadixNode<T> {
     newChildNode.c.set(child.slice(prefix.length), childNode);
 
     this.c.set(prefix, newChildNode);
+
+    return newChildNode;
   }
 
   /**
