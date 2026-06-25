@@ -67,5 +67,21 @@ rt.getAll("xxCxx", { allNodes: true });
 ] */
 ```
 
+## Performance
+
+`getAll(prefix)` skips non-matching keys entirely, visiting only the matching subtree.
+A `Map` scan always checks every key. Benchmarked at 50k keys (CI-verified):
+
+| prefix length | speedup vs `Map` scan |
+|---|---|
+| 1 char | 0.5× (slower — result set too large, generator overhead dominates) |
+| 2 chars | ~16× |
+| 3 chars | ≥50× (CI-asserted) |
+| 4+ chars | 100×–1000× |
+
+`get` and `set` are ~9× and ~5× slower than a native `Map`, independent of key length and tree size.
+
+Run `SHOW_TIME=true npm run testwperf` to reproduce on your machine.
+
 ## Support
 <a href="https://www.buymeacoffee.com/afJNIsbfLk" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
