@@ -69,12 +69,17 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A simple Map&lt;string, RadixNode&gt;, but also maintains a single invariant:</p>
+						<p>The set of edges from a RadixNode to its children. Maintains a single invariant:</p>
 						<ul>
-							<li>Only a single key can start with a particular character</li>
+							<li>Only a single edge label can start with a particular character</li>
 						</ul>
 					</div>
-					<p>This invariant means that we can find the key that shares a prefix with a given string in O(1).</p>
+					<p>Because of that invariant, children are indexed by the first character (code) of their edge label,
+						which makes finding the edge that shares a prefix with a given key an O(1) lookup keyed by a single
+					char code -- never a hash of the whole label, and never a scan of the children.</p>
+					<p>The backing Map is allocated lazily: leaf nodes (the majority in most trees) hold no Map at all.
+						Each slot stores the full edge label alongside its child node, so no second map is needed to recover
+					the label from the first character.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-type-parameters">
@@ -106,7 +111,6 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="radixnodeedges.html#firstchartokeymap" class="tsd-kind-icon">first<wbr>Char<wbr>ToKey<wbr>Map</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="radixnodeedges.html#m" class="tsd-kind-icon">m</a></li>
 							</ul>
 						</section>
@@ -123,6 +127,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="radixnodeedges.html#entries" class="tsd-kind-icon">entries</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="radixnodeedges.html#findkeyhavingsharedprefix" class="tsd-kind-icon">find<wbr>Key<wbr>Having<wbr>Shared<wbr>Prefix</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="radixnodeedges.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="radixnodeedges.html#getchild" class="tsd-kind-icon">get<wbr>Child</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="radixnodeedges.html#has" class="tsd-kind-icon">has</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="radixnodeedges.html#keys" class="tsd-kind-icon">keys</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="radixnodeedges.html#set" class="tsd-kind-icon">set</a></li>
@@ -144,7 +149,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stumash/xradix/blob/ef0b4bf/src/radix-node-edges.ts#L11">radix-node-edges.ts:11</a></li>
+									<li>Defined in radix-node-edges.ts:17</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -171,22 +176,12 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="firstchartokeymap" class="tsd-anchor"></a>
-					<h3>first<wbr>Char<wbr>ToKey<wbr>Map</h3>
-					<div class="tsd-signature tsd-kind-icon">first<wbr>Char<wbr>ToKey<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/stumash/xradix/blob/ef0b4bf/src/radix-node-edges.ts#L11">radix-node-edges.ts:11</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="m" class="tsd-anchor"></a>
 					<h3>m</h3>
-					<div class="tsd-signature tsd-kind-icon">m<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="radixnode.html" class="tsd-signature-type">RadixNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">m<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="radixnode.html" class="tsd-signature-type">RadixNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/stumash/xradix/blob/ef0b4bf/src/radix-node-edges.ts#L10">radix-node-edges.ts:10</a></li>
+							<li>Defined in radix-node-edges.ts:17</li>
 						</ul>
 					</aside>
 				</section>
@@ -203,12 +198,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stumash/xradix/blob/ef0b4bf/src/radix-node-edges.ts#L83">radix-node-edges.ts:83</a></li>
+									<li>Defined in radix-node-edges.ts:100</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>get the number of elements (edges to other RadixNodes) in the map</p>
+									<p>get the number of edges to other RadixNodes</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -228,12 +223,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stumash/xradix/blob/ef0b4bf/src/radix-node-edges.ts#L62">radix-node-edges.ts:62</a></li>
+									<li>Defined in radix-node-edges.ts:78</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Delete a key from this RadixNodeEdges. Cannot corrupt the state of the edges list.</p>
+									<p>Delete an edge label from this RadixNodeEdges. Cannot corrupt the state of the edges list.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -256,13 +251,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stumash/xradix/blob/ef0b4bf/src/radix-node-edges.ts#L89">radix-node-edges.ts:89</a></li>
+									<li>Defined in radix-node-edges.ts:105</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>A generator over all [key, node] pairs in the map. Returns pairs of values of the same type as those
-									that were added to the map via set(k, v)</p>
+									<p>A generator over all [edgeLabel, node] pairs.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="radixnode.html" class="tsd-signature-type">RadixNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -279,7 +273,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stumash/xradix/blob/ef0b4bf/src/radix-node-edges.ts#L36">radix-node-edges.ts:36</a></li>
+									<li>Defined in radix-node-edges.ts:51</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -293,7 +287,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
-							<p>either the matching key or undefined if no matching key</p>
+							<p>either the matching edge label or undefined if no matching label</p>
 						</li>
 					</ul>
 				</section>
@@ -301,18 +295,18 @@
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>k<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="radixnode.html" class="tsd-signature-type">RadixNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>k<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="radixnode.html" class="tsd-signature-type">RadixNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stumash/xradix/blob/ef0b4bf/src/radix-node-edges.ts#L44">radix-node-edges.ts:44</a></li>
+									<li>Defined in radix-node-edges.ts:59</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Get the RadixNode associated to a key k</p>
+									<p>Get the RadixNode associated to an edge label k</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -321,7 +315,45 @@
 									<h5>k: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="radixnode.html" class="tsd-signature-type">RadixNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="radixnode.html" class="tsd-signature-type">RadixNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getchild" class="tsd-anchor"></a>
+					<h3>get<wbr>Child</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Child<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="radixnode.html" class="tsd-signature-type">RadixNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in radix-node-edges.ts:42</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Find the edge label sharing a prefix with key, comparing from key[start] onwards.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the key whose first (unconsumed) character selects the edge</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> start: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the index in key at which the relevant character begins</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="radixnode.html" class="tsd-signature-type">RadixNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+							<p>the [edgeLabel, childNode] pair for the matching edge, or undefined</p>
 						</li>
 					</ul>
 				</section>
@@ -335,12 +367,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stumash/xradix/blob/ef0b4bf/src/radix-node-edges.ts#L78">radix-node-edges.ts:78</a></li>
+									<li>Defined in radix-node-edges.ts:91</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Check if a there are is an edge associated to a particular key.</p>
+									<p>Check if there is an edge associated to a particular label.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -363,12 +395,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stumash/xradix/blob/ef0b4bf/src/radix-node-edges.ts#L94">radix-node-edges.ts:94</a></li>
+									<li>Defined in radix-node-edges.ts:112</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>A generator over all keys inserted into the map via set(k, v)</p>
+									<p>A generator over all edge labels.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -385,12 +417,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stumash/xradix/blob/ef0b4bf/src/radix-node-edges.ts#L51">radix-node-edges.ts:51</a></li>
+									<li>Defined in radix-node-edges.ts:70</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Set an association between a key k and a RadixNode</p>
+									<p>Set an association between an edge label k and a RadixNode. Because edges are keyed by first
+										character, any existing edge starting with the same character is transparently replaced -- which
+									is exactly the invariant we want to maintain.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -416,12 +450,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stumash/xradix/blob/ef0b4bf/src/radix-node-edges.ts#L99">radix-node-edges.ts:99</a></li>
+									<li>Defined in radix-node-edges.ts:119</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>A generator over all values inserted into the map via set(k, v)</p>
+									<p>A generator over all child RadixNodes.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><a href="radixnode.html" class="tsd-signature-type">RadixNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -455,9 +489,6 @@
 								<a href="radixnodeedges.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="radixnodeedges.html#firstchartokeymap" class="tsd-kind-icon">first<wbr>Char<wbr>ToKey<wbr>Map</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="radixnodeedges.html#m" class="tsd-kind-icon">m</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
@@ -474,6 +505,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="radixnodeedges.html#get" class="tsd-kind-icon">get</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="radixnodeedges.html#getchild" class="tsd-kind-icon">get<wbr>Child</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="radixnodeedges.html#has" class="tsd-kind-icon">has</a>
@@ -514,6 +548,9 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#longestsharedprefix" class="tsd-kind-icon">longest<wbr>Shared<wbr>Prefix</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#sharedprefixlength" class="tsd-kind-icon">shared<wbr>Prefix<wbr>Length</a>
 					</li>
 				</ul>
 			</nav>

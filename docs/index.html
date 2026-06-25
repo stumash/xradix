@@ -64,7 +64,7 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<p><a href="https://travis-ci.com/stumash/xradix"><img src="https://travis-ci.org/stumash/xradix.svg?branch=master" alt="Build Status"></a></p>
+				<p><a href="https://github.com/stumash/xradix/actions/workflows/ci.yml"><img src="https://github.com/stumash/xradix/actions/workflows/ci.yml/badge.svg" alt="Build and Test"></a></p>
 				<a href="#xradix" id="xradix" style="color: inherit; text-decoration: none;">
 					<h1>xradix</h1>
 				</a>
@@ -118,6 +118,37 @@ rt.getAll(<span class="hljs-string">&quot;xxCxx&quot;</span>, { <span class="hlj
  { key: &quot;xxcxxA&quot;, value: 6,         depth: 1, ... },
  { key: &quot;xxCxxB&quot;, value: 5,         depth: 1, ... }, sibling nodes in random order
 ] */</span></code></pre>
+				<a href="#performance" id="performance" style="color: inherit; text-decoration: none;">
+					<h2>Performance</h2>
+				</a>
+				<p><code>getAll(prefix)</code> skips non-matching keys entirely, visiting only the matching subtree.
+				A <code>Map</code> scan always checks every key. Benchmarked at 50k keys (CI-verified):</p>
+				<table>
+					<thead>
+						<tr>
+							<th>prefix length</th>
+							<th>speedup vs <code>Map</code> scan</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>1 char</td>
+							<td>0.5× (slower — result set too large, generator overhead dominates)</td>
+						</tr>
+						<tr>
+							<td>2 chars</td>
+							<td>~16×</td>
+						</tr>
+						<tr>
+							<td>3 chars</td>
+							<td>≥50× (CI-asserted)</td>
+						</tr>
+						<tr>
+							<td>4+ chars</td>
+							<td>100×–1000×</td>
+						</tr>
+				</tbody></table>
+				<p><code>get</code> and <code>set</code> are ~9× and ~5× slower than a native <code>Map</code>, independent of key length and tree size.</p>
+				<p>Run <code>SHOW_TIME=true npm run testwperf</code> to reproduce on your machine.</p>
 				<a href="#support" id="support" style="color: inherit; text-decoration: none;">
 					<h2>Support</h2>
 				</a>
@@ -166,6 +197,9 @@ rt.getAll(<span class="hljs-string">&quot;xxCxx&quot;</span>, { <span class="hlj
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#longestsharedprefix" class="tsd-kind-icon">longest<wbr>Shared<wbr>Prefix</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#sharedprefixlength" class="tsd-kind-icon">shared<wbr>Prefix<wbr>Length</a>
 					</li>
 				</ul>
 			</nav>
