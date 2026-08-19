@@ -7,7 +7,7 @@
     "homepage": "https://stumash.github.io/xradix/",
     "repository": {
         "type": "git",
-        "url": "https://github.com/stumash/xradix"
+        "url": "git+https://github.com/stumash/xradix.git"
     },
     "bugs": "https://github.com/stumash/xradix/issues",
     "keywords": [
