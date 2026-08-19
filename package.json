@@ -57,7 +57,7 @@
     "dependencies": {
         "double-ended-queue": "^2.1.0-0"
     },
-    "engine": {
-        "node": ">=12.13.0"
+    "engines": {
+        "node": ">=18.18.0"
     }
 }
